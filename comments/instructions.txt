@@ -1,0 +1,54 @@
+####################################################
+# 02.10.2020 - Tadeo Hepperle
+# Strapi Backend:
+
+Using Atlas for now:
+cluster prangerle-solutions-data on account tadeo.hepperle@prangerle-solutions.de
+Connection String for this: 
+
+mongodb+srv://admin:VtBVkxIvs3J0zske@prangerle-solutions-data-84pzl.mongodb.net/test?authSource=admin&replicaSet=prangerle-solutions-data-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
+
+npx create-strapi-app 2020-10-02-menumori-strapi
+
+--> Custom --> mongo --> Database Name: 2020-10-02-menumori-strapi 
+--> +srv: true
+--> Host: prangerle-solutions-data-84pzl.mongodb.net
+--> Port: 27017
+--> Username: admin
+--> Password: VtBVkxIvs3J0zske
+--> Auth Database: leave blank, hit enter
+--> Enable SSL: y
+
+
+go inside the folder to launch strapi: 
+npm run develop
+
+strapi runs on:
+localhost:1337
+
+Create Admin Account:
+Tadeo Hepperle
+tadeo@do-mix.de
+pw: dh2387?DSH217%§/
+
+can be reached at http://localhost:1337/admin/
+
+###############################################################
+04.10.2020: edited validity time of jsonwebtokens for strapi:
+/extensions/users-permissions/config/jwt.js
+module.exports = {
+  jwtSecret: process.env.JWT_SECRET || 'pass',
+  jwt: {
+    expiresIn: "365d",
+  }
+};
+
+##################################################################
+The content types: 
+
+business_settings
+--> can be changed by business
+business_data
+- payment data, data from instagram, engagement
+- is only updated by the internal services, cannot be directly altered by users
+- 

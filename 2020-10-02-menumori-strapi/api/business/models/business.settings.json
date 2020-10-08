@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "businesses",
+  "info": {
+    "name": "business"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "slugname": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "leads": {
+      "via": "businesses",
+      "collection": "lead"
+    },
+    "business_data": {
+      "via": "business",
+      "model": "business-data"
+    },
+    "business_settings": {
+      "via": "business",
+      "model": "business-settings"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_legal_plan_settings",
+  "info": {
+    "name": "plan_settings",
+    "icon": "comment-dollar"
+  },
+  "options": {},
+  "attributes": {
+    "leads_per_month": {
+      "type": "integer"
+    },
+    "payment_interval": {
+      "type": "enumeration",
+      "enum": [
+        "YEAR",
+        "MONTH"
+      ]
+    },
+    "payment_per_interval": {
+      "type": "integer"
+    },
+    "plan_end": {
+      "type": "datetime"
+    },
+    "plan_start": {
+      "type": "datetime"
+    },
+    "payment_method": {
+      "type": "enumeration",
+      "enum": [
+        "PAYPALINVOICE"
+      ]
+    }
+  }
+}

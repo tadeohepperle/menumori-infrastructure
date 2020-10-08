@@ -1,0 +1,14 @@
+1. check if docker container already running: 
+
+> docker ps
+
+if not, install and run the tor container:
+
+> docker run -it -p 9050:9050 -d dperson/torproxy -l "DE"
+> docker ps
+
+check if it is working: 
+normal ip:
+> curl ifconfig.me
+tor ip:
+> curl -x socks5h://localhost:9050 ifconfig.me

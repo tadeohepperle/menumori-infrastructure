@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_settings",
+  "info": {
+    "name": "business_settings"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "adress": {
+      "type": "component",
+      "repeatable": false,
+      "component": "legal.adress"
+    },
+    "title": {
+      "type": "string"
+    },
+    "ig_settings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "instagram.ig-account"
+    },
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "legal.business-contact"
+    },
+    "business": {
+      "model": "business",
+      "via": "business_settings"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_legal_business_contacts",
+  "info": {
+    "name": "contact",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    }
+  }
+}

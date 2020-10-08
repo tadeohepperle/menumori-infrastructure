@@ -1,0 +1,36 @@
+{
+  "name": "2020-10-02-menumori-strapi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "axios": "^0.20.0",
+    "strapi": "3.1.7",
+    "strapi-admin": "3.1.7",
+    "strapi-connector-mongoose": "3.1.7",
+    "strapi-plugin-content-manager": "3.1.7",
+    "strapi-plugin-content-type-builder": "3.1.7",
+    "strapi-plugin-email": "3.1.7",
+    "strapi-plugin-upload": "3.1.7",
+    "strapi-plugin-users-permissions": "3.1.7",
+    "strapi-utils": "3.1.7"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "aa8a0c9a-10fa-4d53-a1ff-511a7869e361"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

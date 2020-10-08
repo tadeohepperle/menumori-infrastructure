@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_instagram_ig_live_data",
+  "info": {
+    "name": "Ig_data",
+    "icon": "bolt"
+  },
+  "options": {},
+  "attributes": {
+    "follower_count": {
+      "type": "integer"
+    },
+    "ig_bio": {
+      "type": "string"
+    },
+    "online": {
+      "type": "boolean"
+    },
+    "bot_instance_status": {
+      "type": "enumeration",
+      "enum": [
+        "ACTIVE",
+        "ERROR",
+        "INACTIVE"
+      ],
+      "default": "INACTIVE"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "ig_user_id": {
+      "type": "biginteger"
+    },
+    "ig_session_store": {
+      "type": "json"
+    },
+    "last_password_login": {
+      "type": "datetime"
+    },
+    "last_session_login": {
+      "type": "datetime"
+    }
+  }
+}

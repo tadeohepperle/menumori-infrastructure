@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_instagram_ig_behavior_settings",
+  "info": {
+    "name": "ig_behavior_settings",
+    "icon": "allergies"
+  },
+  "options": {},
+  "attributes": {
+    "story_mention_reply1": {
+      "type": "string"
+    },
+    "follow_needed": {
+      "type": "boolean",
+      "default": false
+    },
+    "auto_follow_back": {
+      "type": "boolean"
+    },
+    "auto_like_back": {
+      "type": "boolean"
+    },
+    "bot_version": {
+      "type": "enumeration",
+      "enum": [
+        "igbotv20201004"
+      ],
+      "required": true,
+      "default": "igbotv20201004"
+    },
+    "activated": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,30 @@
+strapi api internal services user:
+
+menumori-bot-api
+dh2387?DSH217%§
+
+{
+    "identifier": "menumori-bot-api",
+    "password" : "dh2387?DSH217%§"
+}
+
+jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2E0OGY3YmI0YmIyMDYwNDJlM2IzNSIsImlhdCI6MTYwMTg1MTM0NywiZXhwIjoxODYxMDUxMzQ3fQ.nw3aZZ-6WBJ_tJLu8HVT_Do1tpKxX3ksKEfBzbYB93w
+##########################################################################
+
+devinakramer instagram zugang:
+"devinakramer", "YNR6CU9cTxMxqdK"
+delegeartis@gmail.com
+015901469611
+Kurfürstenstraße 114 Berlin 
+
+
+
+const bot_erik = new InstaBot("erikwangenstein86", "ABC123456789");
+const bot_ciella = new InstaBot("ciella.nguyen", "Bergschimpanse");
+const bot_devina = new InstaBot("devinakramer", "YNR6CU9cTxMxqdK");
+const bot_lara = new InstaBot("laragorschke", "ABC123456789");
+
+module.exports = {
+  testMatch: [""],
+  moduleFileExtensions: ["js", "json", "jsx", "node", "ts"],
+};

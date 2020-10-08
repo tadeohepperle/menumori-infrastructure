@@ -1,0 +1,13 @@
+{
+  "BOTAPIPORT": "3000",
+  "BOTAPIURL": "http://localhost:3000",
+  "STRAPIURL": "http://localhost:1337",
+  "STRAPIUSERNAME": "menumori-bot-api",
+  "STRAPIPASSWORD": "dh2387?DSH217%§",
+  "INTERNALSERVICESSECRET": "89732eqBUAD(/ASDKMIASIO§",
+  "USEPROXY": true,
+  "PROXYHOST": "127.0.0.1",
+  "PROXYPORT": "9050",
+"CONNECTTOINSTAGRAM" : true
+}
+

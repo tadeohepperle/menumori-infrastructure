@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leads",
+  "info": {
+    "name": "lead"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "username": {
+      "type": "string",
+      "required": false
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "biginteger",
+      "unique": true
+    },
+    "profile_pic": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "businesses": {
+      "collection": "business",
+      "via": "leads",
+      "dominant": true
+    },
+    "biography": {
+      "type": "text"
+    },
+    "profile_pic_url": {
+      "type": "string"
+    },
+    "media_count": {
+      "type": "integer"
+    },
+    "follower_count": {
+      "type": "integer"
+    },
+    "following_count": {
+      "type": "integer"
+    },
+    "mutual_followers_count": {
+      "type": "integer"
+    },
+    "is_verified": {
+      "type": "boolean"
+    },
+    "is_private": {
+      "type": "boolean"
+    },
+    "has_anonymous_profile_picture": {
+      "type": "boolean"
+    },
+    "following_tag_count": {
+      "type": "integer"
+    },
+    "external_url": {
+      "type": "string"
+    },
+    "is_business": {
+      "type": "boolean"
+    },
+    "whatsapp_number": {
+      "type": "string"
+    }
+  }
+}

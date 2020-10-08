@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_legal_adresses",
+  "info": {
+    "name": "adress",
+    "icon": "city"
+  },
+  "options": {},
+  "attributes": {
+    "street_name": {
+      "type": "string"
+    },
+    "house_number": {
+      "type": "integer"
+    },
+    "zip_code": {
+      "type": "integer"
+    },
+    "city": {
+      "type": "string"
+    }
+  }
+}

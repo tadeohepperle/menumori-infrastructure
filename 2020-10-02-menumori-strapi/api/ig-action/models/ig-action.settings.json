@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ig_actions",
+  "info": {
+    "name": "ig_action"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "business": {
+      "model": "business"
+    },
+    "lead": {
+      "model": "lead"
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "direction_b_to_l": {
+      "type": "boolean"
+    },
+    "content_media": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": ["images", "files", "videos"],
+      "plugin": "upload",
+      "required": false
+    },
+    "content_text": {
+      "type": "text"
+    },
+    "thread_id": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "action_type": {
+      "type": "enumeration",
+      "enum": [
+        "StoryMention",
+        "PostMention",
+        "DirectMessage",
+        "Subscribe",
+        "PostLike",
+        "Unidentified"
+      ]
+    }
+  }
+}

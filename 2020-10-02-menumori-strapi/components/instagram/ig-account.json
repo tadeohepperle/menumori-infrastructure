@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_legal_ig_accounts",
+  "info": {
+    "name": "ig_settings",
+    "icon": "magic"
+  },
+  "options": {},
+  "attributes": {
+    "username": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email"
+    },
+    "password": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "google_business_link": {
+      "type": "string"
+    },
+    "ig_behavior_settings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "instagram.ig-behavior-settings"
+    }
+  }
+}

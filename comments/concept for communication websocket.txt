@@ -1,0 +1,17 @@
+Frontend: 
+JWT
+HTTP requests to strapi backend for changing business-settings
+
+Websocket for sending messages back to the client:
+ - things that happen in instagram:
+ - cahnges in business settings succcessfully changed
+
+currently no intended sending from client to backend 
+
+
+
+client ---HTTP---> strapi -----> MongoDB
+   |                |
+   |                \---HTTP---> botapi <--MQTT--> instagramAPI
+   |                                |
+ client <--------WebSocket----------/
