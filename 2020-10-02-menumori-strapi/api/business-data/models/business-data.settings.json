@@ -10,8 +10,8 @@
   },
   "attributes": {
     "business": {
-      "model": "business",
-      "via": "business_data"
+      "via": "business_data",
+      "model": "business"
     },
     "ig_data": {
       "type": "component",

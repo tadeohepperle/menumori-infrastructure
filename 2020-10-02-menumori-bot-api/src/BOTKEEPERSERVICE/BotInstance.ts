@@ -6,7 +6,7 @@ import {
   BotEmittingEvents,
   IgIncomingEventData,
 } from "../types";
-import { IgApiClient } from "instagram-private-api";
+import { DirectThreadEntity, IgApiClient } from "instagram-private-api";
 import {
   withRealtime,
   withFbns,
@@ -16,10 +16,17 @@ import {
   //SkywalkerSubscriptions,
 } from "instagram_mqtt";
 import shttps from "socks-proxy-agent";
-import { getUserID } from "../DATASERVICE/utility";
+import {
+  getUserID,
+  randomizeNumber,
+  waitPromise,
+  waitPromiseRandomizeTime,
+} from "../DATASERVICE/utility";
 import { writeFileSync } from "fs";
 import { BotBehavior } from "./BotBehavior";
 import { advancedLogging } from "../DATASERVICE/logger";
+import { randomInt } from "crypto";
+import { threadId } from "worker_threads";
 
 export default class BotInstance extends EventEmitter {
   botBehavior: BotBehavior;
@@ -95,6 +102,7 @@ export default class BotInstance extends EventEmitter {
 
   // run is supposed to be called after everything is set up. Turns the bot on if settings are in favor of it.
   async run() {
+    this.log("run start...");
     if (
       this._business.business_settings.ig_settings.ig_behavior_settings
         .activated &&
@@ -134,13 +142,13 @@ export default class BotInstance extends EventEmitter {
     }
     // continue only if login and realtime connection was successfull:
     if (realtimeConnectionSuccessful) {
-      // await this.testIfLoggedIn();
+      // ...
     }
   }
 
   async igSessionLogin(session: any) {
     try {
-      console.log(`logging in sessionstore from database`);
+      console.log(`logging in with sessionstore from database`);
       // login
 
       let sessionClone = JSON.parse(JSON.stringify(session)); // because igClient.state.deserialize() modifies the object itself
@@ -233,10 +241,12 @@ export default class BotInstance extends EventEmitter {
           // Experimental
         ],
         // experimental:
+        /*
         skywalkerSubs: [
           SkywalkerSubscriptions.directSub(this.igClient.state.cookieUserId),
           SkywalkerSubscriptions.liveSub(this.igClient.state.cookieUserId),
         ],
+        */
         //..................... experimental end
 
         irisData: await this.igClient.feed.directInbox().request(),
@@ -360,5 +370,60 @@ export default class BotInstance extends EventEmitter {
   logerr(content: any) {
     console.log(`ERROR IN BOT::${this.business.slugname}`);
     console.error(content);
+  }
+
+  async sendDirectMessage(content_text: string, thread: DirectThreadEntity) {
+    try {
+      /*
+      // is pretending to be a realistically typing user: 
+      let estimatedTime = content_text.length / 17 * 1000 // 8 characters per second is a pretty fast typing speed.
+      let totaltime = randomizeNumber(estimatedTime * 0.7, estimatedTime * 1.3);
+      console.log(totaltime)
+      // divide time up into chunks, to send out a typing event every few seconds:
+      // chunks should be 50 characters long so every 4 words or so:
+      // those numbers are pure guesswork, maybe its besser to send an event after every letter but we dont really know.
+      let estimatedNumberOfChunks = content_text.length / 50;
+      let numberOfChunks = randomizeNumber(estimatedNumberOfChunks * 0.6, estimatedNumberOfChunks * 1.6)
+      // get arry of times that should be waited after every typing event. sums up to totaltime
+      let arr: number[] = [totaltime];
+      // set chunks - 1 cuts in total:
+      for (let i = 0; i < numberOfChunks - 1; i++) {
+        let randomIndex = Math.floor(Math.random() * arr.length);
+        let timeElement = arr.splice(randomIndex, 1)[0];
+        // fraction between 0.25 and 0.75
+        let fraction = Math.floor(Math.random() * timeElement / 2 + timeElement / 4);
+        // push the two times to the end of the array:
+        arr.push(timeElement - fraction, fraction);
+      }
+      console.log(arr)
+
+      for (let i = 0; i < arr.length; i++) {
+        // indicate typing then wait t milliseconds:
+        // this is not awaited to keep the totaltime accurate. I hope this doesnt lead to overlapping indicateActivity() receivings on instagrams side
+
+        await this.igClient.realtime.direct.indicateActivity({ threadId: thread.threadId });
+        console.log("indicateactivity...");
+        await waitPromise(arr[i]);
+
+      }
+
+      // finally send the message: 
+
+      */
+
+      // was way too compliceted, lets keep it very simple:
+      // (I tried to make it more complicated, split up in chunks and all so that it is harder to detect for instagram. But this solutions looks best for now.)
+      // bei unserer Testmessage: 273 chars sollte 4 bis 8 Sekunden dauern, damit Nutzer ein gutes Gefühl haben (aber ist eigentlich zu schnell für Menschen)
+      let timeToDelivery = content_text.length * 15; // in ms
+
+      this.igClient.realtime.direct.indicateActivity({
+        threadId: thread.threadId,
+      });
+
+      await waitPromiseRandomizeTime(timeToDelivery, timeToDelivery * 2); // between 8 and 13 seconds;
+      await thread.broadcastText(content_text);
+    } catch (ex) {
+      console.error(ex);
+    }
   }
 }

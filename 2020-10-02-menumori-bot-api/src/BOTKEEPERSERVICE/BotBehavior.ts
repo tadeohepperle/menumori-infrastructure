@@ -3,6 +3,8 @@ import {
   IgIncomingEventData,
   IgLead,
   BotEmittingEvents,
+  Business,
+  IgActionFlag,
 } from "../types";
 import BotInstance from "./BotInstance";
 import DATASERVICE from "../DATASERVICE";
@@ -50,12 +52,12 @@ export class BotBehavior {
   ): Promise<IgAction | null> {
     let ig_actionPrototype: IgAction = {
       business: this.botInstance.business.id,
-      ig_lead: lead.id,
+      lead: lead.id,
       direction_b_to_l: false,
       action_type: eventData.type,
       confirmed: true,
       content_text: eventData.text,
-      thread_id: eventData.item_id,
+      thread_id: eventData.thread_id,
       item_id: eventData.item_id,
     };
 
@@ -68,6 +70,32 @@ export class BotBehavior {
   }
 
   // utilityfunctions:
+
+  async postIgActionRecordForBotsentMessage(
+    lead: IgLead,
+    content_text: string,
+    thread_id: string,
+    action_type: BotEmittingEvents,
+    flag: IgActionFlag
+  ) {
+    try {
+      {
+        let agbMessageAction = {
+          business: this.botInstance.business.id,
+          lead: lead.id,
+          direction_b_to_l: true,
+          content_text,
+          thread_id,
+          action_type,
+          flag,
+        } as IgAction;
+        await this.dataService.postRecord("ig-actions", agbMessageAction);
+      }
+    } catch (ex) {
+      console.error(ex);
+    }
+  }
+
   async createAndSaveOrUpdateLeadForEventData(
     eventData: IgIncomingEventData
   ): Promise<IgLead | null> {

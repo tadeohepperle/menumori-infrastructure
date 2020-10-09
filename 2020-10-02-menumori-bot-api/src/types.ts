@@ -8,6 +8,7 @@ export interface Settings {
   PROXYHOST: string;
   PROXYPORT: string;
   CONNECTTOINSTAGRAM: boolean;
+  FRONTENDURL: string;
 }
 
 import { EventEmitter } from "events";
@@ -57,7 +58,7 @@ export interface IgIncomingEventData {
 export interface IgLead {
   _id: string;
   id: string;
-  user_id: BigInteger;
+  user_id: number;
   businesses: (Business | string)[];
   // propoerties requested through igClient.user.info(pk):
   username?: string;
@@ -78,23 +79,23 @@ export interface IgLead {
 
   /*
 
+  createdAt?: string;
   maybe for later:
   hd_profile_pic_versions
 
   */
 }
 
-export enum IgActionFlag{
-  AGB = "ABG",
-  GOOGLERATING = "GOOGLERATING",
-  TICKET = "TICKET"
-
-
+export enum IgActionFlag {
+  B_AGB = "B_AGB", // von business gesendet
+  B_GOOGLERATING = "B_GOOGLERATING",
+  B_TICKET = "B_TICKET",
+  C_AGBCOMPLY = "C_AGBCOMPLY", // message von seite des nutzers
 }
 
 export interface IgAction {
   business: Business | string;
-  ig_lead: IgLead | string;
+  lead: IgLead | string;
   confirmed?: boolean; // confirmed means, that the action really happended in instagram. This is acutomatically true for all actions we receive from instagram realtime client.
   direction_b_to_l: boolean;
   content_media?: any;
@@ -102,12 +103,14 @@ export interface IgAction {
   thread_id?: string;
   item_id?: string;
   action_type: BotEmittingEvents;
-  flag?: IgActionFlag
+  flag?: IgActionFlag | null;
+  createdAt?: string;
 }
 
 // data from API is cast to this class. id and _id are the same
 export interface Business {
   _id: string;
+  short_id: string;
   slugname: string;
   createdAt: string;
   updatedAt: string;
@@ -168,6 +171,9 @@ export interface Business {
         bot_version: string;
         _id: string;
         story_mention_reply1: string;
+        agb_complied_reply1: string;
+        agb_complied_reply2: string;
+        comply_text: string;
         createdAt: string;
         updatedAt: string;
         activated: boolean;
@@ -192,6 +198,6 @@ export interface Business {
     business: string;
     id: string;
   };
-  ig_leads: IgLead[];
+  leads: IgLead[];
   id: string;
 }

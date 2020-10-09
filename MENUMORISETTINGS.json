@@ -8,6 +8,6 @@
   "USEPROXY": true,
   "PROXYHOST": "127.0.0.1",
   "PROXYPORT": "9050",
-"CONNECTTOINSTAGRAM" : true
+  "CONNECTTOINSTAGRAM": true,
+  "FRONTENDURL": "www.menumori.de"
 }
-

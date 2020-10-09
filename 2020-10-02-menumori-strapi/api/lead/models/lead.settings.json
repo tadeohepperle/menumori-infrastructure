@@ -32,8 +32,8 @@
       "required": false
     },
     "businesses": {
-      "collection": "business",
       "via": "leads",
+      "collection": "business",
       "dominant": true
     },
     "biography": {

@@ -15,16 +15,20 @@
       "required": true
     },
     "leads": {
-      "via": "businesses",
-      "collection": "lead"
+      "collection": "lead",
+      "via": "businesses"
     },
     "business_data": {
-      "via": "business",
-      "model": "business-data"
+      "model": "business-data",
+      "via": "business"
     },
     "business_settings": {
-      "via": "business",
-      "model": "business-settings"
+      "model": "business-settings",
+      "via": "business"
+    },
+    "short_id": {
+      "type": "string",
+      "unique": true
     }
   }
 }

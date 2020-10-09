@@ -9,7 +9,7 @@
     "build": "tsc --project tsconfig.json",
     "test": "jest",
     "coverage": "jest --coverage",
-    "play": "node play.js"
+    "play": "ts-node play.ts"
   },
   "keywords": [],
   "author": "",

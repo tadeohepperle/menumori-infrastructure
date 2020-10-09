@@ -7,7 +7,8 @@
   "options": {},
   "attributes": {
     "story_mention_reply1": {
-      "type": "string"
+      "type": "text",
+      "default": "Hey {vorname}! Danke, dass du uns dabei hilfst, mehr Menschen für unser Restaurant zu begeistern.  Als Dankeschön erhältst du gleich ein Geschenk. Vorher müsstest du allerdings noch unseren AGB ({link}) zustimmen, indem du uns ein einfaches \"{comply_text}\" zurückschreibst. "
     },
     "follow_needed": {
       "type": "boolean",
@@ -30,6 +31,18 @@
     "activated": {
       "type": "boolean",
       "default": false
+    },
+    "agb_complied_reply1": {
+      "type": "text",
+      "default": "👍🏼"
+    },
+    "agb_complied_reply2": {
+      "type": "text",
+      "default": "Super, wir generieren deinen Geschenkcode, dies wird ca. 1-2 min. dauern. Wenn es dir bei uns gefällt, kannst du uns in der Zwischenzeit gerne auf google bewerten: {link}. Sobald du deinen Geschenkcode erhältst, kannst du diesen einfach einem Mitarbeiter zeigen und erhältst dein Geschenk."
+    },
+    "comply_text": {
+      "type": "string",
+      "default": "ja"
     }
   }
 }

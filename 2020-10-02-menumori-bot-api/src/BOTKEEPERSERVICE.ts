@@ -14,7 +14,7 @@ export default class BOTKEEPERSERVICE extends SERVICE {
 
     // GET DATA FROM ALL BUSINESSES AND CREATE INSTAGRAM BOT INSTANCES FOR EACH;
     let businesses = <Business[]>(
-      await this.STARTUPPERFORMER.dataService.getBusinesses()
+      await this.STARTUPPERFORMER.dataService.getRecords("businesses")
     );
     businesses.forEach((business) => {
       this.registerNewBot(business);
@@ -25,7 +25,7 @@ export default class BOTKEEPERSERVICE extends SERVICE {
     businessIDs.forEach(async (key, i) => {
       let bi = this.botInstances[key];
       await bi.run();
-      if (i != businessIDs.length - 1) await waitPromiseRandomizeTime(1, 4);
+      if (i != businessIDs.length - 1) await waitPromiseRandomizeTime(1000, 2000);
       // wait some time so that instagram does not realize all bots are run from
     });
 

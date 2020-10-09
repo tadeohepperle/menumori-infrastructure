@@ -28,8 +28,8 @@
       "component": "legal.business-contact"
     },
     "business": {
-      "model": "business",
-      "via": "business_settings"
+      "via": "business_settings",
+      "model": "business"
     }
   }
 }
