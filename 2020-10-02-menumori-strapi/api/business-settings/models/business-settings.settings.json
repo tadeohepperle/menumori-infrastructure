@@ -28,8 +28,14 @@
       "component": "legal.business-contact"
     },
     "business": {
-      "via": "business_settings",
-      "model": "business"
+      "model": "business",
+      "via": "business_settings"
+    },
+    "gift": {
+      "type": "text"
+    },
+    "gift_deadline_days": {
+      "type": "integer"
     }
   }
 }

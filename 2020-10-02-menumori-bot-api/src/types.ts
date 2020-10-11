@@ -49,6 +49,7 @@ export interface IgIncomingEventData {
   item_id?: string;
   media_url?: string;
   text?: string;
+  streakshortid?: string;
 
   // username?: string; // we can get this later via igClient.user.info(pk)
   // full_name?: string; // we can get this later via igClient.user.info(pk)
@@ -88,9 +89,11 @@ export interface IgLead {
 
 export enum IgActionFlag {
   B_AGB = "B_AGB", // von business gesendet
-  B_GOOGLERATING = "B_GOOGLERATING",
+  B_AGBCOMPLYREPLY = "B_AGBCOMPLYREPLY",
   B_TICKET = "B_TICKET",
   C_AGBCOMPLY = "C_AGBCOMPLY", // message von seite des nutzers
+  C_STORYMENTION = "C_STORYMENTION", // can also be seen in ig.action.action_type
+  C_POSTMENTION = "C_POSTMENTION", // can also be seen in ig.action.action_type
 }
 
 export interface IgAction {
@@ -105,6 +108,9 @@ export interface IgAction {
   action_type: BotEmittingEvents;
   flag?: IgActionFlag | null;
   createdAt?: string;
+  streakshortid?: string;
+  id?: string;
+  _id?: string;
 }
 
 // data from API is cast to this class. id and _id are the same
@@ -195,9 +201,26 @@ export interface Business {
     createdAt: string;
     updatedAt: string;
     title: string;
+    gift: string;
+    gift_deadline_days: number;
     business: string;
     id: string;
   };
   leads: IgLead[];
   id: string;
+}
+
+// all gifts (sent out tickets) are logged to the database
+export interface Gift {
+  business: Business | string;
+  lead: IgLead | string;
+  content_name?: string;
+  fulfilled?: boolean;
+  date_ticket_fulfilled?: Date;
+  date_ticket_sent?: Date;
+  createdAt?: string;
+  updatedAt?: string;
+  streakshortid?: string;
+  id?: string;
+  _id?: string;
 }

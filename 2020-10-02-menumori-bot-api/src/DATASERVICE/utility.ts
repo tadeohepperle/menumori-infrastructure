@@ -1,3 +1,4 @@
+import Hashids from "hashids";
 import { Business, Settings } from "../types";
 
 export function objectToQueryString(queryObject: any) {
@@ -75,4 +76,14 @@ export function isComplyText(textReceived: string, correctComplyText: string) {
 
 export function getVorname(full_name: string) {
   return full_name.split(" ")[0].trim();
+}
+
+export function generateStreakID(mentioningIgActionId: string): string {
+  let hashids = new Hashids(
+    "this is my stupid salt",
+    8,
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  );
+  let hex = Buffer.from(mentioningIgActionId).toString("hex");
+  return hashids.encodeHex(hex);
 }

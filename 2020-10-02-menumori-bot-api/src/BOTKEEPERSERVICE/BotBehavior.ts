@@ -9,6 +9,7 @@ import {
 import BotInstance from "./BotInstance";
 import DATASERVICE from "../DATASERVICE";
 import { IgLoginTwoFactorRequiredError } from "instagram-private-api";
+import { generateStreakID } from "../DATASERVICE/utility";
 export class BotBehavior {
   botInstance: BotInstance;
   dataService: DATASERVICE;
@@ -65,8 +66,22 @@ export class BotBehavior {
       "ig-actions",
       ig_actionPrototype
     );
-    if (record) return record as IgAction;
-    else return null;
+
+    let recordAsIGAction = record as IgAction;
+    if (recordAsIGAction && recordAsIGAction.id) {
+      // add a streakshortid to igActions that mark the beginning of user seeking contact to the business via postmention or storymention
+      if (
+        recordAsIGAction.action_type == BotEmittingEvents.StoryMention ||
+        recordAsIGAction.action_type == BotEmittingEvents.PostMention
+      ) {
+        recordAsIGAction.streakshortid = generateStreakID(recordAsIGAction.id);
+        recordAsIGAction = (await this.dataService.updateRecord(
+          "ig-actions",
+          recordAsIGAction
+        )) as IgAction;
+      }
+      return recordAsIGAction;
+    } else return null;
   }
 
   // utilityfunctions:
@@ -76,7 +91,8 @@ export class BotBehavior {
     content_text: string,
     thread_id: string,
     action_type: BotEmittingEvents,
-    flag: IgActionFlag
+    flag: IgActionFlag,
+    streakshortid: string
   ) {
     try {
       {
@@ -88,6 +104,7 @@ export class BotBehavior {
           thread_id,
           action_type,
           flag,
+          streakshortid,
         } as IgAction;
         await this.dataService.postRecord("ig-actions", agbMessageAction);
       }

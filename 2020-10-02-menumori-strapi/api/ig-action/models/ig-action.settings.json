@@ -57,10 +57,15 @@
       "type": "enumeration",
       "enum": [
         "B_AGB",
-        "B_GOOGLERATING",
+        "B_AGBCOMPLYREPLY",
         "B_TICKET",
-        "C_AGBCOMPLY"
+        "C_AGBCOMPLY",
+        "C_STORYMENTION",
+        "C_POSTMENTION"
       ]
+    },
+    "streakshortid": {
+      "type": "string"
     }
   }
 }

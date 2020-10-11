@@ -85,15 +85,25 @@ export default class IgBotV20201004 extends BotBehavior {
   // actions:
 
   async replyToAGBComply(lead: IgLead, ig_action: IgAction) {
-    // GENERATE TEXTS TO SEND BACK TO CUSTOMER:
     if (!lead.full_name)
-      throw Error(
+      throw new Error(
         `tried to execute replyToAGBComply with lead ${JSON.stringify(
           lead
         )} and ig_action ${JSON.stringify(
           ig_action
         )} but lead has no full_name!`
       );
+
+    if (!ig_action.streakshortid)
+      throw new Error(
+        `tried to execute replyToAGBComply with lead ${JSON.stringify(
+          lead
+        )} and ig_action ${JSON.stringify(
+          ig_action
+        )} but ig_action has no streakshortid`
+      );
+
+    // GENERATE TEXTS TO SEND BACK TO CUSTOMER:
     let agb_complied_reply1 = this.botInstance.business.business_settings
       .ig_settings.ig_behavior_settings.agb_complied_reply1;
     agb_complied_reply1 = pythonStringFormat(agb_complied_reply1, {
@@ -123,26 +133,29 @@ export default class IgBotV20201004 extends BotBehavior {
       // mark message as seen:
       await waitPromiseRandomizeTime(400, 1700);
       await thread.markItemSeen(ig_action.item_id);
-      await waitPromiseRandomizeTime(200, 1500);
+      await waitPromiseRandomizeTime(500, 1000);
       // start typing and send agb_complied_reply1:
       if (agb_complied_reply1) {
         await this.botInstance.sendDirectMessage(agb_complied_reply1, thread);
+        // this is not awaited, to not mess up sending times
         this.postIgActionRecordForBotsentMessage(
           lead,
           agb_complied_reply1,
           ig_action.thread_id,
           BotEmittingEvents.DirectMessage,
-          IgActionFlag.B_AGB
+          IgActionFlag.B_AGBCOMPLYREPLY,
+          ig_action.streakshortid
         );
       }
       if (agb_complied_reply2) {
         await this.botInstance.sendDirectMessage(agb_complied_reply2, thread);
-        this.postIgActionRecordForBotsentMessage(
+        await this.postIgActionRecordForBotsentMessage(
           lead,
           agb_complied_reply2,
           ig_action.thread_id,
           BotEmittingEvents.DirectMessage,
-          IgActionFlag.B_AGB
+          IgActionFlag.B_AGBCOMPLYREPLY,
+          ig_action.streakshortid
         );
       }
       await this.prepareTicketAndSendItAfterSomeTime(lead, ig_action);
@@ -164,11 +177,14 @@ export default class IgBotV20201004 extends BotBehavior {
     })) as IgAction[];
     // get AGB Messages and check if max 2 Stunden her.
     let agbMessageActionArray = pastInteractions.filter(
+      // inter stands for interaction and can be any IgAction
       (inter) =>
         inter.flag == IgActionFlag.B_AGB &&
         inter.direction_b_to_l == true &&
         ig_action.createdAt &&
         inter.createdAt &&
+        inter.streakshortid &&
+        // fixed max 3 hours after mentioning the restaurant in story
         addHoursToDate(new Date(ig_action.createdAt), 3) >
           new Date(inter.createdAt)
     );
@@ -178,6 +194,7 @@ export default class IgBotV20201004 extends BotBehavior {
       if (isComplyText(ig_action.content_text, correctComplyText)) {
         // set flag on igActionRecordInDatabase:
         ig_action.flag = IgActionFlag.C_AGBCOMPLY;
+        ig_action.streakshortid = agbMessageAction.streakshortid;
         this.dataService.updateRecord("ig-actions", ig_action);
         return true;
       }
@@ -197,7 +214,7 @@ export default class IgBotV20201004 extends BotBehavior {
         throw new Error(
           `full_name of lead ${JSON.stringify(
             lead
-          )} unknown, cant send AGB message`
+          )} unknown, cant send AGB message.`
         );
 
       // CONSTRUCT AGB TEXT:
@@ -218,9 +235,13 @@ export default class IgBotV20201004 extends BotBehavior {
 
       // NACHRICHT ALS GESEHEN MARKIEREN:
 
-      if (!ig_action.thread_id || !ig_action.item_id)
+      if (
+        !ig_action.thread_id ||
+        !ig_action.item_id ||
+        !ig_action.streakshortid
+      )
         throw new Error(
-          `thread_id or item_id on igAction ${JSON.stringify(
+          `thread_id or item_id or streakshortid on igAction ${JSON.stringify(
             ig_action
           )} is missing, cannot send AGB message.`
         );
@@ -249,7 +270,8 @@ export default class IgBotV20201004 extends BotBehavior {
         textToSend,
         ig_action.thread_id,
         BotEmittingEvents.DirectMessage,
-        IgActionFlag.B_AGB
+        IgActionFlag.B_AGB,
+        ig_action.streakshortid
       );
     } catch (ex) {
       console.error(ex);
@@ -261,5 +283,7 @@ export default class IgBotV20201004 extends BotBehavior {
     // ... promise
     await waitPromiseRandomizeTime(80 * 1000, 100 * 1000);
     // ... send Ticket wenn Zeit und GenerateTicket Promise beide um sind.
+
+    // ... ticketgenerator
   }
 }
