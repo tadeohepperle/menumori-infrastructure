@@ -1,6 +1,7 @@
 import { Business, SERVICE } from "./types";
 import axios from "axios";
 import { objectToQueryString } from "./DATASERVICE/utility";
+import FormData from "form-data";
 
 export default class DATASERVICE extends SERVICE {
   jwt: any;
@@ -29,7 +30,7 @@ export default class DATASERVICE extends SERVICE {
   constructAuthenticationConfig() {
     return {
       headers: {
-        Authorization: "Bearer " + this.jwt,
+        Authorization: `Bearer ${this.jwt}`,
       },
     };
   }
@@ -101,6 +102,77 @@ export default class DATASERVICE extends SERVICE {
       console.error(ex);
     }
     return null;
+  }
+
+  async postRecordAsFormDataWithMedia(
+    collectionName: string,
+    normalFieldsOfRecord: object,
+    // the values should be streams:
+    mediaPartOfRecord: { [id: string]: { stream: any; filename: string } }
+  ): Promise<object | null> {
+    try {
+      let fd = new FormData();
+      // normal fields:
+      fd.append("data", JSON.stringify(normalFieldsOfRecord));
+      // media fields:
+      Object.keys(mediaPartOfRecord).forEach((key) => {
+        fd.append(
+          `files.${key}`,
+          mediaPartOfRecord[key].stream,
+          mediaPartOfRecord[key].filename
+        );
+      });
+
+      // @ts-ignore
+      let formDataBoundry = fd._boundary;
+      if (!formDataBoundry)
+        throw Error(
+          `formDataboundry not defined, cant post (+ upload media) record ${normalFieldsOfRecord} to ${collectionName}`
+        );
+
+      let result = await axios({
+        url: `${this.SETTINGS.STRAPIURL}/${collectionName}/`,
+        method: "post",
+        data: fd,
+        withCredentials: true,
+        headers: {
+          // formdataboundary is needed for some reason, otherwise it is not accepted by the strapi backend:
+          "content-type": `multipart/form-data; boundary=${formDataBoundry}`,
+          Authorization: `Bearer ${this.jwt}`,
+        },
+      });
+
+      if (result.data) return result.data;
+      else
+        throw new Error(
+          `tried to post/upload record ${JSON.stringify(
+            normalFieldsOfRecord
+          )} to /${collectionName} as formData with media ${Object.keys(
+            mediaPartOfRecord
+          ).map(
+            (key) => `${key} : ${mediaPartOfRecord[key].filename}`
+          )} but didt get inserted record data back from strapi.`
+        );
+    } catch (ex) {
+      console.error(ex);
+    }
+    return null;
+  }
+
+  async getDataStreamFromURL(url: string) {
+    try {
+      let response = await axios({
+        url,
+        method: "GET",
+        responseType: "stream",
+      });
+
+      if (response.status == 200 && response.data) {
+        return response.data;
+      }
+    } catch (ex) {
+      console.error(ex);
+    }
   }
 
   async updateRecord(collectionName: string, record: any) {

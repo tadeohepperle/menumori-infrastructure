@@ -9,7 +9,10 @@ import {
 import BotInstance from "./BotInstance";
 import DATASERVICE from "../DATASERVICE";
 import { IgLoginTwoFactorRequiredError } from "instagram-private-api";
-import { generateStreakID } from "../DATASERVICE/utility";
+import {
+  formatDateStandardWay,
+  generateStreakID,
+} from "../DATASERVICE/utility";
 export class BotBehavior {
   botInstance: BotInstance;
   dataService: DATASERVICE;
@@ -51,6 +54,7 @@ export class BotBehavior {
     eventData: IgIncomingEventData,
     lead: IgLead
   ): Promise<IgAction | null> {
+    // create the record object with all normal fields:
     let ig_actionPrototype: IgAction = {
       business: this.botInstance.business.id,
       lead: lead.id,
@@ -62,9 +66,28 @@ export class BotBehavior {
       item_id: eventData.item_id,
     };
 
-    let record = await this.dataService.postRecord(
+    // construct media object with field content_media (photo/video in stories) if needed:
+    let mediaObject: { [id: string]: { stream: any; filename: string } } = {};
+    if (eventData.media_url) {
+      let filename = `${formatDateStandardWay(eventData.date)}-${
+        this.botInstance.business.slugname
+      }.jpg`;
+      let mediaStream = await this.dataService.getDataStreamFromURL(
+        eventData.media_url
+      );
+      if (!mediaStream)
+        throw new Error(
+          `could not get DataStream from url ${
+            eventData.media_url
+          }. Cannot post/upload igAction ${JSON.stringify(ig_actionPrototype)}`
+        );
+      mediaObject.content_media = { stream: mediaStream, filename };
+    }
+
+    let record = await this.dataService.postRecordAsFormDataWithMedia(
       "ig-actions",
-      ig_actionPrototype
+      ig_actionPrototype,
+      mediaObject
     );
 
     let recordAsIGAction = record as IgAction;
@@ -74,6 +97,11 @@ export class BotBehavior {
         recordAsIGAction.action_type == BotEmittingEvents.StoryMention ||
         recordAsIGAction.action_type == BotEmittingEvents.PostMention
       ) {
+        if (recordAsIGAction.action_type == BotEmittingEvents.StoryMention)
+          recordAsIGAction.flag = IgActionFlag.C_STORYMENTION;
+        if (recordAsIGAction.action_type == BotEmittingEvents.PostMention)
+          recordAsIGAction.flag = IgActionFlag.C_POSTMENTION;
+
         recordAsIGAction.streakshortid = generateStreakID(recordAsIGAction.id);
         recordAsIGAction = (await this.dataService.updateRecord(
           "ig-actions",

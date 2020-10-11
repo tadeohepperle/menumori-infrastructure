@@ -25,6 +25,7 @@
     "axios": "^0.20.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "form-data": "^3.0.0",
     "hashids": "1.0.1",
     "instagram-private-api": "^1.41.0",
     "instagram_mqtt": "^0.2.16",

@@ -18,8 +18,9 @@ export default class STARTUPPERFORMER {
   apiInService: APIINSERVICE;
   botKeeperService: BOTKEEPERSERVICE;
 
-  constructor() {
+  constructor(flag: "NOIG" | undefined) {
     this.SETTINGS = readJsonSettingsFile();
+    if (flag === "NOIG") this.SETTINGS.CONNECTTOINSTAGRAM = false;
     this.dataService = new DATASERVICE(this);
     this.botKeeperService = new BOTKEEPERSERVICE(this);
     this.apiInService = new APIINSERVICE(this);

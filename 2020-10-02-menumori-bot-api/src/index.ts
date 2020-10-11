@@ -1,3 +1,3 @@
 import STARTUPPERFORMER from "./STARTUPPERFORMER";
 
-new STARTUPPERFORMER().run();
+new STARTUPPERFORMER(undefined).run();

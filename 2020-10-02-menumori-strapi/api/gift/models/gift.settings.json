@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gifts",
+  "info": {
+    "name": "gift"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "content_name": {
+      "type": "string"
+    },
+    "date_ticket_sent": {
+      "type": "datetime"
+    },
+    "fulfilled": {
+      "type": "boolean"
+    },
+    "streakshortid": {
+      "type": "string"
+    },
+    "ticket_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "business": {
+      "model": "business"
+    },
+    "lead": {
+      "model": "lead"
+    },
+    "date_ticket_fulfilled": {
+      "type": "datetime"
+    }
+  }
+}

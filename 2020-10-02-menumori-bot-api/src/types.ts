@@ -50,10 +50,6 @@ export interface IgIncomingEventData {
   media_url?: string;
   text?: string;
   streakshortid?: string;
-
-  // username?: string; // we can get this later via igClient.user.info(pk)
-  // full_name?: string; // we can get this later via igClient.user.info(pk)
-  // messages and stories
 }
 
 export interface IgLead {

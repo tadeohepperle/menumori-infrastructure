@@ -78,12 +78,29 @@ export function getVorname(full_name: string) {
   return full_name.split(" ")[0].trim();
 }
 
-export function generateStreakID(mentioningIgActionId: string): string {
+function generateStreakID(mentioningIgActionId: string) {
   let hashids = new Hashids(
-    "this is my stupid salt",
+    "die Prangerle Solutions e.K. eghört Tadeo Hepperle und Tobias Prangel",
     8,
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   );
   let hex = Buffer.from(mentioningIgActionId).toString("hex");
-  return hashids.encodeHex(hex);
+  let hash = hashids.encodeHex(hex);
+  return hash.substring(0, 8);
+}
+
+export function formatDateStandardWay(date: Date | string) {
+  let d;
+  if (typeof date === "string") d = new Date(date);
+  else d = date;
+
+  d = new Date(date);
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  let year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
 }

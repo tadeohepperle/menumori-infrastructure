@@ -290,12 +290,17 @@ export default class BotInstance extends EventEmitter {
           eventData.text = data.message?.reel_share?.media?.caption?.text;
           if (data.message?.reel_share?.type == "mention") {
             eventData.type = BotEmittingEvents.StoryMention;
-            /*
-            eventData.username =
-              data.message?.reel_share?.media?.user?.username;
-            eventData.full_name =
-              data.message?.reel_share?.media?.user?.full_name;
-            */
+
+            // if mention: get the media url, to save the image/video posted in the story:
+            let mediaCanditates =
+              data.message?.reel_share?.media.image_versions2.candidates;
+            if (
+              Array.isArray(mediaCanditates) &&
+              mediaCanditates.length >= 1 &&
+              mediaCanditates[0].url
+            ) {
+              eventData.media_url = mediaCanditates[0].url;
+            }
           }
         }
       }
