@@ -38,6 +38,7 @@ export enum BotEmittingEvents {
   Subscribe = "Subscribe",
   PostLike = "PostLike",
   Unidentified = "Unidentified",
+  SendPhoto = "SendPhoto",
 }
 
 export interface IgIncomingEventData {

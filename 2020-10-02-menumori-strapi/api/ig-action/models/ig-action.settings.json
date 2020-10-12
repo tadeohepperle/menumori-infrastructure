@@ -50,7 +50,8 @@
         "DirectMessage",
         "Subscribe",
         "PostLike",
-        "Unidentified"
+        "Unidentified",
+        "SendPhoto"
       ]
     },
     "flag": {

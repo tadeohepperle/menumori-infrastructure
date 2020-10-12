@@ -423,6 +423,7 @@ export default class BotInstance extends EventEmitter {
 
       this.igClient.realtime.direct.indicateActivity({
         threadId: thread.threadId,
+        isActive: true,
       });
 
       await waitPromiseRandomizeTime(timeToDelivery, timeToDelivery * 2); // between 8 and 13 seconds;
@@ -430,5 +431,10 @@ export default class BotInstance extends EventEmitter {
     } catch (ex) {
       console.error(ex);
     }
+  }
+
+  async sendPhoto(photoAsBuffer: Buffer, thread: DirectThreadEntity) {
+    // write down file and read it again to get encoding right:
+    // send it in the dm-thread
   }
 }

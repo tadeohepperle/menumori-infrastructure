@@ -1,8 +1,12 @@
+import { settings } from "cluster";
 import { writeFileSync } from "fs";
+import { DirectThreadEntity } from "instagram-private-api";
 import { addSyntheticLeadingComment } from "typescript";
 import DATASERVICE from "../../DATASERVICE";
+import { generateTicketImage } from "../../DATASERVICE/ticketGenerator";
 import {
   addHoursToDate,
+  bufferToReadableStream,
   createAGBLink,
   createGoogleRatingLink,
   getVorname,
@@ -158,7 +162,7 @@ export default class IgBotV20201004 extends BotBehavior {
           ig_action.streakshortid
         );
       }
-      await this.prepareTicketAndSendItAfterSomeTime(lead, ig_action);
+      await this.prepareTicketAndSendItAfterSomeTime(lead, ig_action, thread);
     }
   }
 
@@ -278,12 +282,57 @@ export default class IgBotV20201004 extends BotBehavior {
     }
   }
 
-  async prepareTicketAndSendItAfterSomeTime(lead: IgLead, ig_action: IgAction) {
+  async prepareTicketAndSendItAfterSomeTime(
+    lead: IgLead,
+    ig_action: IgAction,
+    thread: DirectThreadEntity
+  ) {
     // generateTicket:
-    // ... promise
-    await waitPromiseRandomizeTime(80 * 1000, 100 * 1000);
+    let ticketPromise = generateTicketImage(
+      lead,
+      this.botInstance.business,
+      ig_action,
+      this.botInstance.botKeeperService.SETTINGS
+    );
+    // timed promise
+    let timePromise = waitPromiseRandomizeTime(5 * 1000, 6 * 1000); // testing
+    // let timePromise = waitPromiseRandomizeTime(80 * 1000, 100 * 1000);  // _____________production
     // ... send Ticket wenn Zeit und GenerateTicket Promise beide um sind.
 
-    // ... ticketgenerator
+    let [ticketAsBuffer] = await Promise.all([ticketPromise, timePromise]);
+    if (!ticketAsBuffer)
+      throw Error(`generateTicketImage() did not return an ImageBufferObject when given lead: ${JSON.stringify(
+        lead
+      )}, business: ${JSON.stringify(this.botInstance.business)}, 
+    ig_action: ${JSON.stringify(ig_action)}, settings: ${JSON.stringify(
+        this.botInstance.botKeeperService.SETTINGS
+      )}`);
+
+    // broadcast photo to dm-thread:
+    await thread.broadcastPhoto({ file: ticketAsBuffer });
+    // save the ticket sending ig_action with flag B_TICKET and image attached to db:
+
+    let ticketSendingAction: IgAction = {
+      business: this.botInstance.business.id,
+      lead: lead.id,
+      direction_b_to_l: true,
+      thread_id: ig_action.thread_id,
+      action_type: BotEmittingEvents.SendPhoto,
+      flag: IgActionFlag.B_TICKET,
+      streakshortid: ig_action.streakshortid,
+    };
+
+    let mediaObject = {
+      content_media: {
+        stream: bufferToReadableStream(ticketAsBuffer),
+        filename: `${ig_action.streakshortid}.jpg`,
+      },
+    };
+
+    await this.dataService.postRecordAsFormDataWithMedia(
+      "ig-actions",
+      ticketSendingAction,
+      mediaObject
+    );
   }
 }

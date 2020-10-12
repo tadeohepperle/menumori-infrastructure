@@ -1,11 +1,19 @@
+import { writeFileSync } from "fs";
+import { threadId } from "worker_threads";
 import IgBotV20201004 from "./src/BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
-import { generateStreakID } from "./src/DATASERVICE/utility";
+import { generateTicketImage } from "./src/DATASERVICE/ticketGenerator";
+import {
+  generateStreakID,
+  waitPromise,
+  waitPromiseRandomizeTime,
+} from "./src/DATASERVICE/utility";
 import STARTUPPERFORMER from "./src/STARTUPPERFORMER";
 import {
   IgLead,
   IgAction,
   IgIncomingEventData,
   BotEmittingEvents,
+  Business,
 } from "./src/types";
 
 let lead: IgLead = {
@@ -39,7 +47,7 @@ let igAction = {
   action_type: "DirectMessage",
   flag: null,
   _id: "5f7fa42e52401b208cfc3923",
-  thread_id: "29555384691368603607210400445104128",
+  thread_id: "340282366841710300949128279829602550299",
   content_text: "ähm was?",
   direction_b_to_l: true,
   createdAt: "2020-10-09T19:43:42.341Z",
@@ -48,6 +56,7 @@ let igAction = {
   business: "5f7da5388384322c9cc09692",
   lead: "5f7f56613d491248984a02a1",
   id: "5f7fa42e52401b208cfc3923",
+  streakshortid: generateStreakID("5f7f56613d491248984a02a1"),
 } as IgAction;
 
 let igIncomingEvent: IgIncomingEventData = {
@@ -80,6 +89,48 @@ const run = async () => {
   }
 };
 
-//run();
+//test how image generation works:
+const run2 = async () => {
+  let st = new STARTUPPERFORMER("NOIG");
+  await st.run();
+  let dataService = st.dataService;
+  let biz = (await dataService.getRecords("businesses"))[1] as Business;
+  let lead = (await dataService.getRecords("leads"))[1] as IgLead;
 
-console.log(generateStreakID("dqwu287189uhdad"));
+  let buffer = await generateTicketImage(lead, biz, igAction, st.SETTINGS);
+  if (buffer) writeFileSync("xxx.jpg", buffer);
+};
+
+//run2();
+
+//
+
+const run3 = async () => {
+  let st = new STARTUPPERFORMER(undefined);
+  await st.run();
+  let dataService = st.dataService;
+  let biz = (await dataService.getRecords("businesses"))[1] as Business;
+  let lead = (await dataService.getRecords("leads"))[1] as IgLead;
+  let buffer = await generateTicketImage(lead, biz, igAction, st.SETTINGS);
+  if (buffer) {
+    console.log("wait shortly");
+    await waitPromiseRandomizeTime(10000, 20000);
+    let bi =
+      st.botKeeperService.botInstances[
+        Object.keys(st.botKeeperService.botInstances)[1]
+      ];
+    let threadId = "340282366841710300949128279829602550299";
+    let thread = bi.igClient.entity.directThread(threadId);
+    await bi.igClient.realtime.direct.indicateActivity({
+      threadId,
+      isActive: true,
+    });
+    console.log("indicateactivity");
+    await waitPromise(2000);
+    console.log("send");
+    await thread.broadcastPhoto({ file: buffer });
+    console.log("sent!");
+  }
+};
+
+run3();

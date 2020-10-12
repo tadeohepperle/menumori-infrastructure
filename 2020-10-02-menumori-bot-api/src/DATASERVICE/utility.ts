@@ -1,5 +1,7 @@
 import Hashids from "hashids";
 import { Business, Settings } from "../types";
+import { Readable } from "stream";
+import { promises } from "fs";
 
 export function objectToQueryString(queryObject: any) {
   if (typeof queryObject != "object") return "";
@@ -78,7 +80,7 @@ export function getVorname(full_name: string) {
   return full_name.split(" ")[0].trim();
 }
 
-function generateStreakID(mentioningIgActionId: string) {
+export function generateStreakID(mentioningIgActionId: string) {
   let hashids = new Hashids(
     "die Prangerle Solutions e.K. eghört Tadeo Hepperle und Tobias Prangel",
     8,
@@ -103,4 +105,21 @@ export function formatDateStandardWay(date: Date | string) {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join("-");
+}
+
+export function formatDateGerman(date: Date): string {
+  return (
+    date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
+  );
+}
+
+export function bufferToReadableStream(buffer: Buffer) {
+  // important for pushing generated ticket image buffer to strapi
+  // from https://stackoverflow.com/questions/13230487/converting-a-buffer-into-a-readablestream-in-node-js
+  return new Readable({
+    read() {
+      this.push(buffer);
+      this.push(null);
+    },
+  });
 }
