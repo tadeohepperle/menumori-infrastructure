@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.components_instagram_ig_behavior_settings"}],"uuid":"33e72effeb66415babccb0c5d84ff27e"}

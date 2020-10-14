@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.components_legal_adresses"}],"uuid":"759d65ffe20d4af391600dc3d851aab6"}

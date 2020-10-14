@@ -1,0 +1,48 @@
+source: 
+https://stackoverflow.com/questions/11255630/how-to-export-all-collections-in-mongodb
+https://docs.mongodb.com/database-tools/mongodump/
+
+some databse connection strings:
+---------------------
+Remote:
+mongodb+srv://admin:VtBVkxIvs3J0zske@prangerle-solutions-dat.84pzl.mongodb.net/2020-10-02-menumori-strapi?retryWrites=true&w=majority
+
+Local old:
+mongodb://admin:AJHdfas32898hdaiusd8873@127.0.0.1:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
+
+Local new:
+mongodb://tadeo:sajjsdcn8192uzsag@127.0.0.1:27017/2020-10-02-menumori-strapi?authSource=admin
+
+
+---------------------------------------------------------------------------
+
+mongoexport runs in cmd:
+
+export data from remote atlas database:
+
+mongodump --uri="mongodb+srv://admin:VtBVkxIvs3J0zske@prangerle-solutions-dat.84pzl.mongodb.net/2020-10-02-menumori-strapi?retryWrites=true&w=majority" -o "./mongodumpfolder"
+
+generates folder ./mongodumpfolder/2020-10-02-menumori-strapi and in it a bunch of json and bson files
+
+create the databse locally with the data:
+
+
+mongoshell login:
+mongo --username="admin" --password="AJHdfas32898hdaiusd8873"
+
+db.createUser(
+  {
+    user: 'tadeo',
+    pwd: 'sajjsdcn8192uzsag',
+    roles: [ { role: 'root', db: 'admin' } ]
+  }
+);
+
+mongo --username="tadeo" --password="sajjsdcn8192uzsag"
+
+mongorestore --uri="mongodb://tadeo:sajjsdcn8192uzsag@127.0.0.1:27017/2020-10-02-menumori-strapi?authSource=admin"  "./mongodumpfolder"
+
+
+>>>>  605 document(s) restored successfully.
+
+----------------------------------------------------------------------------------------------------------

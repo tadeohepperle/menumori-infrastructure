@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.users-permissions_permission"}],"uuid":"9e4c49af68be44e6852c70ed4904f0b7"}
