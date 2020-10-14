@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_categories",
+  "info": {
+    "name": "business_category"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "business_settings": {
+      "via": "business_category",
+      "collection": "business-settings"
+    }
+  }
+}

@@ -20,9 +20,6 @@
     "phone": {
       "type": "string"
     },
-    "google_business_link": {
-      "type": "string"
-    },
     "ig_behavior_settings": {
       "type": "component",
       "repeatable": false,

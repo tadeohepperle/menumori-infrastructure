@@ -1,0 +1,77 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+@tailwind utilities;
+
+a {
+  @apply text-teal-500;
+}
+
+.navbar-link {
+  @apply font-bold mr-5 cursor-pointer text-gray-700;
+}
+
+.navbar-link:hover {
+  @apply text-teal-500;
+}
+
+.btn {
+  @apply text-white font-bold bg-teal-500 py-2 px-6 border-0 rounded;
+}
+
+.btn-lg {
+  @apply text-lg;
+}
+
+.btn:hover {
+  @apply bg-teal-600;
+}
+
+.btn:focus {
+  @apply outline-none;
+}
+
+.container {
+  @apply mx-auto px-5 py-12;
+}
+
+section {
+  @apply text-gray-700;
+}
+
+h1 {
+  @apply text-4xl font-medium mb-2 text-gray-900;
+
+  @screen sm {
+    @apply text-2xl;
+  }
+}
+
+h2 {
+  @apply text-3xl font-medium mb-2 text-gray-900;
+
+  @screen sm {
+    @apply text-2xl;
+  }
+}
+
+footer {
+  @apply text-gray-200 bg-gray-800;
+}
+
+.footer-link {
+  @apply text-gray-600 cursor-pointer leading-loose;
+}
+
+.footer-heading {
+  @apply font-medium tracking-widest text-base mb-3 uppercase text-gray-200;
+}
+
+.footer-link:hover {
+  @apply text-white;
+}
+
+p {
+  @apply leading-relaxed text-lg;
+}

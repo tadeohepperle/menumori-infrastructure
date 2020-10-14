@@ -1,0 +1,76 @@
+src: https://medium.com/better-programming/how-to-set-up-next-js-with-tailwind-css-b93ccd2d4164
+
+npm create-next-app
+2020-10-02-menumori-frontend
+
+npm i --dev tailwindcss
+
+npx tailwind init
+
+--> creates tailwind.config.js
+
+configure postcss:
+
+npm i --dev postcss-preset-env
+
+create postcss.config.js file:
+
+module.exports = {
+plugins: ['tailwindcss', 'postcss-preset-env'],
+}
+
+create folder styles and inside tailwind.css:
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+setup pages/\_app.js like this:
+
+import "../styles/tailwind.css";
+export default function MyApp({ Component, pageProps }) {
+return <Component {...pageProps} />;
+}
+
+---
+
+use purgeCSS to reduce file-size (only for production):
+
+npm i @fullhuman/postcss-purgecss -d
+
+update postcss.config.js:
+
+const purgecss = [
+  '@fullhuman/postcss-purgecss',
+  {
+    // Specify the paths to all of the template files
+    content: [
+      './pages/**/*.{js,jsx,ts,tsx}',
+      './components/**/*.{js,jsx,ts,tsx}',
+    ],
+    // This is the function used to extract class names from the templates
+    defaultExtractor: (content) => {
+      // Capture as liberally as possible, including things like `h-(screen-1.5)`
+      const broadMatches = content.match(/[^<>"'`\\s]*[^<>"'`\\s:]/g) || [];
+      // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+      const innerMatches = content.match(/[^<>"'`\\s.()]*[^<>"'`\\s.():]/g) || [];
+      return broadMatches.concat(innerMatches);
+    },
+  },
+];
+module.exports = {
+  plugins: [
+    'tailwindcss',
+    process.env.NODE_ENV === 'production' ? purgecss : undefined,
+    'postcss-preset-env',
+  ],
+};
+
+
+change tailwind.css to:
+
+/* purgecss start ignore */
+@tailwind  base;
+@tailwind  components;
+/* purgecss end ignore */
+@tailwind  utilities;

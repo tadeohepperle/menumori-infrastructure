@@ -81,6 +81,21 @@ export default class DATASERVICE extends SERVICE {
     }
   }
 
+  async getBusinessBySlugname(slugname: string): Promise<Business | null> {
+    try {
+      let business = (
+        await this.getRecords("businesses", {
+          slugname,
+          _limit: 1,
+        })
+      )[0] as Business;
+      return business ? business : null;
+    } catch (ex) {
+      console.error(ex);
+      return null;
+    }
+  }
+
   async postRecord(
     collectionName: string,
     record: object

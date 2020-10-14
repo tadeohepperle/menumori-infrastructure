@@ -5,11 +5,12 @@
   "main": "startup.js",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "devwig": "ts-node src/index.ts",
     "build": "tsc --project tsconfig.json",
     "test": "jest",
     "coverage": "jest --coverage",
-    "play": "ts-node play.ts"
+    "play": "ts-node play.ts",
+    "dev": "ts-node src/indexnoig.ts"
   },
   "keywords": [],
   "author": "",

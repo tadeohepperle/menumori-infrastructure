@@ -36,6 +36,27 @@
     },
     "gift_deadline_days": {
       "type": "integer"
+    },
+    "rating_url": {
+      "type": "string"
+    },
+    "business_category": {
+      "model": "business-category",
+      "via": "business_settings"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "cover_image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }

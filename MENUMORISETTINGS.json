@@ -1,6 +1,6 @@
 {
-  "BOTAPIPORT": "3000",
-  "BOTAPIURL": "http://localhost:3000",
+  "BOTAPIPORT": "2000",
+  "BOTAPIURL": "http://localhost:2000",
   "STRAPIURL": "http://localhost:1337",
   "STRAPIUSERNAME": "menumori-bot-api",
   "STRAPIPASSWORD": "dh2387?DSH217%§",

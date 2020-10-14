@@ -48,7 +48,7 @@ async function updateBotInstance(
   startUpPerformer: STARTUPPERFORMER
 ) {
   try {
- switch (flag) {
+    switch (flag) {
       case "UPDATE":
         await startUpPerformer.botKeeperService.updateBotBusiness(businessID);
         break;

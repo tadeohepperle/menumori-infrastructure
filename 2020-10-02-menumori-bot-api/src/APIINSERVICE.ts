@@ -3,7 +3,12 @@ import cors from "cors";
 import { SERVICE } from "./types";
 import socketIo from "socket.io";
 import http from "http";
-import { businessChangeHandler } from "./APIINSERVICE/business-change-handler";
+import { businessChangeHandler } from "./APIINSERVICE/businessChangeHandler";
+import { ratingUrlHandler } from "./APIINSERVICE/ratingurl";
+import {
+  allPublicBusinessDataHandler,
+  publicBusinessDataHandler,
+} from "./APIINSERVICE/publicBusinessDataHandler";
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
@@ -22,6 +27,9 @@ export default class APIINSERVICE extends SERVICE {
     });
 
     app.post("/business-changed", businessChangeHandler(this));
+    app.get("/ratingurl/:slugname", ratingUrlHandler(this));
+    app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
+    app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
 
     // CREATE A SERVER FROM APP
     const server = http.createServer(app);

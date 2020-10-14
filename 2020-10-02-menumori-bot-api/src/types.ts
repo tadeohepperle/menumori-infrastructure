@@ -110,6 +110,73 @@ export interface IgAction {
   _id?: string;
 }
 
+export interface BusinessCategory {
+  id: string;
+  _id: string;
+  title: string;
+  business_settings: [string | BusinessSettings];
+}
+
+export interface BusinessSettings {
+  _id: string;
+  business: Business | string;
+  rating_url: string;
+  business_category: BusinessCategory | string;
+  description: string;
+  cover_image: {
+    url: string;
+  }[];
+  adress: {
+    _id: string;
+    street_name: string;
+    house_number: number;
+    zip_code: number;
+    city: string;
+    createdAt: string;
+    updatedAt: string;
+    id: string;
+  };
+  ig_settings: {
+    _id: string;
+    username: string;
+    email: string;
+    phone: string;
+    password: string;
+    google_business_link: string;
+    ig_behavior_settings: {
+      follow_needed: true; // currently not used
+      bot_version: string;
+      _id: string;
+      story_mention_reply1: string;
+      agb_complied_reply1: string;
+      agb_complied_reply2: string;
+      comply_text: string;
+      createdAt: string;
+      updatedAt: string;
+      activated: boolean;
+      id: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    id: string;
+  };
+  contact: {
+    _id: string;
+    email: string;
+    phone: string;
+    full_name: string;
+    createdAt: string;
+    updatedAt: string;
+    id: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  gift: string;
+  gift_deadline_days: number;
+  id: string;
+}
+
 // data from API is cast to this class. id and _id are the same
 export interface Business {
   _id: string;
@@ -150,59 +217,7 @@ export interface Business {
     };
     id: string;
   };
-  business_settings: {
-    _id: string;
-    adress: {
-      _id: string;
-      street_name: string;
-      house_number: number;
-      zip_code: number;
-      city: string;
-      createdAt: string;
-      updatedAt: string;
-      id: string;
-    };
-    ig_settings: {
-      _id: string;
-      username: string;
-      email: string;
-      phone: string;
-      password: string;
-      google_business_link: string;
-      ig_behavior_settings: {
-        follow_needed: true;
-        bot_version: string;
-        _id: string;
-        story_mention_reply1: string;
-        agb_complied_reply1: string;
-        agb_complied_reply2: string;
-        comply_text: string;
-        createdAt: string;
-        updatedAt: string;
-        activated: boolean;
-        id: string;
-      };
-      createdAt: string;
-      updatedAt: string;
-      id: string;
-    };
-    contact: {
-      _id: string;
-      email: string;
-      phone: string;
-      full_name: string;
-      createdAt: string;
-      updatedAt: string;
-      id: string;
-    };
-    createdAt: string;
-    updatedAt: string;
-    title: string;
-    gift: string;
-    gift_deadline_days: number;
-    business: string;
-    id: string;
-  };
+  business_settings: BusinessSettings;
   leads: IgLead[];
   id: string;
 }
