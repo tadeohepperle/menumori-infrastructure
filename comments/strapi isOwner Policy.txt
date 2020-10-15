@@ -1,0 +1,34 @@
+2020-10-14 13:57:
+
+die in SETTINGS --> USERS & PERMISSIONS PLUGIN --> Roles festgelegten berechtigungen der Roles lösen policies aus, die für die routen zuerst abgefragt werden. 
+
+kann z.b. {
+    "statusCode": 403,
+    "error": "Forbidden",
+    "message": "Forbidden"
+} zurückschicken.
+
+Erst danach werden unsere eigenen Ploicies die in api/[types]/config/routes.js definiert sind. Wenn also ein User für eine Collection/Action perso laut Role im USERS & PERMISSIONS PLUGIN keine Berechtigung hat wird unsere Policy gar nicht erreicht. 
+
+Unsere isOwner Policy verwhindet, dass wenn der Nutzer die Rolle Owner hat, er Records verändern kann (business_settings) wo er nicht selbst der besitzer des Business ist. 
+
+Im USERS & PERMISSIONS PLUGIN kann die Role Owner nur:
+business: findone 			(unsere ploicy beschränkt auf: eigenes)
+business-category: find, findone   	(unsere ploicy beschränkt auf: für alle)
+business-data: findone 			(unsere ploicy beschränkt auf: eigenes)
+business-settings: findone, update 	(unsere ploicy beschränkt auf: eigenes)
+
+gift, ig-action, lead: no permissions, all handled by the express backend of menumori-bot-api:2000
+(jwt muss extra von 2000 nach 1337 geschickt werden, um zu validieren, dass internal services User die Daten rausgeben darf.)
+
+---------------------------------------------------
+Create isOwner Policy:
+
+in strapi folder run 
+
+> npm run strapi generate:policy isOwner
+
+[2020-10-14T11:57:57.390Z] info Generated a new policy `is-owner` at `./config/policies`.
+
+
+add policy "global::isOwner" to any api routes policies []

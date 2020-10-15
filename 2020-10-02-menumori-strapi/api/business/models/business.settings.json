@@ -23,12 +23,18 @@
       "via": "business"
     },
     "business_settings": {
-      "via": "business",
-      "model": "business-settings"
+      "model": "business-settings",
+      "via": "business"
     },
     "short_id": {
       "type": "string",
       "unique": true
+    },
+    "users": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "businesses",
+      "dominant": true
     }
   }
 }

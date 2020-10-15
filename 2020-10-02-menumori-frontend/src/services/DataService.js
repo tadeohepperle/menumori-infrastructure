@@ -61,3 +61,35 @@ export async function getAllPublicBusinessData() {
     return [];
   }
 }
+
+export async function sendLoginRequest(identifier, password) {
+  try {
+    let res = await axios.post(`${IAPIURL}/auth/local`, {
+      identifier,
+      password,
+    });
+    return res.data; // {jwt, user:{username, email, businesses: []}}
+  } catch (ex) {
+    console.error(ex);
+    return null;
+  }
+}
+
+export async function verifyJWT(jwt) {
+  // jwt can just be verified by sending a count request to business-category. This endpoint can only be accessed by authenticated users.
+  try {
+    let res = await axios({
+      url: `${IAPIURL}/business-categories/count`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    if (res.status === 200) return true;
+    else return false;
+  } catch (ex) {
+    //console.error(ex);
+    return false;
+  }
+}

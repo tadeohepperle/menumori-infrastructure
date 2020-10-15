@@ -1,5 +1,13 @@
-export default function NavBar({ loggedIn }) {
-  return (
+import { useContext } from "react";
+import { GlobalStoreContext } from "../store/globalStore";
+import { useObserver } from "mobx-react";
+import { useRouter } from "next/router";
+
+export default function NavBar() {
+  let store = useContext(GlobalStoreContext);
+  const router = useRouter();
+
+  return useObserver(() => (
     <>
       <header className="text-gray-700 body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -30,10 +38,36 @@ export default function NavBar({ loggedIn }) {
             <a className="navbar-link">Über uns</a>
             <a className="navbar-link">Preise</a>
             <a className="navbar-link">Features</a>
+            {store.jwt && (
+              <a className="navbar-link" href="/dashboard">
+                Dashboard
+              </a>
+            )}
           </nav>
-          {!loggedIn && (
+          {store.jwt ? (
+            <button
+              className="btn-secondary inline-flex items-center mt-4 md:mt-0"
+              onClick={async () => {
+                await store.logout();
+                router.push("/");
+              }}
+            >
+              Logout
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-4 h-4 ml-1"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          ) : (
             <a href="/login">
-              <button className="btn inline-flex items-center   mt-4 md:mt-0">
+              <button className="btn inline-flex items-center mt-4 md:mt-0">
                 Login
                 <svg
                   fill="none"
@@ -52,5 +86,5 @@ export default function NavBar({ loggedIn }) {
         </div>
       </header>
     </>
-  );
+  ));
 }

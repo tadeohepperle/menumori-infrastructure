@@ -21,7 +21,7 @@
       "path": "/businesses/:id",
       "handler": "business.findOne",
       "config": {
-        "policies": []
+        "policies": ["global::isOwner"]
       }
     },
     {

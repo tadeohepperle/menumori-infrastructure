@@ -21,7 +21,7 @@
       "path": "/business-settings/:id",
       "handler": "business-settings.findOne",
       "config": {
-        "policies": []
+        "policies": ["global::isOwner"]
       }
     },
     {
@@ -37,7 +37,7 @@
       "path": "/business-settings/:id",
       "handler": "business-settings.update",
       "config": {
-        "policies": []
+        "policies": ["global::isOwner"]
       }
     },
     {
