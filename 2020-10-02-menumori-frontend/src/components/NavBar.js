@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { GlobalStoreContext } from "../store/globalStore";
-import { useObserver } from "mobx-react";
 import { useRouter } from "next/router";
 
 export default function NavBar() {
-  let store = useContext(GlobalStoreContext);
   const router = useRouter();
 
-  return useObserver(() => (
+  return () => (
     <>
       <header className="text-gray-700 body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -38,13 +34,13 @@ export default function NavBar() {
             <a className="navbar-link">Über uns</a>
             <a className="navbar-link">Preise</a>
             <a className="navbar-link">Features</a>
-            {store.jwt && (
+            {true /* store.jwt */ && (
               <a className="navbar-link" href="/dashboard">
                 Dashboard
               </a>
             )}
           </nav>
-          {store.jwt ? (
+          {true /* store.jwt */ ? (
             <button
               className="btn-secondary inline-flex items-center mt-4 md:mt-0"
               onClick={async () => {
@@ -86,5 +82,5 @@ export default function NavBar() {
         </div>
       </header>
     </>
-  ));
+  );
 }

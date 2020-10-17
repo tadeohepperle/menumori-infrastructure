@@ -1,6 +1,8 @@
 import { Cookies } from "react-cookie";
 import { verifyJWT } from "./DataService";
 import Router from "next/router";
+import { isServer, getCookieFromString } from "./utility";
+import store from "../store";
 const cookies = new Cookies();
 
 export const JWTCOOKIENAME = "menumori-jwt";
@@ -73,4 +75,27 @@ export async function handleAuth(
   } else {
     // just do nothing
   }
+}
+
+export async function setStoreJWTAndUserAccordingToCookies(ctx) {
+  // check if on client or on server:
+
+  let jwt = "";
+  let user = null;
+  if (isServer() && ctx.req.headers.cookie) {
+    let cci = ctx.req.headers.cookie;
+
+    try {
+      user = JSON.parse(getCookieFromString(cci, USERDATACOOKIENAME));
+    } catch (ex) {}
+    jwt = getCookieFromString(cci, JWTCOOKIENAME);
+  } else {
+    try {
+      user = json.parse(cookies.get(USERDATACOOKIENAME));
+    } catch (ex) {}
+
+    jwt = cookies.get(JWTCOOKIENAME);
+  }
+  store.setUser(user);
+  store.setJWT(jwt);
 }

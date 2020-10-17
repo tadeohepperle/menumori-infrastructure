@@ -1,3 +1,5 @@
+/*
+
 import React from "react";
 import { useLocalStore, useObserver } from "mobx-react";
 import { sendLoginRequest } from "../services/DataService";
@@ -46,7 +48,7 @@ export const GlobalStoreProvider = ({ children }) => {
       store.jwt = "";
       return true;
     },
-    /*
+
     bugs: ["centipede"],
     addBug: (bug) => {
       store.bugs.push(bug);
@@ -54,7 +56,7 @@ export const GlobalStoreProvider = ({ children }) => {
     get bugsCount() {
       return store.bugs.length;
     },
-    */
+ 
   }));
 
   return (
@@ -63,3 +65,5 @@ export const GlobalStoreProvider = ({ children }) => {
     </GlobalStoreContext.Provider>
   );
 };
+
+*/
