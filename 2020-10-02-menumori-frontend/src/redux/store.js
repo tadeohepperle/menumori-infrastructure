@@ -1,14 +1,27 @@
 import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import thunkMiddleware from "redux-thunk";
 import rootReducer from "./reducers";
+
+////////////////// persistance:
+const persistConfig = {
+  key: "primary",
+  storage,
+  whitelist: ["user", "jwt"], // place to select which state you want to persist
+};
+
+persistedReducer = persistReducer(persistConfig, rootReducer);
+
+/////////////////////////////////
 
 let store;
 
 function initStore(initialState) {
   return createStore(
-    rootReducer,
+    persistedReducer /* rootReducer */,
     initialState,
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );

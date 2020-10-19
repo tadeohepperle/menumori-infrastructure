@@ -1,12 +1,8 @@
 import { useRouter } from "next/router";
 import { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../services/AuthService";
 import { waitPromise } from "../services/utility";
-import {
-  BugsForm,
-  BugsHeader,
-  BugsList,
-  GlobalStoreContext,
-} from "../store/globalStore";
 import Spinner from "./small/Spinner";
 
 export default function LoginForm() {
@@ -16,7 +12,7 @@ export default function LoginForm() {
     processing: false,
     error: "",
   });
-  const store = useContext(GlobalStoreContext);
+  const dispatch = useDispatch();
   const router = useRouter();
   return (
     <div className="mx-auto mb-32 mt-0 sm:mt-32 w-full md:w-1/2 lg:w-1/3">
@@ -26,9 +22,10 @@ export default function LoginForm() {
           e.preventDefault();
           state.processing = true;
           setState({ ...state, processing: true, error: "" });
-          let loginSuccessfull = await store.login(
+          let loginSuccessfull = await login(
             state.username,
-            state.password
+            state.password,
+            dispatch
           );
           if (loginSuccessfull) await router.push("/dashboard");
           let error = loginSuccessfull

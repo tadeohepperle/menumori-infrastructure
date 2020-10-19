@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const router = useRouter();
+  const loggedIn = useSelector((state) => !!state.jwt);
 
-  return () => (
+  return (
     <>
       <header className="text-gray-700 body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -34,13 +36,13 @@ export default function NavBar() {
             <a className="navbar-link">Über uns</a>
             <a className="navbar-link">Preise</a>
             <a className="navbar-link">Features</a>
-            {true /* store.jwt */ && (
+            {loggedIn /* store.jwt */ && (
               <a className="navbar-link" href="/dashboard">
                 Dashboard
               </a>
             )}
           </nav>
-          {true /* store.jwt */ ? (
+          {loggedIn /* store.jwt */ ? (
             <button
               className="btn-secondary inline-flex items-center mt-4 md:mt-0"
               onClick={async () => {

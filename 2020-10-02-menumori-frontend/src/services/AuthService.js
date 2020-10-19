@@ -1,8 +1,8 @@
 import { Cookies } from "react-cookie";
-import { verifyJWT } from "./DataService";
+import { sendLoginRequest, verifyJWT } from "./DataService";
 import Router from "next/router";
 import { isServer, getCookieFromString } from "./utility";
-import store from "../store";
+import { setUserAndJWT, unsetUserAndJWT } from "../redux/actions";
 const cookies = new Cookies();
 
 export const JWTCOOKIENAME = "menumori-jwt";
@@ -77,7 +77,7 @@ export async function handleAuth(
   }
 }
 
-export async function setStoreJWTAndUserAccordingToCookies(ctx) {
+export async function setStoreJWTAndUserAccordingToCookies(ctx, dispatch) {
   // check if on client or on server:
 
   let jwt = "";
@@ -96,6 +96,27 @@ export async function setStoreJWTAndUserAccordingToCookies(ctx) {
 
     jwt = cookies.get(JWTCOOKIENAME);
   }
-  store.setUser(user);
-  store.setJWT(jwt);
+  dispatch(setUserAndJWT(user, jwt));
+}
+
+export async function login(
+  username,
+  password,
+  dispatch /* from useDispatch()  */
+) {
+  console.log(`logging in with username: ${username}, password: ${password}`);
+  let data = await sendLoginRequest(username, password);
+  if (data && data.jwt && data.user) {
+    // login successful:
+    dispatch(setUserAndJWT(data.user, data.jwt));
+    return true;
+  }
+  // login failed:
+  else return false;
+}
+
+export async function logout(dispatch) {
+  console.log("logging out");
+  dispatch(unsetUserAndJWT());
+  return true;
 }
