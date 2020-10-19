@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../services/AuthService";
 
 export default function NavBar() {
   const router = useRouter();
   const loggedIn = useSelector((state) => !!state.jwt);
+  const dipatch = useDispatch();
 
   return (
     <>
@@ -46,8 +48,8 @@ export default function NavBar() {
             <button
               className="btn-secondary inline-flex items-center mt-4 md:mt-0"
               onClick={async () => {
-                await store.logout();
-                router.push("/");
+                await logout(dipatch);
+                await router.push("/");
               }}
             >
               Logout

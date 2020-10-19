@@ -13,7 +13,7 @@ const persistConfig = {
   whitelist: ["user", "jwt"], // place to select which state you want to persist
 };
 
-persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 /////////////////////////////////
 
