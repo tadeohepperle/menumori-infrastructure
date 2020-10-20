@@ -1,3 +1,3 @@
 import STARTUPPERFORMER from "./STARTUPPERFORMER";
 
-new STARTUPPERFORMER(undefined).run();
+new STARTUPPERFORMER("PAPI").run();

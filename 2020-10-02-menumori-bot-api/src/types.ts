@@ -1,5 +1,6 @@
 export interface Settings {
   BOTAPIPORT: number;
+  PAPIPORT: number;
   STRAPIURL: string;
   STRAPIUSERNAME: string;
   STRAPIPASSWORD: string;

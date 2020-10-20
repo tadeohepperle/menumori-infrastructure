@@ -1,20 +1,20 @@
 import { writeFileSync } from "fs";
 import { threadId } from "worker_threads";
-import IgBotV20201004 from "./src/BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
-import { generateTicketImage } from "./src/DATASERVICE/ticketGenerator";
+import IgBotV20201004 from "./BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
+import { generateTicketImage } from "./DATASERVICE/ticketGenerator";
 import {
   generateStreakID,
   waitPromise,
   waitPromiseRandomizeTime,
-} from "./src/DATASERVICE/utility";
-import STARTUPPERFORMER from "./src/STARTUPPERFORMER";
+} from "./DATASERVICE/utility";
+import STARTUPPERFORMER from "./STARTUPPERFORMER";
 import {
   IgLead,
   IgAction,
   IgIncomingEventData,
   BotEmittingEvents,
   Business,
-} from "./src/types";
+} from "./types";
 
 let lead: IgLead = {
   businesses: ["5f7da5388384322c9cc09692"],
@@ -106,7 +106,7 @@ const run2 = async () => {
 //
 
 const run3 = async () => {
-  let st = new STARTUPPERFORMER(undefined);
+  let st = new STARTUPPERFORMER("IG");
   await st.run();
   let dataService = st.dataService;
   let biz = (await dataService.getRecords("businesses"))[1] as Business;

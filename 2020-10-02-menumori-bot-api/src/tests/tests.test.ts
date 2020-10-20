@@ -1,20 +1,20 @@
 import { writeFileSync } from "fs";
 import { IgApiClient } from "instagram-private-api";
 import { JsonParser, RealtimeClient } from "instagram_mqtt";
-import IgBotV20201004 from "../src/BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
-import DATASERVICE from "../src/DATASERVICE";
+import IgBotV20201004 from "../BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
+import DATASERVICE from "../DATASERVICE";
 import {
   objectToQueryString,
   pythonStringFormat,
   waitPromiseRandomizeTime,
-} from "../src/DATASERVICE/utility";
-import STARTUPPERFORMER from "../src/STARTUPPERFORMER";
+} from "../DATASERVICE/utility";
+import STARTUPPERFORMER from "../STARTUPPERFORMER";
 import {
   BotEmittingEvents,
   IgIncomingEventData,
   IgLead,
   IgAction,
-} from "../src/types";
+} from "../types";
 
 if (false) {
   test("queryStringConstructor", () => {
@@ -24,7 +24,7 @@ if (false) {
   });
 
   test("axiospost", async () => {
-    let st = new STARTUPPERFORMER();
+    let st = new STARTUPPERFORMER("IG");
     let dataSercice = new DATASERVICE(st);
     await dataSercice.run();
     let newlead = {
@@ -39,7 +39,7 @@ if (false) {
   });
 
   test("axios_update", async () => {
-    let st = new STARTUPPERFORMER();
+    let st = new STARTUPPERFORMER("IG");
     let dataSercice = new DATASERVICE(st);
     await dataSercice.run();
     let newlead = {
@@ -52,7 +52,7 @@ if (false) {
   });
 
   test("incomingeventshandler", async () => {
-    let st = new STARTUPPERFORMER();
+    let st = new STARTUPPERFORMER("IG");
     await st.run();
     // get first bot:
     let bi =
@@ -82,7 +82,7 @@ if (false) {
 }
 
 test("format", async () => {
-  let st = new STARTUPPERFORMER();
+  let st = new STARTUPPERFORMER("IG");
   let lead: IgLead = {
     businesses: ["5f7da5388384322c9cc09692"],
     _id: "5f7f56613d491248984a02a1",

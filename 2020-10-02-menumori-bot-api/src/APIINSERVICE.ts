@@ -12,6 +12,7 @@ import {
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
+    const FLAG = this.STARTUPPERFORMER.flag;
     //console.log("APIINSERVICE startup...");
 
     // EXPRESS SETUP:
@@ -26,31 +27,39 @@ export default class APIINSERVICE extends SERVICE {
       });
     });
 
-    app.post("/business-changed", businessChangeHandler(this));
-    app.get("/ratingurl/:slugname", ratingUrlHandler(this));
-    app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
-    app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
+    if (FLAG == "PAPI") {
+      app.get("/ratingurl/:slugname", ratingUrlHandler(this));
+      app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
+      app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
+    } else {
+      app.post("/business-changed", businessChangeHandler(this));
+    }
 
     // CREATE A SERVER FROM APP
     const server = http.createServer(app);
 
     // SOCKET IO WEBSOCKET CONNECTIONS
-    const io = socketIo(server);
-    io.on("connection", (socket) => {
-      // each client need to be assigned a bot_instance. If no bot_instance can be assigned the connection is rejected.
-      // Bot instances are only created for all existing businesses when the entire node project is started.
-      // Later on when new Businesses are created, upon creating the business the botkeeperservice is notified and creates a bot instance
+    if (FLAG != "PAPI") {
+      const io = socketIo(server);
+      io.on("connection", (socket) => {
+        // each client need to be assigned a bot_instance. If no bot_instance can be assigned the connection is rejected.
+        // Bot instances are only created for all existing businesses when the entire node project is started.
+        // Later on when new Businesses are created, upon creating the business the botkeeperservice is notified and creates a bot instance
 
-      console.log("a user connected");
-    });
+        console.log("a user connected");
+      });
+    }
 
     // SERVER LISTEN
 
+    const port =
+      FLAG == "PAPI" ? this.SETTINGS.PAPIPORT : this.SETTINGS.BOTAPIPORT;
+
     await new Promise((res, rej) => {
-      server.listen(this.SETTINGS.BOTAPIPORT, () =>
+      server.listen(port, () =>
         res(
           console.log(
-            `APISERVICE IS NOW LISTENING ON PORT ${this.SETTINGS.BOTAPIPORT}`
+            `APISERVICE IN MODE "${this.STARTUPPERFORMER.flag}" IS NOW LISTENING ON PORT ${port}`
           )
         )
       );
