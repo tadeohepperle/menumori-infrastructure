@@ -1,15 +1,19 @@
 import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { persistReducer } from "redux-persist";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunkMiddleware from "redux-thunk";
 import rootReducer from "./reducers";
 
+// cookie storage
+import Cookies from "cookies-js";
+import { CookieStorage } from "redux-persist-cookie-storage";
+
 ////////////////// persistance:
 const persistConfig = {
   key: "primary",
-  storage,
+  storage, //: new CookieStorage(Cookies, {}),
   whitelist: ["user", "jwt"], // place to select which state you want to persist
 };
 
@@ -20,11 +24,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 let store;
 
 function initStore(initialState) {
-  return createStore(
+  let store = createStore(
     persistedReducer /* rootReducer */,
     initialState,
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );
+  return store;
 }
 
 export const initializeStore = (preloadedState) => {
@@ -53,3 +58,5 @@ export function useStore(initialState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }
+
+// ___________ or initializeStore?

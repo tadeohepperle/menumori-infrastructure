@@ -32,6 +32,7 @@ const Page = ({}) => {
 
 Page.getInitialProps = async function (context) {
   await handleAuth(context, "/login");
+
   return {};
 };
 

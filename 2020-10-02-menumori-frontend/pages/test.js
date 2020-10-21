@@ -42,8 +42,6 @@ export const StateChangerAndDisplay = (props) => {
     dispatch(setUserAndJWT({ name: "thomas" }, Math.random().toString()));
   };
 
-  console.log(state);
-
   return (
     <div>
       <button

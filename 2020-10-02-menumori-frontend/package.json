@@ -10,7 +10,9 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.0.0",
     "axios": "^0.20.0",
+    "cookies-js": "^1.2.3",
     "next": "9.5.5",
+    "next-redux-wrapper": "^6.0.2",
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
     "react-cookie": "^4.0.3",
@@ -19,6 +21,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
+    "redux-persist-cookie-storage": "^1.0.0",
     "redux-thunk": "^2.3.0",
     "tailwindcss": "^1.8.13"
   },

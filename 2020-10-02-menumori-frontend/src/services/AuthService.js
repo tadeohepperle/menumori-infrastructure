@@ -6,7 +6,7 @@ import { setUserAndJWT, unsetUserAndJWT } from "../redux/actions";
 const cookies = new Cookies();
 
 export const JWTCOOKIENAME = "menumori-jwt";
-export const USERDATACOOKIENAME = "menumori-jwt";
+export const USERDATACOOKIENAME = "menumori-user";
 
 export function getJWT() {
   let jwt = cookies.get(JWTCOOKIENAME);
@@ -49,7 +49,6 @@ export async function handleAuth(
   }
 
   // VERIFY THE TOKEN:
-
   let verified = await verifyJWT(jwt);
 
   // SEND USER TO DIFFERENT PAGE/DONT LET THEM ACCESS THE PROTECTED PAGE
@@ -63,7 +62,6 @@ export async function handleAuth(
       await Router.push(badRequestLocation);
     }
   } else if (verified && goodRequestLocation) {
-    console.log("goodrequest");
     if (ctx.res) {
       ctx.res.writeHead(302, {
         Location: goodRequestLocation,
@@ -77,6 +75,7 @@ export async function handleAuth(
   }
 }
 
+/*
 export async function setStoreJWTAndUserAccordingToCookies(ctx, dispatch) {
   // check if on client or on server:
 
@@ -98,6 +97,7 @@ export async function setStoreJWTAndUserAccordingToCookies(ctx, dispatch) {
   }
   dispatch(setUserAndJWT(user, jwt));
 }
+*/
 
 export async function login(
   username,
@@ -108,6 +108,8 @@ export async function login(
   let data = await sendLoginRequest(username, password);
   if (data && data.jwt && data.user) {
     // login successful:
+    cookies.set(USERDATACOOKIENAME, JSON.stringify(data.user));
+    cookies.set(JWTCOOKIENAME, data.jwt.toString());
     dispatch(setUserAndJWT(data.user, data.jwt));
     return true;
   }
@@ -117,6 +119,8 @@ export async function login(
 
 export async function logout(dispatch) {
   console.log("logging out");
+  cookies.remove(USERDATACOOKIENAME);
+  cookies.remove(JWTCOOKIENAME);
   dispatch(unsetUserAndJWT());
   return true;
 }
