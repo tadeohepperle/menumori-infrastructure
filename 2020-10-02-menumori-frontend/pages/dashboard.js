@@ -204,11 +204,8 @@ const Page = ({}) => {
                 <div>
                   <EditableField
                     title="Name des Betriebs"
-                    value={
-                      changedSettings.title === undefined
-                        ? businessSettings.title
-                        : changedSettings.title
-                    }
+                    value={changedSettings.title}
+                    originalValue={businessSettings.title}
                     propertyPath={"title"}
                     inputOptions={{ placeholder: "Tommys Chili Burger" }}
                     onValueChange={onSettingsInputChange}
@@ -218,11 +215,8 @@ const Page = ({}) => {
                   <div class="md:w-3/4">
                     <EditableField
                       title="Straße"
-                      value={
-                        changedSettings["adress.street_name"] === undefined
-                          ? businessSettings.adress.street_name
-                          : changedSettings["adress.street_name"]
-                      }
+                      value={changedSettings["adress.street_name"]}
+                      originalValue={businessSettings.adress.street_name}
                       inputOptions={{ placeholder: "Musterstraße" }}
                       propertyPath={"adress.street_name"}
                       onValueChange={onSettingsInputChange}
@@ -231,11 +225,8 @@ const Page = ({}) => {
                   <div class="md:w-1/4">
                     <EditableField
                       title="Hausnummer"
-                      value={
-                        changedSettings["adress.house_number"] === undefined
-                          ? businessSettings.adress.house_number
-                          : changedSettings["adress.house_number"]
-                      }
+                      value={changedSettings["adress.house_number"]}
+                      originalValue={businessSettings.adress.house_number}
                       inputOptions={{
                         type: "number",
                         min: 0,
@@ -251,11 +242,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Postleitzahl"
-                      value={
-                        changedSettings["adress.zip_code"] === undefined
-                          ? businessSettings.adress.zip_code
-                          : changedSettings["adress.zip_code"]
-                      }
+                      value={changedSettings["adress.zip_code"]}
+                      originalValue={businessSettings.adress.zip_code}
                       propertyPath={"adress.zip_code"}
                       inputOptions={{ placeholder: "10787" }}
                       onValueChange={onSettingsInputChange}
@@ -264,11 +252,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Ort"
-                      value={
-                        changedSettings["adress.city"] === undefined
-                          ? businessSettings.adress.city
-                          : changedSettings["adress.city"]
-                      }
+                      value={changedSettings["adress.city"]}
+                      originalValue={businessSettings.adress.city}
                       inputOptions={{ placeholder: "Musterstadt" }}
                       propertyPath={"adress.city"}
                       onValueChange={onSettingsInputChange}
@@ -287,11 +272,8 @@ const Page = ({}) => {
                   <EditableField
                     title="Rating Link"
                     helper=""
-                    value={
-                      changedSettings["rating_url"] === undefined
-                        ? businessSettings.rating_url
-                        : changedSettings["rating_url"]
-                    }
+                    value={changedSettings["rating_url"]}
+                    originalValue={businessSettings.rating_url}
                     inputOptions={{
                       placeholder: "https://www.google.de/maps/...",
                     }}
@@ -306,12 +288,11 @@ const Page = ({}) => {
                       value={
                         changedSettings[
                           "ig_settings.ig_behavior_settings.story_mention_reply1"
-                        ] === undefined
-                          ? businessSettings.ig_settings.ig_behavior_settings
-                              .story_mention_reply1
-                          : changedSettings[
-                              "ig_settings.ig_behavior_settings.story_mention_reply1"
-                            ]
+                        ]
+                      }
+                      originalValue={
+                        businessSettings.ig_settings.ig_behavior_settings
+                          .story_mention_reply1
                       }
                       inputOptions={{
                         type: "textarea",
@@ -331,12 +312,11 @@ const Page = ({}) => {
                       value={
                         changedSettings[
                           "ig_settings.ig_behavior_settings.agb_complied_reply1"
-                        ] === undefined
-                          ? businessSettings.ig_settings.ig_behavior_settings
-                              .agb_complied_reply1
-                          : changedSettings[
-                              "ig_settings.ig_behavior_settings.agb_complied_reply1"
-                            ]
+                        ]
+                      }
+                      originalValue={
+                        businessSettings.ig_settings.ig_behavior_settings
+                          .agb_complied_reply1
                       }
                       inputOptions={{
                         type: "textarea",
@@ -356,12 +336,11 @@ const Page = ({}) => {
                     value={
                       changedSettings[
                         "ig_settings.ig_behavior_settings.comply_text"
-                      ] === undefined
-                        ? businessSettings.ig_settings.ig_behavior_settings
-                            .comply_text
-                        : changedSettings[
-                            "ig_settings.ig_behavior_settings.comply_text"
-                          ]
+                      ]
+                    }
+                    originalValue={
+                      businessSettings.ig_settings.ig_behavior_settings
+                        .comply_text
                     }
                     propertyPath={
                       "ig_settings.ig_behavior_settings.comply_text"
@@ -382,11 +361,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Username Instagram Account"
-                      value={
-                        changedSettings["ig_settings.username"] === undefined
-                          ? businessSettings.ig_settings.username
-                          : changedSettings["ig_settings.username"]
-                      }
+                      value={changedSettings["ig_settings.username"]}
+                      originalValue={businessSettings.ig_settings.username}
                       inputOptions={{ placeholder: "username" }}
                       propertyPath={"ig_settings.username"}
                       onValueChange={onSettingsInputChange}
@@ -395,11 +371,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Email-Adresse Instagram Account"
-                      value={
-                        changedSettings["ig_settings.email"] === undefined
-                          ? businessSettings.ig_settings.email
-                          : changedSettings["ig_settings.email"]
-                      }
+                      value={changedSettings["ig_settings.email"]}
+                      originalValue={businessSettings.ig_settings.email}
                       inputOptions={{
                         placeholder: "max@mustermann.de",
                       }}
@@ -412,11 +385,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Telefonnummer Instagram Account"
-                      value={
-                        changedSettings["ig_settings.phone"] === undefined
-                          ? businessSettings.ig_settings.phone
-                          : changedSettings["ig_settings.phone"]
-                      }
+                      value={changedSettings["ig_settings.phone"]}
+                      originalValue={businessSettings.ig_settings.phone}
                       propertyPath={"ig_settings.phone"}
                       inputOptions={{ placeholder: "015901469611" }}
                       onValueChange={onSettingsInputChange}
@@ -425,11 +395,8 @@ const Page = ({}) => {
                   <div class="md:w-1/2">
                     <EditableField
                       title="Passwort Instagram Account"
-                      value={
-                        changedSettings["ig_settings.password"] === undefined
-                          ? businessSettings.ig_settings.password
-                          : changedSettings["ig_settings.password"]
-                      }
+                      value={changedSettings["ig_settings.password"]}
+                      originalValue={businessSettings.ig_settings.password}
                       inputOptions={{ placeholder: "xxxxxxxxxx" }}
                       propertyPath={"ig_settings.password"}
                       onValueChange={onSettingsInputChange}

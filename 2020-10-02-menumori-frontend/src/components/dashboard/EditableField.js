@@ -13,6 +13,9 @@ export default function EditableField({
 }) {
   const [editable, setEditiable] = useState(false);
 
+  let displayValue = value === undefined ? originalValue : value;
+  let unsavedIndicator = !(value == originalValue || value === undefined);
+
   function handleActivation() {
     if (!noedit) setEditiable(true);
   }
@@ -28,7 +31,7 @@ export default function EditableField({
         }`}
         id={propertyPath + "_display"}
       >
-        {value}
+        {displayValue}
       </div>
     </div>
   );
@@ -38,7 +41,9 @@ export default function EditableField({
     inputField = (
       <div class="flex-grow">
         <textarea
-          className={` shadow bg-yellow-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+          className={`${
+            unsavedIndicator ? "bg-yellow-200" : ""
+          } shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
             !editable ? "select-none" : ""
           }`}
           id={propertyPath}
@@ -48,7 +53,7 @@ export default function EditableField({
           rows="7"
           {...inputOptions}
           disabled={false}
-          value={value}
+          value={displayValue}
         />
       </div>
     );
@@ -56,7 +61,9 @@ export default function EditableField({
     inputField = (
       <div class="flex-grow">
         <input
-          className={` shadow bg-yellow-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+          className={`${
+            unsavedIndicator ? "bg-yellow-200" : ""
+          } shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
             !editable ? "select-none" : ""
           }`}
           id={propertyPath}
@@ -65,7 +72,7 @@ export default function EditableField({
           }}
           {...inputOptions}
           disabled={false}
-          value={value}
+          value={displayValue}
         />
       </div>
     );
