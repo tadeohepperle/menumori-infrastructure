@@ -25,8 +25,6 @@ export function getCookieFromString(cookieString, name) {
 export const DASHBOARDNAVITEMS = [
   { title: "Aktuelle Statistik", slugname: "section_statistik" },
   { title: "Angaben zum Geschäft", slugname: "section_allgemein" },
-  { title: "Geschäftliche Infos", slugname: "section_b2b" },
-  { title: "Instagram Einstellungen", slugname: "section_ig_settings" },
-  { title: "Account", slugname: "section5" },
-  { title: "Ansprechpartner", slugname: "section6" },
+  { title: "Verhalten auf Instagram", slugname: "section_ig_behavior" },
+  { title: "Instagram Login Daten", slugname: "section_ig_login" },
 ];

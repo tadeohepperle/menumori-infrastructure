@@ -4,7 +4,10 @@
 /////////////////////////////////////////////////////////////////////
 
 import axios from "axios";
-import { setBusinessSettingsAndBusinessData } from "../redux/actions";
+import {
+  setBusinessSettings,
+  setBusinessSettingsAndBusinessData,
+} from "../redux/actions";
 
 // DEFINE ALL THE CONNECTION VARIABLES:
 export const IAPIURL = "http://localhost:1337"; // internal API URL = Strapi url, connects directly to the database, all routes are at least jwt protected even for get requests.
@@ -113,7 +116,7 @@ export async function getShallowBusinessDataFromIds(ids) {
   }
 }
 
-export async function updateBusinessSettingsAndBusinessData(
+export async function getBusinessSettingsAndBusinessData(
   shallowBusiness,
   jwt,
   dispatch
@@ -146,6 +149,34 @@ export async function updateBusinessSettingsAndBusinessData(
     dispatch(
       setBusinessSettingsAndBusinessData(businessSettings, businessData)
     );
+    return true;
+  } catch (ex) {
+    console.error(ex);
+    return false;
+  }
+}
+
+export async function updateBusinessSettings(
+  businessSettingsID,
+  objectForPutRequestBody,
+  jwt,
+  dispatch
+) {
+  try {
+    let response = await axios({
+      url: `${IAPIURL}/business-settings/${businessSettingsID}`,
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+      data: objectForPutRequestBody,
+    });
+    let newBusinessData = response.data;
+    console.log("got response from update:");
+    console.log(newBusinessData);
+    dispatch(setBusinessSettings(newBusinessData));
+
     return true;
   } catch (ex) {
     console.error(ex);

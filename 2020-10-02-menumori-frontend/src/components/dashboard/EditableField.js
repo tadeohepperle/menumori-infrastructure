@@ -6,6 +6,7 @@ export default function EditableField({
   title,
   propertyPath, // eg. ig_settings.username
   value,
+  originalValue,
   inputOptions = { type: "text" },
   noedit = false,
   onValueChange,
@@ -32,23 +33,43 @@ export default function EditableField({
     </div>
   );
 
-  let inputField = (
-    <div class="flex-grow">
-      <input
-        className={` shadow bg-yellow-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-          !editable ? "select-none" : ""
-        }`}
-        id={propertyPath}
-        type="text"
-        onChange={(e) => {
-          onValueChange(e.target.value, propertyPath);
-        }}
-        {...inputOptions}
-        disabled={false}
-        value={value}
-      />
-    </div>
-  );
+  let inputField = null;
+  if (inputOptions.type == "textarea") {
+    inputField = (
+      <div class="flex-grow">
+        <textarea
+          className={` shadow bg-yellow-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            !editable ? "select-none" : ""
+          }`}
+          id={propertyPath}
+          onChange={(e) => {
+            onValueChange(e.target.value, propertyPath);
+          }}
+          rows="7"
+          {...inputOptions}
+          disabled={false}
+          value={value}
+        />
+      </div>
+    );
+  } else {
+    inputField = (
+      <div class="flex-grow">
+        <input
+          className={` shadow bg-yellow-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            !editable ? "select-none" : ""
+          }`}
+          id={propertyPath}
+          onChange={(e) => {
+            onValueChange(e.target.value, propertyPath);
+          }}
+          {...inputOptions}
+          disabled={false}
+          value={value}
+        />
+      </div>
+    );
+  }
 
   return (
     <div class="mb-4 px-3">

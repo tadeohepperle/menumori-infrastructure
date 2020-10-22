@@ -24,8 +24,12 @@ a {
   @apply text-lg;
 }
 
-.btn:hover {
+.btn:hover:enabled {
   @apply bg-teal-600;
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
 }
 
 .btn:focus {

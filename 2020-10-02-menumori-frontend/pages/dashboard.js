@@ -10,11 +10,16 @@ import SimpleHeadingAndSubHeading from "../src/components/SimpleHeadingAndSubHea
 import { OwnedBusinessesSelect } from "../src/components/dashboard/OwnedBusinessesSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { updateBusinessSettingsAndBusinessData } from "../src/services/DataService";
+import {
+  getBusinessSettingsAndBusinessData,
+  getShallowBusinessDataFromIds,
+  updateBusinessSettings,
+} from "../src/services/DataService";
 import DashBoardLoadingScreen from "../src/components/dashboard/DashBoardLoadingScreen";
 import DashBoardSectionSaveable from "../src/components/dashboard/DashBoardSectionSaveable";
 import EditableField from "../src/components/dashboard/EditableField";
 import _ from "lodash";
+import { setShallowOwnedBusinessesData } from "../src/redux/actions";
 
 const Page = ({}) => {
   const router = useRouter();
@@ -55,25 +60,18 @@ const Page = ({}) => {
     }
   });
   async function mountFetching() {
-    console.log("fetch data...");
     setLoading(true);
     let shallowBusinessData = ownedBusinesses[0];
     setState({ ...state, initialFetchNeeded: false });
-    let success = await updateBusinessSettingsAndBusinessData(
+    let success = await getBusinessSettingsAndBusinessData(
       shallowBusinessData,
       jwt,
       dispatch
     );
     setLoading(false);
-    //setState({ ...state, loading: false });
-    console.log("done fetching data with result: ", success);
-
-    // get businessnames from Ids of possibleBusinessIds:  (To Populate Select)
   }
 
   async function chosenBusinessValueChange(newBusinessID) {
-    console.log(newBusinessID);
-
     let newShallowBusiness = ownedBusinesses.filter(
       (b) => b.id == newBusinessID
     )[0];
@@ -83,25 +81,50 @@ const Page = ({}) => {
       shallowBusiness: newShallowBusiness,
     });
     setLoading(true);
-    let success = await updateBusinessSettingsAndBusinessData(
+    let success = await getBusinessSettingsAndBusinessData(
       newShallowBusiness,
       jwt,
       dispatch
     );
     setLoading(false);
-
-    //setState({ ...state, loading: false });
-
-    // await api call
+    setChangedSettings({});
   }
 
-  function onChangedSettingsSave() {
-    console.log("settings changes save");
-    // get modified copy of businessSettings from state
+  async function onChangedSettingsSave() {
+    console.log("settings changes save...");
+    // change businessSettings (locally)
+    Object.keys(changedSettings).map((key) => {
+      _.set(businessSettings, key, changedSettings[key]);
+    });
 
+    // detect all depth 1 fields of businessSettings that have been changed: (only those need to be sent to the update endpoint)
+    let depth1fieldNames = Object.keys(changedSettings).map(
+      (key) => key.split(".")[0]
+    );
+
+    let objectForPutRequestBody = {};
+    depth1fieldNames.forEach((fieldName) => {
+      objectForPutRequestBody[fieldName] = businessSettings[fieldName];
+    });
     // update to server:
+    let businessSettingsID = state?.shallowBusiness?.businessSettingsID;
+    if (businessSettingsID && objectForPutRequestBody) {
+      let successful = await updateBusinessSettings(
+        businessSettingsID,
+        objectForPutRequestBody,
+        jwt,
+        dispatch
+      ); // update global redux businessSettings is done in the updateBusinessSettings() function as well.
+      console.log("update done: successful==", successful);
+      if (successful) {
+        // update shallowBusinessSettings (e.g. titlechanges)
 
-    // update global redux data
+        let shallowData = await getShallowBusinessDataFromIds(ownedBusinessIDs);
+        dispatch(setShallowOwnedBusinessesData(shallowData));
+        // clear the changedSettings object:
+        setChangedSettings({});
+      }
+    }
   }
 
   function onChangedSettingsDismiss() {
@@ -110,10 +133,6 @@ const Page = ({}) => {
 
   function onSettingsInputChange(value, propertyPath) {
     // modify copy of businessSettings (businessSettingsCopy) in local state
-    console.log(value, propertyPath);
-
-    //_.set(state.businessSettingsCopy, propertyPath, value);
-
     let modifiedChangedSettings = { ...changedSettings };
     modifiedChangedSettings[propertyPath] = value;
     setChangedSettings({ ...modifiedChangedSettings });
@@ -123,9 +142,34 @@ const Page = ({}) => {
  <div className="bg-blue-500">{JSON.stringify(businessSettings)}</div>
   */
 
+  function SaveButtonSection() {
+    return (
+      <div>
+        <button
+          className={`btn mx-3 `}
+          onClick={() => onChangedSettingsSave()}
+          disabled={!changesInBusinessData}
+        >
+          Speichern
+        </button>
+        {changesInBusinessData && (
+          <button
+            className="btn-danger mx-3 mt-3 md:mt-0"
+            onClick={() => onChangedSettingsDismiss()}
+          >
+            Änderungen Verwerfen
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  let changesInBusinessData = Object.keys(changedSettings).length != 0;
+
   return (
     <Layout>
-      <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8">
+      <div className="bg-blue-500">{JSON.stringify(state.shallowBusiness)}</div>
+      <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
         {ownedBusinesses?.length > 1 && (
           <OwnedBusinessesSelect
             onValueChange={chosenBusinessValueChange}
@@ -134,7 +178,8 @@ const Page = ({}) => {
         )}
 
         <SimpleHeadingAndSubHeading
-          title={`Dashboard für ${state.shallowBusiness?.title}`}
+          //title={`Dashboard für ${state.shallowBusiness?.title}`}
+          title={`Dashboard und Adminpanel`}
           subtitle={`Accounteinsteillungen, Zahlungsinformationen, Einstellungen: Unser Kunden Dashboard`}
         />
 
@@ -144,6 +189,14 @@ const Page = ({}) => {
           <>
             <DashBoardNavigation />
             <DashBoardSectionsContainer>
+              {/* Verhalten auf Instagram */}
+              <DashBoardSection
+                id="section_statistik"
+                title="Aktuelle Statistik"
+              >
+                Akuellen Zahlen
+              </DashBoardSection>
+              {/* ANGABEN ZUM GESCHÄFT */}
               <DashBoardSection
                 id="section_allgemein"
                 title="Angaben zum Geschäft"
@@ -206,7 +259,6 @@ const Page = ({}) => {
                       propertyPath={"adress.zip_code"}
                       inputOptions={{ placeholder: "10787" }}
                       onValueChange={onSettingsInputChange}
-                      noedit
                     ></EditableField>
                   </div>
                   <div class="md:w-1/2">
@@ -224,20 +276,167 @@ const Page = ({}) => {
                   </div>
                 </div>
 
+                <SaveButtonSection></SaveButtonSection>
+              </DashBoardSection>
+              {/* Verhalten auf Instagram */}
+              <DashBoardSection
+                id="section_ig_behavior"
+                title="Verhalten auf Instagram"
+              >
                 <div>
-                  <button
-                    className="btn mx-3"
-                    onClick={() => onChangedSettingsSave()}
-                  >
-                    Speichern
-                  </button>
-                  <button
-                    className="btn-danger mx-3 mt-3"
-                    onClick={() => onChangedSettingsDismiss()}
-                  >
-                    Änderungen Verwerfen
-                  </button>
+                  <EditableField
+                    title="Rating Link"
+                    helper=""
+                    value={
+                      changedSettings["rating_url"] === undefined
+                        ? businessSettings.rating_url
+                        : changedSettings["rating_url"]
+                    }
+                    inputOptions={{
+                      placeholder: "https://www.google.de/maps/...",
+                    }}
+                    propertyPath={"rating_url"}
+                    onValueChange={onSettingsInputChange}
+                  ></EditableField>
                 </div>
+                <div class="md:flex mb-6">
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Antwort auf Erwähnung in Story"
+                      value={
+                        changedSettings[
+                          "ig_settings.ig_behavior_settings.story_mention_reply1"
+                        ] === undefined
+                          ? businessSettings.ig_settings.ig_behavior_settings
+                              .story_mention_reply1
+                          : changedSettings[
+                              "ig_settings.ig_behavior_settings.story_mention_reply1"
+                            ]
+                      }
+                      inputOptions={{
+                        type: "textarea",
+                        placeholder: `Hey {vorname}!
+                      Danke, dass du uns dabei hilfst, mehr Menschen für unser Restaurant zu begeistern. 
+                      Wir möchten dir dafür mit einem Geschenk danken. Vorher müsstest du allerdings noch unseren AGB ({link}) zustimmen, indem du uns ein einfaches "{comply_text}" zurückschreibst. `,
+                      }}
+                      propertyPath={
+                        "ig_settings.ig_behavior_settings.story_mention_reply1"
+                      }
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Antwort auf ABG-Einverständnis"
+                      value={
+                        changedSettings[
+                          "ig_settings.ig_behavior_settings.agb_complied_reply1"
+                        ] === undefined
+                          ? businessSettings.ig_settings.ig_behavior_settings
+                              .agb_complied_reply1
+                          : changedSettings[
+                              "ig_settings.ig_behavior_settings.agb_complied_reply1"
+                            ]
+                      }
+                      inputOptions={{
+                        type: "textarea",
+                        placeholder: `Super, wir generieren deinen Geschenkcode, dies wird ca. 1-2 min. dauern. Wenn es dir bei uns gefällt, kannst du uns in der Zwischenzeit gerne auf google bewerten: {link}. Sobald du deinen Geschenkcode erhältst, kannst du diesen einfach einem Mitarbeiter zeigen und erhältst dein Geschenk.`,
+                      }}
+                      propertyPath={
+                        "ig_settings.ig_behavior_settings.agb_complied_reply1"
+                      }
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                </div>
+
+                <div>
+                  <EditableField
+                    title="Einverständisnachricht, die gesendet werden muss, um ABG zu bestätigen:"
+                    value={
+                      changedSettings[
+                        "ig_settings.ig_behavior_settings.comply_text"
+                      ] === undefined
+                        ? businessSettings.ig_settings.ig_behavior_settings
+                            .comply_text
+                        : changedSettings[
+                            "ig_settings.ig_behavior_settings.comply_text"
+                          ]
+                    }
+                    propertyPath={
+                      "ig_settings.ig_behavior_settings.comply_text"
+                    }
+                    inputOptions={{ placeholder: "ich akzeptiere" }}
+                    onValueChange={onSettingsInputChange}
+                  ></EditableField>
+                </div>
+
+                <SaveButtonSection></SaveButtonSection>
+              </DashBoardSection>
+              {/* Instagram Allgemeine Einstellungen */}
+              <DashBoardSection
+                id="section_ig_login"
+                title="Instagram Login Daten"
+              >
+                <div class="md:flex mb-6">
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Username Instagram Account"
+                      value={
+                        changedSettings["ig_settings.username"] === undefined
+                          ? businessSettings.ig_settings.username
+                          : changedSettings["ig_settings.username"]
+                      }
+                      inputOptions={{ placeholder: "username" }}
+                      propertyPath={"ig_settings.username"}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Email-Adresse Instagram Account"
+                      value={
+                        changedSettings["ig_settings.email"] === undefined
+                          ? businessSettings.ig_settings.email
+                          : changedSettings["ig_settings.email"]
+                      }
+                      inputOptions={{
+                        placeholder: "max@mustermann.de",
+                      }}
+                      propertyPath={"ig_settings.email"}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                </div>
+                <div class="md:flex mb-6">
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Telefonnummer Instagram Account"
+                      value={
+                        changedSettings["ig_settings.phone"] === undefined
+                          ? businessSettings.ig_settings.phone
+                          : changedSettings["ig_settings.phone"]
+                      }
+                      propertyPath={"ig_settings.phone"}
+                      inputOptions={{ placeholder: "015901469611" }}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Passwort Instagram Account"
+                      value={
+                        changedSettings["ig_settings.password"] === undefined
+                          ? businessSettings.ig_settings.password
+                          : changedSettings["ig_settings.password"]
+                      }
+                      inputOptions={{ placeholder: "xxxxxxxxxx" }}
+                      propertyPath={"ig_settings.password"}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                </div>
+                <SaveButtonSection></SaveButtonSection>
               </DashBoardSection>
             </DashBoardSectionsContainer>
           </>

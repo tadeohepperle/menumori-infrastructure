@@ -3,6 +3,7 @@ export const types = {
   UNSETUSERANDJWT: "UNSETUSERANDJWT",
   SETSHALLOWOWNEDBUSINESSDATA: "SETSHALLOWOWNEDBUSINESSDATA",
   SETBUSINESSSETTINGSANDBUSINESSDATA: "SETBUSINESSSETTINGSANDBUSINESSDATA",
+  SETBUSINESSSETTINGS: "SETBUSINESSSETTINGS",
 };
 
 const initialState = {
@@ -35,6 +36,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         businessSettings: payload.businessSettings,
         businessData: payload.businessData,
+      };
+
+    case types.SETBUSINESSSETTINGS:
+      return {
+        ...state,
+        businessSettings: payload.businessSettings,
       };
     default:
       return state;

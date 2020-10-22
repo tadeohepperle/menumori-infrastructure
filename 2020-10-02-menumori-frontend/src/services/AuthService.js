@@ -131,7 +131,7 @@ export async function login(
       // fetch shallow businessdata, so that businesses can be selected in dashboard:
       let ids = data.user.businesses.map((b) => b.id);
       let shallowData = await getShallowBusinessDataFromIds(ids);
-      console.log("shallowdata", shallowData);
+      //console.log("shallowdata", shallowData);
       dispatch(setShallowOwnedBusinessesData(shallowData));
     }
 

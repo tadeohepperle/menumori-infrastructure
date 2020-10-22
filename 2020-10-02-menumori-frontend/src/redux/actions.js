@@ -22,6 +22,13 @@ export const setBusinessSettingsAndBusinessData = (
   };
 };
 
+export const setBusinessSettings = (businessSettings) => {
+  return {
+    type: types.SETBUSINESSSETTINGS,
+    payload: { businessSettings },
+  };
+};
+
 /*
 
 
