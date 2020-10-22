@@ -4,6 +4,7 @@
 /////////////////////////////////////////////////////////////////////
 
 import axios from "axios";
+import { setBusinessSettingsAndBusinessData } from "../redux/actions";
 
 // DEFINE ALL THE CONNECTION VARIABLES:
 export const IAPIURL = "http://localhost:1337"; // internal API URL = Strapi url, connects directly to the database, all routes are at least jwt protected even for get requests.
@@ -93,6 +94,61 @@ export async function verifyJWT(jwt) {
     else return false;
   } catch (ex) {
     //console.error(ex);
+    return false;
+  }
+}
+/**
+ * returns an array of businesses, each just {id, title, slguname}
+ * @param {string[]} ids
+ */
+export async function getShallowBusinessDataFromIds(ids) {
+  try {
+    let res = await axios.post(`${PAPIURL}/businessesbyids`, {
+      ids,
+    });
+    return res.data; // {jwt, user:{username, email, businesses: []}}
+  } catch (ex) {
+    console.error(ex);
+    return null;
+  }
+}
+
+export async function updateBusinessSettingsAndBusinessData(
+  shallowBusiness,
+  jwt,
+  dispatch
+) {
+  try {
+    console.log("going to fetch for", shallowBusiness);
+
+    let businessDataProm = axios({
+      url: `${IAPIURL}/business-data/${shallowBusiness.businessDataID}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    let businessSettingsProm = axios({
+      url: `${IAPIURL}/business-settings/${shallowBusiness.businessSettingsID}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const [
+      { data: businessData },
+      { data: businessSettings },
+    ] = await Promise.all([businessDataProm, businessSettingsProm]);
+
+    console.log("businessSettings", businessSettings);
+
+    dispatch(
+      setBusinessSettingsAndBusinessData(businessSettings, businessData)
+    );
+    return true;
+  } catch (ex) {
+    console.error(ex);
     return false;
   }
 }

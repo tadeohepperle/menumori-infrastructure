@@ -43,7 +43,7 @@ export const StateChangerAndDisplay = (props) => {
   };
 
   return (
-    <div>
+    <div class="container">
       <button
         className="btn"
         onClick={() => {
@@ -54,7 +54,7 @@ export const StateChangerAndDisplay = (props) => {
         Change User
       </button>
       <hr></hr>
-      <div>{JSON.stringify(state)}</div>
+      <div style={{ overflow: "hidden" }}>{JSON.stringify(state)}</div>
     </div>
   );
 };

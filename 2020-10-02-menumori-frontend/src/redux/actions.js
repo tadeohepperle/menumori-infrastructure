@@ -8,6 +8,20 @@ export const unsetUserAndJWT = () => {
   return { type: types.UNSETUSERANDJWT, payload: {} };
 };
 
+export const setShallowOwnedBusinessesData = (data) => {
+  return { type: types.SETSHALLOWOWNEDBUSINESSDATA, payload: { data } };
+};
+
+export const setBusinessSettingsAndBusinessData = (
+  businessSettings,
+  businessData
+) => {
+  return {
+    type: types.SETBUSINESSSETTINGSANDBUSINESSDATA,
+    payload: { businessSettings, businessData },
+  };
+};
+
 /*
 
 

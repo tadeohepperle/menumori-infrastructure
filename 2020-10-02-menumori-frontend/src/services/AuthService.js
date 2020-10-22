@@ -1,8 +1,16 @@
 import { Cookies } from "react-cookie";
-import { sendLoginRequest, verifyJWT } from "./DataService";
+import {
+  getShallowBusinessDataFromIds,
+  sendLoginRequest,
+  verifyJWT,
+} from "./DataService";
 import Router from "next/router";
 import { isServer, getCookieFromString } from "./utility";
-import { setUserAndJWT, unsetUserAndJWT } from "../redux/actions";
+import {
+  setShallowOwnedBusinessesData,
+  setUserAndJWT,
+  unsetUserAndJWT,
+} from "../redux/actions";
 const cookies = new Cookies();
 
 export const JWTCOOKIENAME = "menumori-jwt";
@@ -75,8 +83,8 @@ export async function handleAuth(
   }
 }
 
-/*
-export async function setStoreJWTAndUserAccordingToCookies(ctx, dispatch) {
+// can be used in getinitialprops
+export async function setJWTAndUserAccordingToCookies(ctx, dispatch) {
   // check if on client or on server:
 
   let jwt = "";
@@ -95,9 +103,9 @@ export async function setStoreJWTAndUserAccordingToCookies(ctx, dispatch) {
 
     jwt = cookies.get(JWTCOOKIENAME);
   }
-  dispatch(setUserAndJWT(user, jwt));
+
+  //dispatch(setUserAndJWT(user, jwt));
 }
-*/
 
 export async function login(
   username,
@@ -108,9 +116,25 @@ export async function login(
   let data = await sendLoginRequest(username, password);
   if (data && data.jwt && data.user) {
     // login successful:
-    cookies.set(USERDATACOOKIENAME, JSON.stringify(data.user));
-    cookies.set(JWTCOOKIENAME, data.jwt.toString());
+    let cookieExpirationDate = new Date();
+    cookieExpirationDate.setFullYear(cookieExpirationDate.getFullYear() + 1);
+    // set cookies
+    cookies.set(USERDATACOOKIENAME, JSON.stringify(data.user), {
+      expires: cookieExpirationDate,
+    });
+    cookies.set(JWTCOOKIENAME, data.jwt.toString(), {
+      expires: cookieExpirationDate,
+    });
     dispatch(setUserAndJWT(data.user, data.jwt));
+
+    if (data?.user?.businesses && data?.user?.businesses.map) {
+      // fetch shallow businessdata, so that businesses can be selected in dashboard:
+      let ids = data.user.businesses.map((b) => b.id);
+      let shallowData = await getShallowBusinessDataFromIds(ids);
+      console.log("shallowdata", shallowData);
+      dispatch(setShallowOwnedBusinessesData(shallowData));
+    }
+
     return true;
   }
   // login failed:
@@ -122,5 +146,6 @@ export async function logout(dispatch) {
   cookies.remove(USERDATACOOKIENAME);
   cookies.remove(JWTCOOKIENAME);
   dispatch(unsetUserAndJWT());
+  dispatch(setShallowOwnedBusinessesData([]));
   return true;
 }

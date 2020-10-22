@@ -9,7 +9,7 @@ a {
 }
 
 .navbar-link {
-  @apply font-bold mr-5 cursor-pointer text-gray-700;
+  @apply font-bold mx-3 my-1 cursor-pointer text-gray-700 select-none;
 }
 
 .navbar-link:hover {
@@ -17,7 +17,7 @@ a {
 }
 
 .btn {
-  @apply text-white font-bold bg-teal-500 py-2 px-6 border-0 rounded;
+  @apply text-white font-bold bg-teal-500 py-2 px-6 border-0 rounded select-none;
 }
 
 .btn-lg {
@@ -44,8 +44,20 @@ a {
   @apply outline-none;
 }
 
+.btn-danger {
+  @apply bg-red-500 text-white font-bold py-2 px-6 border-0 rounded select-none;
+}
+
+.btn-danger:hover {
+  @apply bg-red-600;
+}
+
+.btn-danger:focus {
+  @apply outline-none;
+}
+
 .container {
-  @apply mx-auto px-5 py-12;
+  @apply mx-auto px-5;
 }
 
 section {
@@ -86,4 +98,58 @@ footer {
 
 p {
   @apply leading-relaxed text-lg;
+}
+
+.top-6-em {
+  top: 6em;
+}
+
+.dashboard-nav-li {
+  @apply py-1 border-l-4 border-transparent;
+
+  @screen md {
+    @apply my-2;
+  }
+}
+
+.dashboard-nav-li:hover {
+  @apply bg-teal-100;
+
+  @screen lg {
+    @apply bg-transparent;
+  }
+}
+
+.dashboard-nav-li-selected {
+  @apply font-bold border-teal-600;
+}
+
+.dashboard-nav-a {
+  @apply block pl-4 align-middle text-gray-700 no-underline;
+}
+.dashboard-nav-a:hover {
+  @apply text-teal-600;
+}
+
+.dashboard-nav-span {
+  @apply pb-1  text-sm select-none;
+
+  @screen md {
+    @apply pb-0;
+  }
+}
+
+.is-current {
+  background-color: black;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: 0px;
+  visibility: hidden;
 }

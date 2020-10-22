@@ -14,7 +14,13 @@ import { CookieStorage } from "redux-persist-cookie-storage";
 const persistConfig = {
   key: "primary",
   storage, //: new CookieStorage(Cookies, {}),
-  whitelist: ["user", "jwt"], // place to select which state you want to persist
+  whitelist: [
+    "user",
+    "jwt",
+    "ownedBusinesses",
+    "businessSettings",
+    "businessData",
+  ], // place to select which state you want to persist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

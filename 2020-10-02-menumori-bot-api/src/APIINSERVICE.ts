@@ -8,6 +8,7 @@ import { ratingUrlHandler } from "./APIINSERVICE/ratingurl";
 import {
   allPublicBusinessDataHandler,
   publicBusinessDataHandler,
+  shallowBusinessDataByBusinessIds,
 } from "./APIINSERVICE/publicBusinessDataHandler";
 
 export default class APIINSERVICE extends SERVICE {
@@ -31,6 +32,7 @@ export default class APIINSERVICE extends SERVICE {
       app.get("/ratingurl/:slugname", ratingUrlHandler(this));
       app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
       app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
+      app.post("/businessesbyids", shallowBusinessDataByBusinessIds(this));
     } else {
       app.post("/business-changed", businessChangeHandler(this));
     }

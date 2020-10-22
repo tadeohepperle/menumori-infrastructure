@@ -109,3 +109,31 @@ export const allPublicBusinessDataHandler = (apiInService: APIINSERVICE) => {
     }
   };
 };
+
+export const shallowBusinessDataByBusinessIds = (
+  apiInService: APIINSERVICE
+) => {
+  return async (req: Request, res: Response) => {
+    try {
+      console.log();
+      let ids = req.body.ids as string[];
+
+      let businessPromises = ids.map((id) =>
+        apiInService.STARTUPPERFORMER.dataService.getBusinessByID(id)
+      );
+      let businesses = await Promise.all(businessPromises);
+      let returnData = businesses.map((b) => ({
+        id: b?.id,
+        title: b?.business_settings.title,
+        slugname: b?.slugname,
+        businessDataID: b?.business_data?.id,
+        businessSettingsID: b?.business_settings?.id,
+      }));
+
+      res.json(returnData);
+    } catch (ex) {
+      console.error(ex);
+      res.status(400).send();
+    }
+  };
+};

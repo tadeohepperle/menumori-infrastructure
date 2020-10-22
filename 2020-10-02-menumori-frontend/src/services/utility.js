@@ -21,3 +21,12 @@ export function getCookieFromString(cookieString, name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
+
+export const DASHBOARDNAVITEMS = [
+  { title: "Aktuelle Statistik", slugname: "section_statistik" },
+  { title: "Angaben zum Geschäft", slugname: "section_allgemein" },
+  { title: "Geschäftliche Infos", slugname: "section_b2b" },
+  { title: "Instagram Einstellungen", slugname: "section_ig_settings" },
+  { title: "Account", slugname: "section5" },
+  { title: "Ansprechpartner", slugname: "section6" },
+];
