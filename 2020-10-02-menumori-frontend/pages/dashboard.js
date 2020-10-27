@@ -20,6 +20,7 @@ import DashBoardSectionSaveable from "../src/components/dashboard/DashBoardSecti
 import EditableField from "../src/components/dashboard/EditableField";
 import _ from "lodash";
 import { setShallowOwnedBusinessesData } from "../src/redux/actions";
+import BotStatusDisplay from "../src/components/dashboard/BotStatusDisplay";
 
 const Page = ({}) => {
   const router = useRouter();
@@ -168,7 +169,7 @@ const Page = ({}) => {
 
   return (
     <Layout>
-      <div className="bg-blue-500">{JSON.stringify(state.shallowBusiness)}</div>
+      <div className="bg-blue-500">{JSON.stringify(businessData)}</div>
       <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
         {ownedBusinesses?.length > 1 && (
           <OwnedBusinessesSelect
@@ -194,6 +195,11 @@ const Page = ({}) => {
                 id="section_statistik"
                 title="Aktuelle Statistik"
               >
+                <BotStatusDisplay
+                  bot_instance_status={
+                    businessData?.ig_data?.bot_instance_status
+                  }
+                ></BotStatusDisplay>
                 Akuellen Zahlen
               </DashBoardSection>
               {/* ANGABEN ZUM GESCHÄFT */}
@@ -296,9 +302,7 @@ const Page = ({}) => {
                       }
                       inputOptions={{
                         type: "textarea",
-                        placeholder: `Hey {vorname}!
-                      Danke, dass du uns dabei hilfst, mehr Menschen für unser Restaurant zu begeistern. 
-                      Wir möchten dir dafür mit einem Geschenk danken. Vorher müsstest du allerdings noch unseren AGB ({link}) zustimmen, indem du uns ein einfaches "{comply_text}" zurückschreibst. `,
+                        placeholder: `Hey {vorname}! \nDanke, dass du uns dabei hilfst, mehr Menschen für unser Restaurant zu begeistern.\nWir möchten dir dafür mit einem Geschenk danken. Vorher müsstest du allerdings noch unseren AGB ({link}) zustimmen, indem du uns ein einfaches "{comply_text}" zurückschreibst. `,
                       }}
                       propertyPath={
                         "ig_settings.ig_behavior_settings.story_mention_reply1"
@@ -320,7 +324,7 @@ const Page = ({}) => {
                       }
                       inputOptions={{
                         type: "textarea",
-                        placeholder: `Super, wir generieren deinen Geschenkcode, dies wird ca. 1-2 min. dauern. Wenn es dir bei uns gefällt, kannst du uns in der Zwischenzeit gerne auf google bewerten: {link}. Sobald du deinen Geschenkcode erhältst, kannst du diesen einfach einem Mitarbeiter zeigen und erhältst dein Geschenk.`,
+                        placeholder: `Super, wir generieren deinen Geschenkcode, dies wird ca. 1-2 min. dauern. Wenn es dir bei uns gefällt, kannst du uns in der Zwischenzeit gerne auf Google bewerten: {link}. Sobald du deinen Geschenkcode erhältst, kannst du diesen einfach einem Mitarbeiter zeigen und erhältst dein Geschenk.`,
                       }}
                       propertyPath={
                         "ig_settings.ig_behavior_settings.agb_complied_reply1"

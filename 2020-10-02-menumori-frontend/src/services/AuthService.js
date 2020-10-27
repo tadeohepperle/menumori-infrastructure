@@ -9,7 +9,7 @@ import { isServer, getCookieFromString } from "./utility";
 import {
   setShallowOwnedBusinessesData,
   setUserAndJWT,
-  unsetUserAndJWT,
+  setStoreByLogout,
 } from "../redux/actions";
 const cookies = new Cookies();
 
@@ -141,11 +141,12 @@ export async function login(
   else return false;
 }
 
-export async function logout(dispatch) {
+export async function logout(dispatch, router) {
   console.log("logging out");
   cookies.remove(USERDATACOOKIENAME);
   cookies.remove(JWTCOOKIENAME);
-  dispatch(unsetUserAndJWT());
-  dispatch(setShallowOwnedBusinessesData([]));
+  await router.push("/");
+  dispatch(setStoreByLogout());
+  //dispatch(setShallowOwnedBusinessesData([]));
   return true;
 }

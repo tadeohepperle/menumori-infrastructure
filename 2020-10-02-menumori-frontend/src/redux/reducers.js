@@ -1,6 +1,6 @@
 export const types = {
   SETUSERANDJWT: "SETUSERANDJWT",
-  UNSETUSERANDJWT: "UNSETUSERANDJWT",
+  SETSTOREBYLOGOUT: "SETSTOREBYLOGOUT",
   SETSHALLOWOWNEDBUSINESSDATA: "SETSHALLOWOWNEDBUSINESSDATA",
   SETBUSINESSSETTINGSANDBUSINESSDATA: "SETBUSINESSSETTINGSANDBUSINESSDATA",
   SETBUSINESSSETTINGS: "SETBUSINESSSETTINGS",
@@ -9,6 +9,9 @@ export const types = {
 const initialState = {
   jwt: "",
   user: null,
+  ownedBusinesses: null,
+  businessSettings: null,
+  businessData: null,
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -25,11 +28,15 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         ownedBusinesses: payload.data,
       };
-    case types.UNSETUSERANDJWT:
+    case types.SETSTOREBYLOGOUT:
       return {
         ...state,
         user: null,
         jwt: "",
+        ownedBusinesses: null,
+        businessSettings: null,
+        businessData: null,
+        ownedBusinesses: [],
       };
     case types.SETBUSINESSSETTINGSANDBUSINESSDATA:
       return {

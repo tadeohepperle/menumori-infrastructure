@@ -1,6 +1,6 @@
 import APIINSERVICE from "../APIINSERVICE";
 
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { Business, BusinessCategory } from "../types";
 
 export const publicBusinessDataHandler = (apiInService: APIINSERVICE) => {

@@ -10,6 +10,7 @@ import {
   publicBusinessDataHandler,
   shallowBusinessDataByBusinessIds,
 } from "./APIINSERVICE/publicBusinessDataHandler";
+import { businessStatsHandler } from "./APIINSERVICE/businessStatsHandler";
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
@@ -32,6 +33,7 @@ export default class APIINSERVICE extends SERVICE {
       app.get("/ratingurl/:slugname", ratingUrlHandler(this));
       app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
       app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
+      app.get("/businessstats/:businessid", businessStatsHandler(this));
       app.post("/businessesbyids", shallowBusinessDataByBusinessIds(this));
     } else {
       app.post("/business-changed", businessChangeHandler(this));

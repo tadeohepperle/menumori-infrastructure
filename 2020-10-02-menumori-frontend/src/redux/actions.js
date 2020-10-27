@@ -4,8 +4,8 @@ export const setUserAndJWT = (user, jwt) => {
   return { type: types.SETUSERANDJWT, payload: { user, jwt } };
 };
 
-export const unsetUserAndJWT = () => {
-  return { type: types.UNSETUSERANDJWT, payload: {} };
+export const setStoreByLogout = () => {
+  return { type: types.SETSTOREBYLOGOUT, payload: {} };
 };
 
 export const setShallowOwnedBusinessesData = (data) => {

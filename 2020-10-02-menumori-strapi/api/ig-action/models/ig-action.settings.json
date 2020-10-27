@@ -67,6 +67,9 @@
     },
     "streakshortid": {
       "type": "string"
+    },
+    "simulated": {
+      "type": "boolean"
     }
   }
 }

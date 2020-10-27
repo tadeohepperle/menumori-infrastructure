@@ -109,6 +109,7 @@ export interface IgAction {
   streakshortid?: string;
   id?: string;
   _id?: string;
+  simulated?: boolean;
 }
 
 export interface BusinessCategory {

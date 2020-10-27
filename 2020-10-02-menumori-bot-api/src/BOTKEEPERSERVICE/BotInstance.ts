@@ -67,9 +67,9 @@ export default class BotInstance extends EventEmitter {
       this.botKeeperService.STARTUPPERFORMER.dataService.updateBusinessData(
         this.business
       );
-    }
 
-    // also sends message to clients via websocket that status has changed:
+      // also sends message to clients via websocket that status has changed:
+    }
   }
 
   botKeeperService: BOTKEEPERSERVICE;

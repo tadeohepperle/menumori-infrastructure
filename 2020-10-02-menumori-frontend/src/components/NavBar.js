@@ -57,8 +57,7 @@ export default function NavBar() {
           <button
             className="btn-secondary inline-flex items-center mt-4 ml-3 md:mt-0"
             onClick={async () => {
-              await logout(dipatch);
-              await router.push("/");
+              await logout(dipatch, router);
             }}
           >
             Logout
