@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/scanlogs",
+      "handler": "scanlog.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scanlogs/count",
+      "handler": "scanlog.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scanlogs/:id",
+      "handler": "scanlog.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/scanlogs",
+      "handler": "scanlog.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/scanlogs/:id",
+      "handler": "scanlog.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/scanlogs/:id",
+      "handler": "scanlog.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

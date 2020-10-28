@@ -38,9 +38,9 @@ export async function generateTicketImage(
   lead: IgLead,
   business: Business,
   complyAction: IgAction,
-  settings: Settings,
   startUpPerformer: STARTUPPERFORMER
 ): Promise<Buffer | void> {
+  let settings = startUpPerformer.SETTINGS;
   try {
     if (
       !(

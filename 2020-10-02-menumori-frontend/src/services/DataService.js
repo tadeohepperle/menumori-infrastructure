@@ -33,6 +33,18 @@ export async function getURLOfRatingPage(slugname) {
   }
 }
 
+export async function getInstagramURL(slugname) {
+  try {
+    const res = await axios.get(`${PAPIURL}/instagramurl/${slugname}`);
+    if (res?.data?.url) {
+      return res.data.url;
+    } else return null;
+  } catch (ex) {
+    console.error(ex);
+    return null;
+  }
+}
+
 export async function getPublicBusinessData(slugname) {
   try {
     const res = await axios.get(`${PAPIURL}/businessdata/${slugname}`);

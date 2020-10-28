@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scanlogs",
+  "info": {
+    "name": "scanlog"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "business": {
+      "model": "business"
+    },
+    "business_ig_username": {
+      "type": "string"
+    },
+    "qrcode_position": {
+      "type": "integer"
+    }
+  }
+}

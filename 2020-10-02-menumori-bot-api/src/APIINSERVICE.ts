@@ -11,6 +11,7 @@ import {
   shallowBusinessDataByBusinessIds,
 } from "./APIINSERVICE/publicBusinessDataHandler";
 import { businessStatsHandler } from "./APIINSERVICE/businessStatsHandler";
+import { instagramUrlHandler } from "./APIINSERVICE/instagramurl";
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
@@ -31,6 +32,7 @@ export default class APIINSERVICE extends SERVICE {
 
     if (FLAG == "PAPI") {
       app.get("/ratingurl/:slugname", ratingUrlHandler(this));
+      app.get("/instagramurl/:slugname", instagramUrlHandler(this));
       app.get("/businessdata/:slugname", publicBusinessDataHandler(this));
       app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
       app.get("/businessstats/:businessid", businessStatsHandler(this));

@@ -301,7 +301,7 @@ export default class IgBotV20201004 extends BotBehavior {
       lead,
       this.botInstance.business,
       ig_action,
-      this.botInstance.botKeeperService.SETTINGS
+      this.botInstance.botKeeperService.STARTUPPERFORMER
     );
     // timed promise
     let timePromise = waitPromiseRandomizeTime(5 * 1000, 6 * 1000); // testing

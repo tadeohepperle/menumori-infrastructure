@@ -1,7 +1,5 @@
 import APIINSERVICE from "../APIINSERVICE";
-
-import express, { Request, Response } from "express";
-import { Business } from "../types";
+import { Request, Response } from "express";
 
 export const ratingUrlHandler = (apiInService: APIINSERVICE) => {
   return async (req: Request, res: Response) => {
