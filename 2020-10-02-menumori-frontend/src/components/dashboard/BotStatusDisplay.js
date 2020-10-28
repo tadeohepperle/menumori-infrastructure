@@ -19,8 +19,6 @@ export default ({ bot_instance_status }) => {
   };
 
   if (!bot_instance_status) bot_instance_status = "ERROR";
-
-  console.log("STATUS: ", bot_instance_status);
   return (
     <div
       className={`flex shadow-lg  rounded bg-${possibleStates[bot_instance_status].colorClass2} p-2 mb-6`}

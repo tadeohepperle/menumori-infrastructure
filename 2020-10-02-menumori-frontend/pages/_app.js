@@ -28,7 +28,7 @@ export default function CustomApp(props) {
           <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         </Head>
         <Component {...pageProps} />
-        <StateChangerAndDisplay></StateChangerAndDisplay>
+        {false && <StateChangerAndDisplay></StateChangerAndDisplay>}
       </PersistGate>
     </Provider>
   );

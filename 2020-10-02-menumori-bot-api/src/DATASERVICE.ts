@@ -2,9 +2,21 @@ import { Business, SERVICE } from "./types";
 import axios from "axios";
 import { objectToQueryString } from "./DATASERVICE/utility";
 import FormData from "form-data";
+import STARTUPPERFORMER from "./STARTUPPERFORMER";
+import ERRORHANDLER from "./DATASERVICE/errorHandler";
 
 export default class DATASERVICE extends SERVICE {
   jwt: any;
+  _errorHandler: ERRORHANDLER;
+
+  constructor(startupperformer: STARTUPPERFORMER) {
+    super(startupperformer);
+    this._errorHandler = new ERRORHANDLER(this);
+  }
+
+  async handleException(error: any, level: number = 1): Promise<void> {
+    await this._errorHandler.handleException(error, level);
+  }
 
   async run() {
     //console.log("DATASERVICE startup...");
@@ -22,8 +34,8 @@ export default class DATASERVICE extends SERVICE {
         this.jwt = res.data.jwt;
         return;
       } else throw new Error("Cant get Authenticated by Strapi");
-    } catch (err) {
-      console.error(err);
+    } catch (ex) {
+      this.handleException(ex, 4);
     }
   }
 
@@ -58,7 +70,7 @@ export default class DATASERVICE extends SERVICE {
         return res.data;
       } else throw new Error(`Could not get ${collectionName} from strapi.`);
     } catch (err) {
-      console.error(err);
+      this.handleException(err, 2);
       return [];
     }
   }
@@ -76,7 +88,7 @@ export default class DATASERVICE extends SERVICE {
           `Could not get record from ${collectionName} with id ${recordID} from strapi.`
         );
     } catch (err) {
-      console.error(err);
+      this.handleException(err, 2);
       return null;
     }
   }
@@ -91,7 +103,7 @@ export default class DATASERVICE extends SERVICE {
       )[0] as Business;
       return business ? business : null;
     } catch (ex) {
-      console.error(ex);
+      this.handleException(ex, 2);
       return null;
     }
   }
@@ -114,7 +126,11 @@ export default class DATASERVICE extends SERVICE {
           )} to /${collectionName} but didt get inserted record data back from strapi.`
         );
     } catch (ex) {
-      console.error(ex);
+      this.handleException(ex, 2);
+      // this is a bit tricky - if we dont exit it may lead to an inifnite Loop:
+      if (collectionName === "errorlogs") {
+        process.exit(0);
+      }
     }
     return null;
   }
@@ -169,7 +185,7 @@ export default class DATASERVICE extends SERVICE {
           )} but didt get inserted record data back from strapi.`
         );
     } catch (ex) {
-      console.error(ex);
+      this.handleException(ex, 2);
     }
     return null;
   }
@@ -186,7 +202,7 @@ export default class DATASERVICE extends SERVICE {
         return response.data;
       }
     } catch (ex) {
-      console.error(ex);
+      this.handleException(ex, 2);
     }
   }
 
@@ -211,7 +227,7 @@ export default class DATASERVICE extends SERVICE {
           )} in collection /${collectionName} but didt get updated record data back from strapi.`
         );
     } catch (err) {
-      console.error(err);
+      this.handleException(err, 2);
     }
   }
 
@@ -228,7 +244,7 @@ export default class DATASERVICE extends SERVICE {
         this.constructAuthenticationConfig()
       );
     } catch (err) {
-      console.error(err);
+      this.handleException(err, 2);
     }
   }
 }

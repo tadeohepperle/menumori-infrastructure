@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function cutEndOfString(string, maxlen) {
   return string.length > maxlen
     ? string.substring(0, maxlen - 3) + "..."
@@ -28,3 +30,13 @@ export const DASHBOARDNAVITEMS = [
   { title: "Verhalten auf Instagram", slugname: "section_ig_behavior" },
   { title: "Instagram Login Daten", slugname: "section_ig_login" },
 ];
+
+export function roundDecimal(number, digitsBehindComma = 2, CommaSymbol = ",") {
+  let pot = 10 ** digitsBehindComma;
+  return (Math.floor(number * pot) / pot).toString().replace(".", CommaSymbol);
+}
+
+export function getDateStringForStartOfMonth() {
+  let date = new Date();
+  return moment(date).format("YYYY-MM") + "-01";
+}

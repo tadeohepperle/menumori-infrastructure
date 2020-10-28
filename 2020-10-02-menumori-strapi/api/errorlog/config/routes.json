@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/errorlogs",
+      "handler": "errorlog.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/errorlogs/count",
+      "handler": "errorlog.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/errorlogs/:id",
+      "handler": "errorlog.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/errorlogs",
+      "handler": "errorlog.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/errorlogs/:id",
+      "handler": "errorlog.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/errorlogs/:id",
+      "handler": "errorlog.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-export function OwnedBusinessesSelect({ onValueChange, options }) {
+export function DashBoardSelect({
+  onValueChange,
+  options,
+  chosenOptionID,
+  title,
+}) {
   //options = { title: "Mexico", id: "mex32" };
 
   const [disabled, setDisabled] = useState(false);
 
   return (
-    <div class="w-full md:w-1/3 px-6 mb-6 md:mb-0">
+    <div class="w-full md:w-1/2 px-6 mb-6 md:mb-0">
       <label
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-state"
       >
-        Dashboard verwalten für
+        {title}
       </label>
       <div class="relative select-none ">
         <select
           class="cursor-pointer block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           id="grid-state"
           disabled={disabled || options.length <= 0}
+          value={chosenOptionID}
           onChange={async (e) => {
             if (!disabled) {
               setDisabled(true);

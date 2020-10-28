@@ -45,7 +45,10 @@ export default class IgBotV20201004 extends BotBehavior {
       // react to the storymention:
       console.log("STORYMENTION.");
     } catch (ex) {
-      console.error(ex);
+      this.botInstance.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        ex,
+        3
+      );
     }
   }
 
@@ -73,7 +76,10 @@ export default class IgBotV20201004 extends BotBehavior {
       }
       console.log("DM RECEIVED.");
     } catch (ex) {
-      console.error(ex);
+      this.botInstance.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        ex,
+        3
+      );
     }
   }
 
@@ -235,7 +241,7 @@ export default class IgBotV20201004 extends BotBehavior {
         comply_text: behaviorSettings.comply_text,
       };
       let textToSend = pythonStringFormat(textTemplate, parameters);
-      console.log(textToSend);
+      //console.log(textToSend);
 
       // NACHRICHT ALS GESEHEN MARKIEREN:
 
@@ -278,7 +284,10 @@ export default class IgBotV20201004 extends BotBehavior {
         ig_action.streakshortid
       );
     } catch (ex) {
-      console.error(ex);
+      this.botInstance.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        ex,
+        3
+      );
     }
   }
 

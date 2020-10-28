@@ -62,6 +62,6 @@ async function updateBotInstance(
         throw new Error(`Error: /business-changed with unknown flag: ${flag}`);
     }
   } catch (ex) {
-    console.error(ex);
+    startUpPerformer.dataService.handleException(ex, 2);
   }
 }

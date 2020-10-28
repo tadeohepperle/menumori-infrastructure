@@ -157,3 +157,15 @@ html {
   top: 0px;
   visibility: hidden;
 }
+
+.storymention-preview-card {
+  @apply w-full p-2;
+  height: 260px;
+}
+
+.storymention-preview-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  @apply rounded-lg shadow;
+}

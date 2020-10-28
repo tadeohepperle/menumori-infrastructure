@@ -2,7 +2,7 @@
 //
 //
 /////////////////////////////////////////////////////////////////////
-
+import qs from "qs";
 import axios from "axios";
 import {
   setBusinessSettings,
@@ -173,11 +173,30 @@ export async function updateBusinessSettings(
       data: objectForPutRequestBody,
     });
     let newBusinessData = response.data;
+    /*
     console.log("got response from update:");
     console.log(newBusinessData);
+    */
     dispatch(setBusinessSettings(newBusinessData));
 
     return true;
+  } catch (ex) {
+    console.error(ex);
+    return false;
+  }
+}
+
+export async function getBusinessStats(businessID, query, jwt) {
+  try {
+    let url = `${PAPIURL}/businessstats/${businessID}?${qs.stringify(query)}`;
+    const response = await axios({
+      url,
+      method: "GET",
+      headers: {
+        Authorization: `${jwt}`,
+      },
+    });
+    if (response.status == 200) return response.data;
   } catch (ex) {
     console.error(ex);
     return false;

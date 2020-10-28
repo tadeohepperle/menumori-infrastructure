@@ -9,14 +9,11 @@ export const businessStatsHandler = (apiInService: APIINSERVICE) => {
       // PROCESS INCOMING REQUEST INPUT:
       let businessID = req.params.businessid;
       let jwt = req.headers.authorization;
-      console.log(req.query);
       let limitstorymentions =
         req.query.limitstorymentions &&
         typeof req.query.limitstorymentions === "string"
           ? parseInt(req.query.limitstorymentions)
           : 4;
-
-      console.log(limitstorymentions);
       let startdateAsString =
         req.query.startdate && typeof req.query.startdate === "string"
           ? req.query.startdate
@@ -76,11 +73,12 @@ export const businessStatsHandler = (apiInService: APIINSERVICE) => {
         return objectForFrontend;
       });
 
-      // send Data:
+      // calculate other stats:
 
-      res.json({ storyMentionsMapped });
+      // SEND DATA:
+      res.json({ storyMentions: storyMentionsMapped });
     } catch (ex) {
-      console.error(ex);
+      apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       return res
         .status(401)
         .send(

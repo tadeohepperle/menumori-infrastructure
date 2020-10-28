@@ -5,6 +5,7 @@ import textToImage from "text-to-image";
 import Jimp from "jimp";
 import { Business, IgAction, IgLead, Settings } from "../types";
 import { formatDateGerman } from "./utility";
+import STARTUPPERFORMER from "../STARTUPPERFORMER";
 const outputpath = "./data";
 const resourcepath = "./src/resources";
 const brackgroundfile = "background.jpg";
@@ -17,14 +18,10 @@ function dataURIToBuffer(dataURI: string) {
   let regex = /^data:.+\/(.+);base64,(.*)$/;
 
   let matches = dataURI.match(regex);
-  try {
-    if (!matches || !matches[0] || !matches[1]) throw new Error("no macthes!");
-    let ext = matches[1];
-    var data = matches[2];
-    return Buffer.from(data, "base64");
-  } catch (ex) {
-    console.error(ex);
-  }
+  if (!matches || !matches[0] || !matches[1]) throw new Error("no macthes!");
+  let ext = matches[1];
+  var data = matches[2];
+  return Buffer.from(data, "base64");
 }
 
 const positions: { [id: string]: number[] } = {
@@ -41,7 +38,8 @@ export async function generateTicketImage(
   lead: IgLead,
   business: Business,
   complyAction: IgAction,
-  settings: Settings
+  settings: Settings,
+  startUpPerformer: STARTUPPERFORMER
 ): Promise<Buffer | void> {
   try {
     if (
@@ -204,7 +202,7 @@ export async function generateTicketImage(
     promises.unlink(path);
     return outputBuffer;
   } catch (ex) {
-    console.error(ex);
+    startUpPerformer.dataService.handleException(ex);
     return;
   }
 

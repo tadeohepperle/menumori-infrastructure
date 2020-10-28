@@ -148,7 +148,9 @@ export default class BotInstance extends EventEmitter {
 
   async igSessionLogin(session: any) {
     try {
-      console.log(`logging in with sessionstore from database`);
+      console.log(
+        `$BOT::${this.business.slugname} is logging in with sessionstore from database`
+      );
       // login
 
       let sessionClone = JSON.parse(JSON.stringify(session)); // because igClient.state.deserialize() modifies the object itself
@@ -165,7 +167,7 @@ export default class BotInstance extends EventEmitter {
       );
       return true;
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
       return false;
     }
   }
@@ -194,7 +196,7 @@ export default class BotInstance extends EventEmitter {
       );
       return true;
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 4);
       return false;
     }
     // return { session, sessionUser / ig_user_id };
@@ -202,12 +204,12 @@ export default class BotInstance extends EventEmitter {
 
   async testIfLoggedIn() {
     try {
-      console.log("_____inbox:________________________");
+      console.log("_____inbox:_____");
       const inbox = await this.igClient.feed.directInbox().request();
       console.log(inbox);
       writeFileSync("./IgTestFile.json", JSON.stringify(inbox));
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 2);
     }
   }
 
@@ -256,7 +258,7 @@ export default class BotInstance extends EventEmitter {
       console.log("realtime connection established.");
       return true;
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
       return false;
     }
   }
@@ -361,12 +363,14 @@ export default class BotInstance extends EventEmitter {
     try {
       throw e;
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 2);
     }
   }
 
   async realTimeEventClose(): Promise<void> {
-    console.log("realtime connection closed from instagram");
+    console.log(
+      "BOT::${this.business.slugname}: realTimeEventClose() triggered, realtime connection closed from instagram"
+    );
   }
 
   log(content: any) {
@@ -419,6 +423,7 @@ export default class BotInstance extends EventEmitter {
       // was way too compliceted, lets keep it very simple:
       // (I tried to make it more complicated, split up in chunks and all so that it is harder to detect for instagram. But this solutions looks best for now.)
       // bei unserer Testmessage: 273 chars sollte 4 bis 8 Sekunden dauern, damit Nutzer ein gutes Gefühl haben (aber ist eigentlich zu schnell für Menschen)
+
       let timeToDelivery = content_text.length * 15; // in ms
 
       this.igClient.realtime.direct.indicateActivity({
@@ -429,7 +434,7 @@ export default class BotInstance extends EventEmitter {
       await waitPromiseRandomizeTime(timeToDelivery, timeToDelivery * 2); // between 8 and 13 seconds;
       await thread.broadcastText(content_text);
     } catch (ex) {
-      console.error(ex);
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
     }
   }
 

@@ -5,7 +5,7 @@ export default function SimpleHeadingAndSubHeading({
 }) {
   return (
     <div
-      class={`flex flex-wrap w-full flex-col px-6 mt-8${
+      class={`flex flex-wrap w-full flex-col px-6${
         loading ? "animate-pulse" : ""
       }`}
     >

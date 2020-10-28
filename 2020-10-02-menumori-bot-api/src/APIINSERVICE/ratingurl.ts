@@ -19,7 +19,7 @@ export const ratingUrlHandler = (apiInService: APIINSERVICE) => {
         } else res.status(400).send();
       } else res.status(400).send();
     } catch (ex) {
-      console.error(ex);
+      apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       res.status(400).send();
     }
   };

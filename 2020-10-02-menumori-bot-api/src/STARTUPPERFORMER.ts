@@ -30,7 +30,7 @@ export default class STARTUPPERFORMER {
 
   async run() {
     console.log("STARTING MENUMORI INSTAGRAM BOT API:");
-    console.log(this.SETTINGS);
+    console.log("SETTINGS: ", this.SETTINGS);
     await this.dataService.run();
     await this.botKeeperService.run();
     await this.apiInService.run();

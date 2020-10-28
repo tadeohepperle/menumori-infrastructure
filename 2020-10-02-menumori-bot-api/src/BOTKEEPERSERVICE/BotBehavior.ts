@@ -137,7 +137,10 @@ export class BotBehavior {
         await this.dataService.postRecord("ig-actions", agbMessageAction);
       }
     } catch (ex) {
-      console.error(ex);
+      this.botInstance.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        ex,
+        3
+      );
     }
   }
 
@@ -193,7 +196,11 @@ export class BotBehavior {
         return lead;
       }
     } catch (ex) {
-      this.botInstance.logerr(ex);
+      //this.botInstance.logerr(ex);
+      this.botInstance.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        ex,
+        3
+      );
       return null;
     }
   }

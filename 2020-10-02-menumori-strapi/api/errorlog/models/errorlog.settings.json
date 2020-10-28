@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "errorlogs",
+  "info": {
+    "name": "errorlog"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "message": {
+      "type": "string"
+    },
+    "stack": {
+      "type": "text"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "timestamp": {
+      "type": "date"
+    },
+    "flag": {
+      "type": "string"
+    }
+  }
+}

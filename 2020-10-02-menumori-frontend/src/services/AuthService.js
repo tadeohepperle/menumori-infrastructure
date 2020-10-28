@@ -61,25 +61,22 @@ export async function handleAuth(
 
   // SEND USER TO DIFFERENT PAGE/DONT LET THEM ACCESS THE PROTECTED PAGE
   if (!verified && badRequestLocation) {
-    if (ctx.res) {
-      ctx.res.writeHead(302, {
-        Location: badRequestLocation,
-      });
-      ctx.res.end();
-    } else {
-      await Router.push(badRequestLocation);
-    }
+    await redirectTo(ctx, badRequestLocation);
   } else if (verified && goodRequestLocation) {
-    if (ctx.res) {
-      ctx.res.writeHead(302, {
-        Location: goodRequestLocation,
-      });
-      ctx.res.end();
-    } else {
-      await Router.push(goodRequestLocation);
-    }
+    await redirectTo(ctx, goodRequestLocation);
   } else {
     // just do nothing
+  }
+}
+
+export async function redirectTo(ctx, location) {
+  if (ctx.res) {
+    ctx.res.writeHead(302, {
+      Location: location,
+    });
+    ctx.res.end();
+  } else {
+    await Router.push(location);
   }
 }
 

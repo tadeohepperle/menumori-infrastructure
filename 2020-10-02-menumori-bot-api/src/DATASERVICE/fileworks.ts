@@ -42,6 +42,6 @@ export async function appendToJSONFile(
     arr.push(object);
     await promises.writeFile(filename, JSON.stringify(arr), encoding);
   } catch (ex) {
-    // console.log(ex);
+    console.error(ex);
   }
 }

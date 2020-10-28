@@ -54,7 +54,7 @@ export default class BOTKEEPERSERVICE extends SERVICE {
       }
       botInstance.business = updatedBusiness;
     } catch (ex) {
-      console.error(ex);
+      this.STARTUPPERFORMER.dataService.handleException(ex, 2);
     }
   }
 
@@ -75,7 +75,7 @@ export default class BOTKEEPERSERVICE extends SERVICE {
         );
       }
     } catch (ex) {
-      console.error(ex);
+      this.STARTUPPERFORMER.dataService.handleException(ex, 2);
     }
   }
 
@@ -91,7 +91,7 @@ export default class BOTKEEPERSERVICE extends SERVICE {
         delete this.botInstances[businessID];
       }
     } catch (ex) {
-      console.error(ex);
+      this.STARTUPPERFORMER.dataService.handleException(ex, 2);
     }
   }
 

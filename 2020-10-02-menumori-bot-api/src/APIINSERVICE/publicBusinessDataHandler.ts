@@ -56,7 +56,7 @@ export const publicBusinessDataHandler = (apiInService: APIINSERVICE) => {
         } else res.status(400).send();
       } else res.status(400).send();
     } catch (ex) {
-      console.error(ex);
+      apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       res.status(400).send();
     }
   };
@@ -104,7 +104,7 @@ export const allPublicBusinessDataHandler = (apiInService: APIINSERVICE) => {
         res.json(allPublicBusinessData);
       } else res.status(404).send;
     } catch (ex) {
-      console.error(ex);
+      apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       res.status(400).send();
     }
   };
@@ -115,7 +115,6 @@ export const shallowBusinessDataByBusinessIds = (
 ) => {
   return async (req: Request, res: Response) => {
     try {
-      console.log();
       let ids = req.body.ids as string[];
 
       let businessPromises = ids.map((id) =>
@@ -132,7 +131,7 @@ export const shallowBusinessDataByBusinessIds = (
 
       res.json(returnData);
     } catch (ex) {
-      console.error(ex);
+      apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       res.status(400).send();
     }
   };
