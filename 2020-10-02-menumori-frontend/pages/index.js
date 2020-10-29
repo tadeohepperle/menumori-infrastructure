@@ -1,8 +1,12 @@
+import LandingpageHeader from "../src/components/landingpage/LandingpageHeader";
+import LandingpageSteps from "../src/components/landingpage/LandingpageSteps";
 import Layout from "../src/components/Layout";
 
 export default function Home() {
   return (
     <Layout>
+      <LandingpageHeader></LandingpageHeader>
+      <LandingpageSteps></LandingpageSteps>
       <section className="text-gray-700 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
