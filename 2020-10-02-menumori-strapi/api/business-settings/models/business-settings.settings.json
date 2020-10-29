@@ -28,8 +28,8 @@
       "component": "legal.business-contact"
     },
     "business": {
-      "via": "business_settings",
-      "model": "business"
+      "model": "business",
+      "via": "business_settings"
     },
     "gift": {
       "type": "text"
@@ -57,6 +57,10 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "rating_platform": {
+      "type": "string",
+      "default": "Google"
     }
   }
 }

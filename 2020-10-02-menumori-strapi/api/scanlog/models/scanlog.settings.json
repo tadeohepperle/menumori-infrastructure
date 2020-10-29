@@ -17,6 +17,12 @@
     },
     "qrcode_position": {
       "type": "integer"
+    },
+    "flag": {
+      "type": "string"
+    },
+    "data": {
+      "type": "json"
     }
   }
 }

@@ -1,6 +1,6 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { getURLOfRatingPage } from "../../src/services/DataService";
+import { getRatingURL } from "../../src/services/DataService";
 
 const Page = ({ slugname, locationToPushTo }) => {
   useEffect(() => {
@@ -22,7 +22,7 @@ Page.getInitialProps = async function (context) {
   let { slugname } = context.query;
   console.log("salugname: ", slugname);
 
-  let googleRatingLink = await getURLOfRatingPage(slugname);
+  let googleRatingLink = await getRatingURL(slugname);
   let locationToPushTo = slugname && googleRatingLink ? googleRatingLink : "/";
   console.log(locationToPushTo);
 

@@ -23,8 +23,8 @@
       "via": "business"
     },
     "business_settings": {
-      "model": "business-settings",
-      "via": "business"
+      "via": "business",
+      "model": "business-settings"
     },
     "short_id": {
       "type": "string",

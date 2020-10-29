@@ -301,19 +301,35 @@ const Page = (props) => {
                 id="section_ig_behavior"
                 title="Verhalten auf Instagram"
               >
-                <div>
-                  <EditableField
-                    title="Rating Link"
-                    helper=""
-                    value={changedSettings["rating_url"]}
-                    originalValue={businessSettings.rating_url}
-                    inputOptions={{
-                      placeholder: "https://www.google.de/maps/...",
-                    }}
-                    propertyPath={"rating_url"}
-                    onValueChange={onSettingsInputChange}
-                  ></EditableField>
+                <div class="md:flex mb-6">
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Rating Link"
+                      helper=""
+                      value={changedSettings["rating_url"]}
+                      originalValue={businessSettings.rating_url}
+                      inputOptions={{
+                        placeholder: "https://www.google.de/maps/...",
+                      }}
+                      propertyPath={"rating_url"}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
+                  <div class="md:w-1/2">
+                    <EditableField
+                      title="Rating Plattform"
+                      helper=""
+                      value={changedSettings["rating_platform"]}
+                      originalValue={businessSettings.rating_platform}
+                      inputOptions={{
+                        placeholder: "Google",
+                      }}
+                      propertyPath={"rating_platform"}
+                      onValueChange={onSettingsInputChange}
+                    ></EditableField>
+                  </div>
                 </div>
+
                 <div class="md:flex mb-6">
                   <div class="md:w-1/2">
                     <EditableField

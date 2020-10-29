@@ -8,7 +8,7 @@ import {
   addHoursToDate,
   bufferToReadableStream,
   createAGBLink,
-  createGoogleRatingLink,
+  createRatingLink,
   getVorname,
   isComplyText,
   pythonStringFormat,
@@ -118,10 +118,11 @@ export default class IgBotV20201004 extends BotBehavior {
       .ig_settings.ig_behavior_settings.agb_complied_reply1;
     agb_complied_reply1 = pythonStringFormat(agb_complied_reply1, {
       vorname: getVorname(lead.full_name),
-      link: createGoogleRatingLink(
+      link: createRatingLink(
         this.botInstance.botKeeperService.SETTINGS,
         this.botInstance.business
       ),
+      platform: this.botInstance.business.business_settings.rating_platform,
     });
 
     let agb_complied_reply2 = this.botInstance.business.business_settings
@@ -129,7 +130,7 @@ export default class IgBotV20201004 extends BotBehavior {
 
     agb_complied_reply2 = pythonStringFormat(agb_complied_reply2, {
       vorname: getVorname(lead.full_name),
-      link: createGoogleRatingLink(
+      link: createRatingLink(
         this.botInstance.botKeeperService.SETTINGS,
         this.botInstance.business
       ),

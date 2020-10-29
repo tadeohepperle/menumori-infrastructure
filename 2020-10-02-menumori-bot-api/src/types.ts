@@ -123,6 +123,7 @@ export interface BusinessSettings {
   _id: string;
   business: Business | string;
   rating_url: string;
+  rating_platform: string;
   business_category: BusinessCategory | string;
   description: string;
   cover_image: {

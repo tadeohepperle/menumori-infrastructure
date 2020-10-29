@@ -50,7 +50,7 @@ export function pythonStringFormat(text: string, argsObject: any) {
   return text;
 }
 
-export function createGoogleRatingLink(SETTINGS: Settings, business: Business) {
+export function createRatingLink(SETTINGS: Settings, business: Business) {
   return `${SETTINGS.FRONTENDURL}/r/${business.short_id}`;
 }
 

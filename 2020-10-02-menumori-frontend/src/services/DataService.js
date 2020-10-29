@@ -18,7 +18,7 @@ export const PAPIURL = "http://localhost:1338"; // public API URL = menumori-bot
 //
 /////////////////////////////////////////////////////////////////////
 
-export async function getURLOfRatingPage(slugname) {
+export async function getRatingURL(slugname) {
   // transforms the slugname into the link to google ratings, which is then forwarded to thatz link.
   // executed by pages/r/[slugname].js
   // ask papi:

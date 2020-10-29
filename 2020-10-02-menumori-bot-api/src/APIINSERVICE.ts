@@ -4,14 +4,16 @@ import { SERVICE } from "./types";
 import socketIo from "socket.io";
 import http from "http";
 import { businessChangeHandler } from "./APIINSERVICE/businessChangeHandler";
-import { ratingUrlHandler } from "./APIINSERVICE/ratingurl";
+import {
+  ratingUrlHandler,
+  instagramUrlHandler,
+} from "./APIINSERVICE/urlRedirectHandler";
 import {
   allPublicBusinessDataHandler,
   publicBusinessDataHandler,
   shallowBusinessDataByBusinessIds,
 } from "./APIINSERVICE/publicBusinessDataHandler";
 import { businessStatsHandler } from "./APIINSERVICE/businessStatsHandler";
-import { instagramUrlHandler } from "./APIINSERVICE/instagramurl";
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
