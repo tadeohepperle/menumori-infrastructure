@@ -214,3 +214,26 @@ export async function getBusinessStats(businessID, query, jwt) {
     return false;
   }
 }
+
+export async function postContactMessage(message, flag, email, name) {
+  let record = { message, flag, email, name };
+  try {
+    let response = await axios({
+      url: `${PAPIURL}/contact/`,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: record,
+    });
+    if (response.status === 200 && response?.data?.message) {
+      return response.data.message;
+    } else
+      throw new Error(
+        `Could not send successfully Contact Message: ${JSON.stringify(record)}`
+      );
+  } catch (ex) {
+    console.error(ex);
+    return false;
+  }
+}

@@ -1,4 +1,20 @@
+import { useState } from "react";
+import { postContactMessage } from "../services/DataService";
+
 export default function Footer() {
+  const [state, setState] = useState({
+    email: "",
+    sent: false,
+    loading: false,
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setState({ ...state, loading: true });
+    await postContactMessage(null, "NEWSLETTERSIGNUP", state.email, null);
+    setState({ ...state, loading: false, sent: true });
+  }
+
   return (
     <>
       <footer className="body-font">
@@ -49,23 +65,42 @@ export default function Footer() {
                 </li>
               </nav>
             </div>
+            {state.sent}
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="footer-heading">Newsletter erhalten</h2>
-              <div className="xl:flex-no-wrap md:flex-no-wrap lg:flex-wrap flex-wrap justify-center md:justify-start my-4">
-                <input
-                  className="font-bold w-50 text-gray-900 text-bold sm:w-auto rounded xl:mr-4 lg:mr-0 sm:mr-4 mr-2 border border-gray-400 focus:outline-none focus:border-teal-500 text-base py-2 px-4"
-                  placeholder="max@mustermann.de"
-                  type="text"
-                />
+              {state.sent ? (
+                <p className="text-gray-600 mt-2 md:text-left text-center text-base">
+                  Vielen Dank für die Anmeldung zu unserem Newsletter. Wir haben
+                  Ihnen eine Anmeldebestätigung per Mail zukommen lassen.
+                </p>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <h2 className="footer-heading">Newsletter erhalten</h2>
+                  <div className="xl:flex-no-wrap md:flex-no-wrap lg:flex-wrap flex-wrap justify-center md:justify-start my-4">
+                    <input
+                      className="font-bold w-50 text-gray-700 text-bold sm:w-auto rounded xl:mr-4 lg:mr-0 sm:mr-4 mr-2 border border-gray-400 focus:outline-none focus:border-teal-500 text-base py-2 px-4"
+                      placeholder="max@mustermann.de"
+                      type="email"
+                      value={state.email}
+                      onChange={(e) =>
+                        setState({ ...state, email: e.target.value })
+                      }
+                      disabled={state.loading}
+                      required
+                    />
 
-                <button className="btn mt-4 flex-shrink-0 inline-flex w-50">
-                  eintragen
-                </button>
-              </div>
-              <p className="text-gray-600 mt-2 md:text-left text-center text-base">
-                Durch Klicken des Buttons bestägigen Sie die Eintragung in
-                unseren Newsletter.
-              </p>
+                    <button
+                      className="btn mt-4 flex-shrink-0 inline-flex w-50"
+                      type="submit"
+                    >
+                      eintragen
+                    </button>
+                  </div>
+                  <p className="text-gray-600 mt-2 md:text-left text-center text-base">
+                    Durch Klicken des Buttons bestägigen Sie die Eintragung in
+                    unseren Newsletter.
+                  </p>
+                </form>
+              )}
             </div>
           </div>
         </div>

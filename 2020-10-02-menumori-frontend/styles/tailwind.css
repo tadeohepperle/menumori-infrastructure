@@ -169,3 +169,7 @@ html {
   object-fit: cover;
   @apply rounded-lg shadow;
 }
+
+.section-emphasis {
+  @apply bg-orange-100 border-4 shadow-lg;
+}

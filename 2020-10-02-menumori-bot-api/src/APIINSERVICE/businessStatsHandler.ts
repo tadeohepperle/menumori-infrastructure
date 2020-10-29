@@ -80,7 +80,7 @@ export const businessStatsHandler = (apiInService: APIINSERVICE) => {
     } catch (ex) {
       apiInService.STARTUPPERFORMER.dataService.handleException(ex, 1);
       return res
-        .status(401)
+        .status(403)
         .send(
           "You are not authorized to retrieve statistics for this business."
         );

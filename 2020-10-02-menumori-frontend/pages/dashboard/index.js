@@ -189,7 +189,7 @@ const Page = (props) => {
 
   return (
     <Layout>
-      {true && (
+      {false && (
         <div className="bg-blue-500">{JSON.stringify(ownedBusinesses)}</div>
       )}
       <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">

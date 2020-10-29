@@ -14,6 +14,7 @@ import {
   shallowBusinessDataByBusinessIds,
 } from "./APIINSERVICE/publicBusinessDataHandler";
 import { businessStatsHandler } from "./APIINSERVICE/businessStatsHandler";
+import { contactFormHandler } from "./APIINSERVICE/contactFormHandler";
 
 export default class APIINSERVICE extends SERVICE {
   async run() {
@@ -39,6 +40,7 @@ export default class APIINSERVICE extends SERVICE {
       app.get("/allbusinessdata", allPublicBusinessDataHandler(this));
       app.get("/businessstats/:businessid", businessStatsHandler(this));
       app.post("/businessesbyids", shallowBusinessDataByBusinessIds(this));
+      app.post("/contact", contactFormHandler(this));
     } else {
       app.post("/business-changed", businessChangeHandler(this));
     }

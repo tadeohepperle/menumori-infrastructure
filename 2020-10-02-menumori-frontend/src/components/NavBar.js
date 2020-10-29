@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../services/AuthService";
+import { SVGElements } from "./small/SVG";
 
 export default function NavBar() {
   const router = useRouter();
@@ -24,11 +25,11 @@ export default function NavBar() {
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
+            strokeWidth="4"
             className="w-10 h-10 text-white p-2 bg-teal-500 rounded-full"
             viewBox="0 0 24 24"
           >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            {SVGElements.MENUMORI()}
           </svg>
           <span className="ml-3 text-xl font-bold uppercase cursor-pointer text-teal-500">
             Menumori
@@ -38,13 +39,15 @@ export default function NavBar() {
           <a className="navbar-link" href="referenzen">
             Referenzen
           </a>
-          <a className="navbar-link" href="menumori">
-            Über uns
+          {false && (
+            <a className="navbar-link" href="menumori">
+              Über uns
+            </a>
+          )}
+          <a className="navbar-link" href="/#contact">
+            Kontakt
           </a>
-          <a className="navbar-link" href="preise">
-            Preise
-          </a>
-          <a className="navbar-link" href="features">
+          <a className="navbar-link" href="/#features">
             Features
           </a>
           {loggedIn /* store.jwt */ && (
