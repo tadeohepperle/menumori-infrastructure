@@ -36,9 +36,11 @@ export default function NavBar() {
           </span>
         </a>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <a className="navbar-link" href="referenzen">
-            Referenzen
-          </a>
+          {false && (
+            <a className="navbar-link" href="referenzen">
+              Referenzen
+            </a>
+          )}
           {false && (
             <a className="navbar-link" href="menumori">
               Über uns

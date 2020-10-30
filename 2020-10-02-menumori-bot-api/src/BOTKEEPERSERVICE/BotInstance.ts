@@ -155,7 +155,6 @@ export default class BotInstance extends EventEmitter {
       console.log(
         `$BOT::${this.business.slugname} is logging in with sessionstore from database`
       );
-      // login
 
       let sessionClone = JSON.parse(JSON.stringify(session)); // because igClient.state.deserialize() modifies the object itself
       await this.igClient.simulate.preLoginFlow();

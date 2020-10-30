@@ -25,7 +25,10 @@ const LandingpageContactForm = () => {
   }
 
   return (
-    <section class="text-gray-700 body-font relative" id="contact">
+    <section
+      class="text-gray-700 body-font relative section-emphasis"
+      id="contact"
+    >
       <div class="container px-5 py-24 mx-auto">
         <HeadingBig
           title="Fragen kostet nichts - Wir beraten Sie gerne:"
