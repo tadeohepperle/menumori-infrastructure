@@ -30,7 +30,9 @@ export default function Footer() {
                   <a className="footer-link">Impressum</a>
                 </li>
                 <li>
-                  <a className="footer-link">Kontakt</a>
+                  <a className="footer-link" href="/#contact">
+                    Kontakt
+                  </a>
                 </li>
               </nav>
             </div>
@@ -38,16 +40,31 @@ export default function Footer() {
               <h2 className="footer-heading">Referenzen</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <a className="footer-link">Prangerle Solutions</a>
+                  <a
+                    className="footer-link"
+                    href="https://www.prangerle-solutions.de/"
+                  >
+                    Prangerle Solutions
+                  </a>
                 </li>
                 <li>
                   <a className="footer-link">Über uns</a>
                 </li>
                 <li>
-                  <a className="footer-link">Arma 3 Reallife Server</a>
+                  <a
+                    className="footer-link"
+                    href="https://www.lakesideliferpg.com/core/"
+                  >
+                    Arma 3 Reallife Server
+                  </a>
                 </li>
                 <li>
-                  <a className="footer-link">VR-Brillen Preisvergleich</a>
+                  <a
+                    className="footer-link"
+                    href="https://www.vr-preisvergleich.de/"
+                  >
+                    VR-Brillen Preisvergleich
+                  </a>
                 </li>
               </nav>
             </div>

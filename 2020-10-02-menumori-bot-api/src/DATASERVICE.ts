@@ -3,7 +3,7 @@ import axios from "axios";
 import { objectToQueryString } from "./DATASERVICE/utility";
 import FormData from "form-data";
 import STARTUPPERFORMER from "./STARTUPPERFORMER";
-import ERRORHANDLER from "./DATASERVICE/errorHandler";
+import ERRORHANDLER from "./DATASERVICE/ERRORHANDLER";
 
 export default class DATASERVICE extends SERVICE {
   jwt: any;

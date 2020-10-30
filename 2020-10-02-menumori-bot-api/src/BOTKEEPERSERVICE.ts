@@ -35,6 +35,10 @@ export default class BOTKEEPERSERVICE extends SERVICE {
     //console.log("BOTKEEPERSERVICE startup successful!");
   }
 
+  getBotInstanceByBusinessID(businessID: string) {
+    return this.botInstances[businessID];
+  }
+
   async updateBotBusiness(businessID: string) {
     try {
       const botInstance = this.botInstances[businessID];

@@ -19,7 +19,7 @@ export default class STARTUPPERFORMER {
   botKeeperService: BOTKEEPERSERVICE;
   flag: string;
 
-  constructor(flag: "NOIG" | "IG" | "PAPI") {
+  constructor(flag: "NOIG" | "IG" | "PAPI" | "NORUN") {
     this.flag = flag;
     this.SETTINGS = readJsonSettingsFile();
     if (flag === "NOIG") this.SETTINGS.CONNECTTOINSTAGRAM = false;
@@ -29,6 +29,7 @@ export default class STARTUPPERFORMER {
   }
 
   async run() {
+    if (this.flag === "NORUN") return;
     console.log("STARTING MENUMORI INSTAGRAM BOT API:");
     console.log("SETTINGS: ", this.SETTINGS);
     await this.dataService.run();

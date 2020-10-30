@@ -123,26 +123,30 @@ export default class BotInstance extends EventEmitter {
     this.botInstanceStatus = BotInstanceStatus.INACTIVE;
   }
   async turnOn() {
-    console.log(`$BOT::${this.business.slugname} is turning on...`);
-    this.botInstanceStatus = BotInstanceStatus.ACTIVE;
-
-    // LOGGING IN
     // determine if session store would be available to log in via it:
-    let session = this.business.business_data.ig_data.ig_session_store;
-    //console.log("session : ", session);
-    let loggedIn = false; // _________
-    if (true) {
-      loggedIn = await this.igSessionLogin(session);
-    } else {
-      loggedIn = await this.igPasswordLogin();
-    }
-    let realtimeConnectionSuccessful = false;
-    if (loggedIn) {
-      realtimeConnectionSuccessful = await this.makeRealTimeConnection();
-    }
-    // continue only if login and realtime connection was successfull:
-    if (realtimeConnectionSuccessful) {
-      // ...
+
+    try {
+      let session = this.business.business_data.ig_data.ig_session_store;
+      if (!session) {
+        throw new Error(
+          `$BOT::${this.business.slugname} tried to turn on, but no session is available to use as login.`
+        );
+      }
+      console.log(`$BOT::${this.business.slugname} is turning on...`);
+      this.botInstanceStatus = BotInstanceStatus.ACTIVE;
+
+      // LOGGING IN
+      let loggedIn = await this.igSessionLogin(session);
+      let realtimeConnectionSuccessful = false;
+      if (loggedIn) {
+        realtimeConnectionSuccessful = await this.makeRealTimeConnection();
+      }
+      if (realtimeConnectionSuccessful) {
+        // ... fetch initial data or something ...
+        // ... currently not in use ...
+      }
+    } catch (ex) {
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex);
     }
   }
 
@@ -174,30 +178,43 @@ export default class BotInstance extends EventEmitter {
 
   async igPasswordLogin() {
     try {
+      let igUsername = this.business.business_settings.ig_settings.username;
+      let igPassword = this.business.business_settings.ig_settings.password;
       console.log(
-        `BOT::${this.business.slugname} is logging in with username ${this.business.business_settings.ig_settings.username} and password ********...`
+        `BOT::${this.business.slugname} performs igPasswordLogin() with username: ${igUsername} and password: ${igPassword}`
       );
+
+      if (!(igUsername && igPassword)) {
+        throw new Error(
+          `BOT::${this.business.slugname} tried to perform igPasswordLogin() with username: ${igUsername} and password: ${igPassword} but at least one of them was not set.`
+        );
+      }
+
       // login
-      await this.igClient.account.login(
-        this.business.business_settings.ig_settings.username,
-        this.business.business_settings.ig_settings.password
-      );
+      await this.igClient.account.login(igUsername, igPassword);
       // update ig_data in database, save session for later, to not have to login again but use the session file:
       const session = await this.igClient.state.serialize();
-      writeFileSync("sessionwithall.json", JSON.stringify(session));
+      writeFileSync(
+        `./logs/BOT-${this.business.slugname}-session-with-constants.json`,
+        JSON.stringify(session)
+      );
       this.business.business_data.ig_data.ig_user_id = getUserID(session);
       delete session.constants;
-      writeFileSync("session.json", JSON.stringify(session));
+      writeFileSync(
+        `./logs/BOT-${this.business.slugname}-session.json`,
+        JSON.stringify(session)
+      );
+
       this.business.business_data.ig_data.ig_session_store = session;
       this.business.business_data.ig_data.last_password_login = new Date();
       this.business.business_data.ig_data.last_session_login = new Date(); // is also set because password login basically create a session login
       await this.botKeeperService.STARTUPPERFORMER.dataService.updateBusinessData(
         this.business
       );
-      return true;
+      return session;
     } catch (ex) {
       this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 4);
-      return false;
+      return null;
     }
     // return { session, sessionUser / ig_user_id };
   }

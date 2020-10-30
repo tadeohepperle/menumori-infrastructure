@@ -5,7 +5,7 @@ export interface Settings {
   STRAPIUSERNAME: string;
   STRAPIPASSWORD: string;
   INTERNALSERVICESSECRET: string;
-  USEPROXY: true;
+  USEPROXY: boolean;
   PROXYHOST: string;
   PROXYPORT: string;
   CONNECTTOINSTAGRAM: boolean;
