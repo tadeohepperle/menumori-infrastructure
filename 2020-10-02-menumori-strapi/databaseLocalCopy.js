@@ -20,7 +20,6 @@ module.exports = ({ env }) => ({
 });
 
 /*
-Hallo
 
 //
 // Before 2020-10-14 we used remote atlas cluster at mongodb+srv://admin:VtBVkxIvs3J0zske@prangerle-solutions-dat.84pzl.mongodb.net/2020-10-02-menumori-strapi?retryWrites=true&w=majority
