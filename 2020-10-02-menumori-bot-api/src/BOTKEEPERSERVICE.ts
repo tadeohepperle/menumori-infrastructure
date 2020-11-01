@@ -4,14 +4,22 @@ import { waitPromiseRandomizeTime } from "./DATASERVICE/utility";
 import { Business, SERVICE } from "./types";
 import { Settings } from "./types";
 import IgBotV20201004 from "./BOTKEEPERSERVICE/BotBehaviors/IgBotV20201004";
+import ScheduleWatcher from "./BOTKEEPERSERVICE/ScheduleWatcher";
+import STARTUPPERFORMER from "./STARTUPPERFORMER";
 
 export default class BOTKEEPERSERVICE extends SERVICE {
   // we use an array and not a dictionairy because
   botInstances: { [id: string]: BotInstance } = {};
+  scheduleWatcher: ScheduleWatcher;
+
+  constructor(startupperformer: STARTUPPERFORMER) {
+    super(startupperformer);
+    this.scheduleWatcher = new ScheduleWatcher(this);
+  }
 
   async run() {
     if (this.STARTUPPERFORMER.flag == "PAPI") return;
-
+    await this.scheduleWatcher.run();
     //console.log("BOTKEEPERSERVICE startup...");
 
     // GET DATA FROM ALL BUSINESSES AND CREATE INSTAGRAM BOT INSTANCES FOR EACH;
@@ -64,6 +72,10 @@ export default class BOTKEEPERSERVICE extends SERVICE {
 
   registerNewBot(business: Business) {
     this.botInstances[business.id] = new BotInstance(this, business);
+  }
+
+  getAllBotInstances() {
+    return Object.keys(this.botInstances).map((key) => this.botInstances[key]);
   }
 
   async registerNewBotByID(businessID: string) {

@@ -32,6 +32,11 @@ export enum BotInstanceStatus {
   INACTIVE = "INACTIVE",
 }
 
+export enum BotOnlineStatus {
+  ONLINE = "ONLINE",
+  OFFLINE = "OFFLINE",
+}
+
 export enum BotEmittingEvents {
   StoryMention = "StoryMention",
   PostMention = "PostMention",
@@ -158,6 +163,8 @@ export interface BusinessSettings {
       updatedAt: string;
       activated: boolean;
       id: string;
+      online_time_start: string;
+      online_time_end: string;
     };
     createdAt: string;
     updatedAt: string;
@@ -194,6 +201,7 @@ export interface Business {
     business: string;
     ig_data: {
       bot_instance_status: BotInstanceStatus;
+      bot_online_status: BotOnlineStatus;
       _id: string;
       follower_count: number;
       ig_bio: string;

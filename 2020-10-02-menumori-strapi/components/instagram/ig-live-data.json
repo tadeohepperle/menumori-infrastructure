@@ -38,6 +38,14 @@
     },
     "last_session_login": {
       "type": "datetime"
+    },
+    "bot_online_status": {
+      "type": "enumeration",
+      "enum": [
+        "ONLINE",
+        "OFFLINE"
+      ],
+      "default": "OFFLINE"
     }
   }
 }

@@ -43,6 +43,14 @@
     "comply_text": {
       "type": "string",
       "default": "ja"
+    },
+    "online_time_start": {
+      "type": "time",
+      "default": "07:00:00"
+    },
+    "online_time_end": {
+      "type": "time",
+      "default": "23:00:00"
     }
   }
 }

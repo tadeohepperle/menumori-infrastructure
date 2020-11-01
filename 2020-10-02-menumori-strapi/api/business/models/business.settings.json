@@ -19,8 +19,8 @@
       "via": "businesses"
     },
     "business_data": {
-      "model": "business-data",
-      "via": "business"
+      "via": "business",
+      "model": "business-data"
     },
     "business_settings": {
       "via": "business",

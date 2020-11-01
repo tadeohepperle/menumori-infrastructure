@@ -5,6 +5,7 @@ import {
   Business,
   BotEmittingEvents,
   IgIncomingEventData,
+  BotOnlineStatus,
 } from "../types";
 import { DirectThreadEntity, IgApiClient } from "instagram-private-api";
 import {
@@ -60,15 +61,33 @@ export default class BotInstance extends EventEmitter {
   }
   set botInstanceStatus(val: BotInstanceStatus) {
     let change =
-      this._business.business_data.ig_data.bot_instance_status != val;
+      val != this._business.business_data.ig_data.bot_instance_status;
     // updates the status automatically in the database:
     if (change) {
       this._business.business_data.ig_data.bot_instance_status = val;
+      if (val == BotInstanceStatus.INACTIVE || val == BotInstanceStatus.ERROR) {
+        this._business.business_data.ig_data.bot_online_status =
+          BotOnlineStatus.OFFLINE;
+      }
       this.botKeeperService.STARTUPPERFORMER.dataService.updateBusinessData(
         this.business
       );
 
       // also sends message to clients via websocket that status has changed:
+    }
+  }
+
+  get botOnlineStatus() {
+    return this._business.business_data.ig_data.bot_online_status;
+  }
+
+  set botOnlineStatus(val: BotOnlineStatus) {
+    let change = val != this._business.business_data.ig_data.bot_online_status;
+    if (change) {
+      this._business.business_data.ig_data.bot_online_status = val;
+      this.botKeeperService.STARTUPPERFORMER.dataService.updateBusinessData(
+        this.business
+      );
     }
   }
 
@@ -118,13 +137,68 @@ export default class BotInstance extends EventEmitter {
     );
   }
 
+  /**
+   * sends Foregroundstate to instagram realtime client to act like bot is online or online. Also updates bot_online_status in database.
+   * Warning: If changed to offline, we no longer receive live actions/messages from instagram, so we better only turn it offline for each business, when it is closed.
+   * This function should only be implemented by the ScheduleWatcher of the BotKeeperService.
+   * @param val BotOnlineStatus, can be "ONLINE" or "OFFLINE"
+   */
+  async changeInstagramForegroundState(val: BotOnlineStatus) {
+    // console.log(`change instagram foreground state to: ${val}`);
+    // if bot is not even running return right away:
+    if (this.botInstanceStatus != BotInstanceStatus.ACTIVE) {
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+        {
+          message: `BOT::${this.business.slugname} was tried to be called changeInstagramForegroundState("${val}") on, even though its status is currently not BotInstanceStatus.ACTIVE`,
+        },
+        0
+      );
+      return;
+    }
+    // only act if value was changed:
+    let change = val != this.botOnlineStatus;
+    if (change) {
+      this.botOnlineStatus = val;
+      try {
+        if (val === BotOnlineStatus.OFFLINE) {
+          await this.igClient.realtime.direct.sendForegroundState({
+            inForegroundApp: false,
+            inForegroundDevice: false,
+            keepAliveTimeout: 900,
+          });
+          this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+            {
+              message: `BOT::${this.business.slugname} successfully was set to Instagram ForeGroundState ${val}`,
+            },
+            0
+          );
+        } else if (val === BotOnlineStatus.ONLINE) {
+          await this.igClient.realtime.direct.sendForegroundState({
+            inForegroundApp: true,
+            inForegroundDevice: true,
+            keepAliveTimeout: 60,
+          });
+          this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+            {
+              message: `BOT::${this.business.slugname} successfully was set to Instagram ForeGroundState ${val}`,
+            },
+            0
+          );
+        }
+      } catch (ex) {
+        this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+          ex,
+          2
+        );
+      }
+    }
+  }
+
   async turnOff() {
     console.log(`$BOT::${this.business.slugname} is turning off...`);
     this.botInstanceStatus = BotInstanceStatus.INACTIVE;
   }
   async turnOn() {
-    // determine if session store would be available to log in via it:
-
     try {
       let session = this.business.business_data.ig_data.ig_session_store;
       if (!session) {
@@ -134,14 +208,18 @@ export default class BotInstance extends EventEmitter {
       }
       console.log(`$BOT::${this.business.slugname} is turning on...`);
       this.botInstanceStatus = BotInstanceStatus.ACTIVE;
-
       // LOGGING IN
+      // always log in via session store. If none is available, we need to fetch one manually
       let loggedIn = await this.igSessionLogin(session);
       let realtimeConnectionSuccessful = false;
       if (loggedIn) {
         realtimeConnectionSuccessful = await this.makeRealTimeConnection();
       }
       if (realtimeConnectionSuccessful) {
+        this.botOnlineStatus = BotOnlineStatus.ONLINE;
+        console.log(
+          `$BOT::${this.business.slugname} login with session store was successful!`
+        );
         // ... fetch initial data or something ...
         // ... currently not in use ...
       }
