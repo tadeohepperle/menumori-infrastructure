@@ -1,3 +1,5 @@
+// put this in database.js in /config folder
+
 module.exports = ({ env }) => ({
   defaultConnection: "default",
   connections: {
