@@ -1,0 +1,3 @@
+./MENUMORISETTINGS.json
+./2020-10-02-menumori-strapi/config/database.js
+./2020-10-02-menumori-frontend/config.js
