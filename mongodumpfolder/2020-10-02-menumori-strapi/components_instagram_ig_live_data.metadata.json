@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.components_instagram_ig_live_data"}],"uuid":"463e48df99484b31b2c4d6f862afad19"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.components_instagram_ig_live_data"}],"uuid":"448008e5999d44c8a16ecf980ebe7068"}

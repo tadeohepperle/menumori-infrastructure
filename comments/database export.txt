@@ -1,3 +1,15 @@
+#######################################################
+# export local db from tadeos computer:   (02.11.2020)   (to deploy from local to 2er server, should be included in git as well)
+#######################################################
+
+
+mongodump --host="127.0.0.1" --port=27017  --username="tadeo" --password="sajjsdcn8192uzsag" --db="2020-10-02-menumori-strapi" --authenticationDatabase="admin" -o "./mongodumpfolder"
+
+
+#######################################################
+# export remote db:   (10.10.2020)
+#######################################################
+
 source: 
 https://stackoverflow.com/questions/11255630/how-to-export-all-collections-in-mongodb
 https://docs.mongodb.com/database-tools/mongodump/

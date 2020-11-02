@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.ig_actions"}],"uuid":"91d966dd75d54b03bc611d8c73c5f743"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"2020-10-02-menumori-strapi.ig_actions"}],"uuid":"874d4a5d06d748d0bbb26b64b8cca4bb"}
