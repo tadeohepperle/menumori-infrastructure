@@ -1,4 +1,8 @@
 2020-10-02-menumori-strapi/config/database.js
+2020-10-02-menumori-strapi/config/server.js
+MENUMORISETTINGS.json
+2020-10-02-menumori-frontend/config.js
+
 2020-10-02-menumori-strapi/node_modules/
 2020-10-02-menumori-strapi/public/uploads/
 2020-10-02-menumori-strapi/build/
@@ -20,4 +24,3 @@
 
 2020-10-24-simulations/node_modules/
 
-./MENUMORISETTINGS.json
