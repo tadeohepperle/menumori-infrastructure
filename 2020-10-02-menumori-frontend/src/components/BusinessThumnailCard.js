@@ -1,4 +1,4 @@
-import { IAPIURL } from "../services/DataService";
+import { IAPIURL } from "../../config";
 import { cutEndOfString } from "../services/utility";
 
 export default function BusinessThumnailCard({ business }) {

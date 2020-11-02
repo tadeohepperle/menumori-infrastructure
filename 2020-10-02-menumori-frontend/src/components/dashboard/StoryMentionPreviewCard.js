@@ -1,5 +1,5 @@
-import { IAPIURL } from "../../services/DataService";
 import moment from "moment";
+import { IAPIURL } from "../../../config";
 import { SVG_Instagram } from "../small/SVG";
 
 const StoryMentionPreviewCard = ({ storyMention }) => {

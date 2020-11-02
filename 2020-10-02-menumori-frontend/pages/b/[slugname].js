@@ -1,7 +1,7 @@
 import Router from "next/router";
+import { IAPIURL } from "../../config";
 import Layout from "../../src/components/Layout";
-import { getPublicBusinessData, IAPIURL } from "../../src/services/DataService";
-
+import { getPublicBusinessData } from "../../src/services/DataService";
 const Page = ({ business }) => {
   let {
     title,
