@@ -43,7 +43,7 @@ export const StateChangerAndDisplay = (props) => {
   };
 
   return (
-    <div class="container">
+    <div className="container">
       <button
         className="btn"
         onClick={() => {

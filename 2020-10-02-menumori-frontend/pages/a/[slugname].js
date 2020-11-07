@@ -16,16 +16,16 @@ const Page = ({ business }) => {
   return (
     <Layout>
       <section>
-        <div class="container">
-          <div class="flex flex-col text-center w-full mb-8">
-            <h2 class="text-xs text-teal-500 tracking-widest font-medium title-font mb-1 uppercase">
+        <div className="container">
+          <div className="flex flex-col text-center w-full mb-8">
+            <h2 className="text-xs text-teal-500 tracking-widest font-medium title-font mb-1 uppercase">
               {title}
             </h2>
             <h1>
               Allgemeine Gechäfts&shy;beding&shy;ungen zur Nutzung unserer
               Services
             </h1>
-            <p class="mt-2 lg:w-2/3 mx-auto leading-relaxed text-base">
+            <p className="mt-2 lg:w-2/3 mx-auto leading-relaxed text-base">
               {title} nutzt <a href="/">MENUMORI</a>, einen IT-Service der
               Prangerle Solutions e.K. <br></br>Der Service soll Menschen
               motivieren zum Zwecke der Promotion Bilder der entsprechenden
@@ -34,8 +34,10 @@ const Page = ({ business }) => {
               Bekanntheit der Einrichtung.
             </p>
           </div>
-          <button class="btn btn-lg flex mx-auto mb-16">mehr erfahren</button>
-          <h2 class="mt-8">1. Rechte und Pflichten des Unternehmens</h2>
+          <button className="btn btn-lg flex mx-auto mb-16">
+            mehr erfahren
+          </button>
+          <h2 className="mt-8">1. Rechte und Pflichten des Unternehmens</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
             commodo ligula eget dolor. Aenean massa. Cum sociis natoque
@@ -54,7 +56,7 @@ const Page = ({ business }) => {
             condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem
             neque sed ipsum. Nam quam nunc, blandit vel.
           </p>
-          <h2 class="mt-8">2. Daten und Sicherheit</h2>
+          <h2 className="mt-8">2. Daten und Sicherheit</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
             commodo ligula eget dolor. Aenean massa. Cum sociis natoque
@@ -62,7 +64,7 @@ const Page = ({ business }) => {
             semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
             nunc, blandit vel.
           </p>
-          <h2 class="mt-8">3. Rechte des Verbrauchers</h2>
+          <h2 className="mt-8">3. Rechte des Verbrauchers</h2>
           <p>
             a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
             rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
@@ -76,7 +78,7 @@ const Page = ({ business }) => {
             magna. Sed consequat, leo eget bibendum sodales, augue velit cursus
             nunc.
           </p>
-          <h2 class="mt-8">4. Streitschlichtung</h2>
+          <h2 className="mt-8">4. Streitschlichtung</h2>
           <p>
             Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut
             libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci

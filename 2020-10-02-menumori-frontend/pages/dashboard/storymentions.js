@@ -149,15 +149,15 @@ const Page = (props) => {
 
   return (
     <Layout>
-      <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
+      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
         <SimpleHeadingAndSubHeading
           //title={`Dashboard für ${state.shallowBusiness?.title}`}
           title={`Storymentions für ${state.shallowBusiness?.title}`}
           subtitle={`Gepostete Stories einsehen`}
         />
 
-        <div class="md:flex my-8 w-full">
-          <div class="md:w-1/2 w-full">
+        <div className="md:flex my-8 w-full">
+          <div className="md:w-1/2 w-full">
             <DashBoardSelect
               chosenOptionID={state.chosenTimeFrameID}
               onValueChange={timeFrameValueChange}
@@ -165,13 +165,13 @@ const Page = (props) => {
               title="Zeitraum wählen:"
             ></DashBoardSelect>
           </div>
-          <div class="md:w-1/2 w-full pt-6">
+          <div className="md:w-1/2 w-full pt-6">
             <a href={`/dashboard?s=${props.slugname}`}>
               <ArrowButton>zurück zum Dashboard</ArrowButton>
             </a>
           </div>
         </div>
-        <div class="px-3 flex flex-wrap w-full">
+        <div className="px-3 flex flex-wrap w-full">
           {storyMentions.map((storyMention, i) => (
             <div className="w-1/3 md: w-1/6  my-2" key={i}>
               <StoryMentionPreviewCard

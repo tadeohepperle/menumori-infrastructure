@@ -192,7 +192,7 @@ const Page = (props) => {
       {false && (
         <div className="bg-blue-500">{JSON.stringify(ownedBusinesses)}</div>
       )}
-      <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
+      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-0 mt-8 mb-12">
         {ownedBusinesses?.length > 1 && (
           <DashBoardSelect
             chosenOptionID={state.chosenBusinessID}
@@ -244,8 +244,8 @@ const Page = (props) => {
                     onValueChange={onSettingsInputChange}
                   ></EditableField>
                 </div>
-                <div class="md:flex mb-6">
-                  <div class="md:w-3/4">
+                <div className="md:flex mb-6">
+                  <div className="md:w-3/4">
                     <EditableField
                       title="Straße"
                       value={changedSettings["adress.street_name"]}
@@ -255,7 +255,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/4">
+                  <div className="md:w-1/4">
                     <EditableField
                       title="Hausnummer"
                       value={changedSettings["adress.house_number"]}
@@ -271,8 +271,8 @@ const Page = (props) => {
                     ></EditableField>
                   </div>
                 </div>
-                <div class="md:flex mb-6">
-                  <div class="md:w-1/2">
+                <div className="md:flex mb-6">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Postleitzahl"
                       value={changedSettings["adress.zip_code"]}
@@ -282,7 +282,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/2">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Ort"
                       value={changedSettings["adress.city"]}
@@ -301,8 +301,8 @@ const Page = (props) => {
                 id="section_ig_behavior"
                 title="Verhalten auf Instagram"
               >
-                <div class="md:flex mb-6">
-                  <div class="md:w-1/2">
+                <div className="md:flex mb-6">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Rating Link"
                       helper=""
@@ -315,7 +315,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/2">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Rating Plattform"
                       helper=""
@@ -330,8 +330,8 @@ const Page = (props) => {
                   </div>
                 </div>
 
-                <div class="md:flex mb-6">
-                  <div class="md:w-1/2">
+                <div className="md:flex mb-6">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Antwort auf Erwähnung in Story"
                       value={
@@ -354,7 +354,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/2">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Antwort auf ABG-Einverständnis"
                       value={
@@ -405,8 +405,8 @@ const Page = (props) => {
                 id="section_ig_login"
                 title="Instagram Login Daten"
               >
-                <div class="md:flex mb-6">
-                  <div class="md:w-1/2">
+                <div className="md:flex mb-6">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Username Instagram Account"
                       value={changedSettings["ig_settings.username"]}
@@ -416,7 +416,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/2">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Email-Adresse Instagram Account"
                       value={changedSettings["ig_settings.email"]}
@@ -429,8 +429,8 @@ const Page = (props) => {
                     ></EditableField>
                   </div>
                 </div>
-                <div class="md:flex mb-6">
-                  <div class="md:w-1/2">
+                <div className="md:flex mb-6">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Telefonnummer Instagram Account"
                       value={changedSettings["ig_settings.phone"]}
@@ -440,7 +440,7 @@ const Page = (props) => {
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
                   </div>
-                  <div class="md:w-1/2">
+                  <div className="md:w-1/2">
                     <EditableField
                       title="Passwort Instagram Account"
                       value={changedSettings["ig_settings.password"]}

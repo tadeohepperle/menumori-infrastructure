@@ -22,33 +22,33 @@ const Page = ({ business }) => {
   console.log(business);
   return (
     <Layout>
-      <section class="">
-        <div class="container mx-auto flex flex-col">
+      <section className="">
+        <div className="container mx-auto flex flex-col">
           <div className="flex flex-col text-center w-full">
             <h1>{title}</h1>
             <h2 className="text-xs text-teal-500 tracking-widest font-medium title-font mt-2 mb-12 uppercase">
               {business_category?.title} in {city}
             </h2>
           </div>
-          <div class="lg:w-4/6 mx-auto">
-            <div class="rounded-lg h-64 overflow-hidden">
+          <div className="lg:w-4/6 mx-auto">
+            <div className="rounded-lg h-64 overflow-hidden">
               <img
                 alt="content"
-                class="object-cover object-center h-full w-full"
+                className="object-cover object-center h-full w-full"
                 src={imageUrl}
               ></img>
             </div>
-            <div class="flex flex-col sm:flex-row mt-10">
-              <div class="sm:w-1/3 text-center sm:pr-8 sm:py-5">
+            <div className="flex flex-col sm:flex-row mt-10">
+              <div className="sm:w-1/3 text-center sm:pr-8 sm:py-5">
                 <a href={igURL} target="_blank">
-                  <div class="w-full h-10 rounded-full inline-flex items-center justify-center hover:text-teal-600 animate-pulse cursor-pointer">
+                  <div className="w-full h-10 rounded-full inline-flex items-center justify-center hover:text-teal-600 animate-pulse cursor-pointer">
                     <svg
                       fill="currentColor"
                       stroke="currentColor"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
-                      class="w-full h-full ml-2"
+                      className="w-full h-full ml-2"
                       viewBox="-20 0 300 256"
                     >
                       <g className="">
@@ -57,25 +57,25 @@ const Page = ({ business }) => {
                     </svg>
                   </div>
                 </a>
-                <div class="flex flex-col items-center text-center justify-center">
+                <div className="flex flex-col items-center text-center justify-center">
                   <a href={igURL} target="_blank">
                     <h2 className="text-teal-500">@{username}</h2>
                   </a>
                   {false && (
-                    <h2 class="font-medium title-font mt-4 text-gray-900 text-base">
+                    <h2 className="font-medium title-font mt-4 text-gray-900 text-base">
                       {title}
                     </h2>
                   )}
-                  <div class="w-12 h-1 bg-teal-500 rounded mt-2 mb-4"></div>
-                  <p class="text-base text-gray-600">
+                  <div className="w-12 h-1 bg-teal-500 rounded mt-2 mb-4"></div>
+                  <p className="text-base text-gray-600">
                     {`${street_name} ${house_number}`}
                     <br></br>
                     {`${zip_code} ${city}`}
                   </p>
                 </div>
               </div>
-              <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-300 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                <p class="mb-4">{description}</p>
+              <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-300 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                <p className="mb-4">{description}</p>
               </div>
             </div>
           </div>

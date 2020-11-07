@@ -15,11 +15,11 @@ export default function DashBoardSectionSaveable(props) {
 
   return (
     <DashBoardSection {...props}>
-      <div class="md:flex mb-6">
-        <div class="md:w-1/2">
+      <div className="md:flex mb-6">
+        <div className="md:w-1/2">
           <EditableField></EditableField>
         </div>
-        <div class="md:w-1/2">
+        <div className="md:w-1/2">
           <EditableField></EditableField>
         </div>
       </div>

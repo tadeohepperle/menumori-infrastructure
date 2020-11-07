@@ -21,7 +21,7 @@ export default function EditableField({
   }
 
   let staticField = (
-    <div class="flex-grow">
+    <div className="flex-grow">
       <div
         onClick={handleActivation}
         className={`${
@@ -39,7 +39,7 @@ export default function EditableField({
   let inputField = null;
   if (inputOptions.type == "textarea") {
     inputField = (
-      <div class="flex-grow">
+      <div className="flex-grow">
         <textarea
           className={`${
             unsavedIndicator ? "bg-yellow-200" : ""
@@ -59,7 +59,7 @@ export default function EditableField({
     );
   } else {
     inputField = (
-      <div class="flex-grow">
+      <div className="flex-grow">
         <input
           className={`${
             unsavedIndicator ? "bg-yellow-200" : ""
@@ -79,20 +79,20 @@ export default function EditableField({
   }
 
   return (
-    <div class="mb-4 px-3">
+    <div className="mb-4 px-3">
       <label
-        class="block text-gray-700 text-sm font-bold mb-2"
+        className="block text-gray-700 text-sm font-bold mb-2"
         for={propertyPath}
       >
         {title}
       </label>
       {editable && !noedit ? inputField : staticField}
-      <div class="flex">
-        <div class="flex-1"></div>
+      <div className="flex">
+        <div className="flex-1"></div>
       </div>
       {!editable && !noedit && (
         <div
-          class="block text-gray-500 text-sm px-1 py-1 mb-2 cursor-pointer"
+          className="block text-gray-500 text-sm px-1 py-1 mb-2 cursor-pointer"
           onClick={handleActivation}
         >
           zum Bearbeiten doppelt klicken
