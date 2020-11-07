@@ -14,7 +14,7 @@ const LandingpageSteps = () => {
         </div>
 
         <div className="md:flex w-full ">
-          <div className="w-full md:w-2/3 md:flex flex-wrap md:pr-8">
+          <div className="w-full md:w-2/3 md:flex flex-wrap md:pr-8 md:mb-0 mb-8">
             <VerticalStep
               index="1"
               title="1. Kunde postet Instagram Story"
