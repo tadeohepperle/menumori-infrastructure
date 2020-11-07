@@ -19,7 +19,14 @@ export default function CustomApp(props) {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<div>loading</div>} persistor={persistor}>
+      <PersistGate
+        loading={
+          <div style={{ width: "100%", height: "100%", background: "red" }}>
+            loading
+          </div>
+        }
+        persistor={persistor}
+      >
         <Head>
           <meta
             name="viewport"
