@@ -33,6 +33,10 @@ export default class APIINSERVICE extends SERVICE {
       });
     });
 
+    app.get("/papi/", (req, res) => {
+      res.send("PAPI");
+    });
+
     if (FLAG == "PAPI") {
       app.get("/ratingurl/:slugname", ratingUrlHandler(this));
       app.get("/instagramurl/:slugname", instagramUrlHandler(this));
