@@ -21,7 +21,7 @@ export default function CustomApp(props) {
     <Provider store={store}>
       <PersistGate
         loading={
-          <div style={{ width: "100%", height: "100%", background: "red" }}>
+          <div style={{ width: "100%", height: "1000px", background: "red" }}>
             loading
           </div>
         }
