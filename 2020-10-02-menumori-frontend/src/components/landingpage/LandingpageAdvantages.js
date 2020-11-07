@@ -4,8 +4,8 @@ const { StandardSVG, SVGElements } = require("../small/SVG");
 
 const LandingpageAdvantages = () => {
   return (
-    <section class="section-emphasis" id="features">
-      <div class="container py-24 mx-auto">
+    <section className="section-emphasis" id="features">
+      <div className="container py-24 mx-auto">
         <HeadingBig
           title="Vorteile und Chancen für Ihr Geschäft:"
           subtitle="Menumori macht's möglich"

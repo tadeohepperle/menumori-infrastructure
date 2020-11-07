@@ -17,25 +17,29 @@ export default function CustomApp(props) {
     persistor.persist();
   });
 
+  const childrenOfPersistor = (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+      </Head>
+      <Component {...pageProps} />
+      {false && <StateChangerAndDisplay></StateChangerAndDisplay>}
+    </>
+  );
+
   return (
     <Provider store={store}>
       <PersistGate
-        loading={
-          <div style={{ width: "100%", height: "1000px", background: "red" }}>
-            loading
-          </div>
-        }
+        loading={childrenOfPersistor}
+        // loading={
+        //   <div style={{ width: "100%", height: "1000px", background: "red" }}>
+        //     loading
+        //   </div>
+        // }
         persistor={persistor}
       >
-        <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        </Head>
-        <Component {...pageProps} />
-        {false && <StateChangerAndDisplay></StateChangerAndDisplay>}
+        {childrenOfPersistor}
       </PersistGate>
     </Provider>
   );

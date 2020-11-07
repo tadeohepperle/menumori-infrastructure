@@ -42,7 +42,7 @@ const StoryMentionsDisplay = ({ businessID, slugname }) => {
 
   return (
     <div>
-      <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pt-8 text-xl  mb-6">
+      <h2 className="font-sans font-bold break-normal text-gray-700 px-2 pt-8 text-xl  mb-6">
         Statistik zu von Kunden geposteten Storys:
       </h2>
       <StoryMentionsChart storyMentions={storyMentions}></StoryMentionsChart>
@@ -50,10 +50,10 @@ const StoryMentionsDisplay = ({ businessID, slugname }) => {
         storyMentions={storyMentions}
       ></StoryMentionsSummaryTable>
 
-      <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pt-8 text-xl mb-6">
+      <h2 className="font-sans font-bold break-normal text-gray-700 px-2 pt-8 text-xl mb-6">
         Letzte Verlinkungen:
       </h2>
-      <div class="flex flex-wrap mb-6">
+      <div className="flex flex-wrap mb-6">
         {[0, 0, 0, 1, 1, 1].map((el, i) => {
           return (
             <div

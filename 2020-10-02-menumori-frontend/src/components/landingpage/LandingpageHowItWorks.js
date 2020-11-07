@@ -2,21 +2,21 @@ import HeadingBig from "../small/HeadingBig";
 
 const LandingpageHowItWorks = () => {
   return (
-    <section class="text-gray-700 body-font relative" id="howitworks">
-      <div class="container px-5 py-24 mx-auto">
+    <section className="text-gray-700 body-font relative" id="howitworks">
+      <div className="container px-5 py-24 mx-auto">
         <HeadingBig
           title="So funktioniert Menumori:"
           subtitle="Angenehm für Geschäft und Kunden"
         ></HeadingBig>
-        <div class="md:flex mb-6">
-          <div class="md:w-1/3">
+        <div className="md:flex mb-6">
+          <div className="md:w-1/3">
             <img
               src="./static/images/phonemockupsmallers.png"
               className="w-full"
             ></img>
           </div>
-          <div class="md:w-2/3">
-            <p class="mb-8 leading-relaxed text-2xl md: ml-16">
+          <div className="md:w-2/3">
+            <p className="mb-8 leading-relaxed text-2xl md: ml-16">
               Alles beginnt mit einem Aufsteller, der für Ihre Kunden gut
               sichtbar platziert ist. Der Aufsteller enthält einen QR-Code, der
               zum Instagram Account ihres Geschäfts führt. Kunden wird auf dem

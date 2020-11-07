@@ -2,10 +2,10 @@ const { StandardSVG, SVGElements } = require("../small/SVG");
 
 const LandingpageSteps = () => {
   return (
-    <section class="">
-      <div class="container py-24 mx-auto">
+    <section className="">
+      <div className="container py-24 mx-auto">
         <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-          <h2 class=" uppercase text-bold text-teal-500">
+          <h2 className=" uppercase text-bold text-teal-500">
             Einfach und automatisiert
           </h2>
           <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
@@ -13,8 +13,8 @@ const LandingpageSteps = () => {
           </h1>
         </div>
 
-        <div class="md:flex w-full ">
-          <div class="w-full md:w-2/3 md:flex flex-wrap md:pr-8">
+        <div className="md:flex w-full ">
+          <div className="w-full md:w-2/3 md:flex flex-wrap md:pr-8">
             <VerticalStep
               index="1"
               title="1. Kunde postet Instagram Story"
@@ -48,7 +48,7 @@ const LandingpageSteps = () => {
               <StandardSVG symbol="BARCODE"></StandardSVG>
             </VerticalStep>
           </div>
-          <div class="w-full md:w-1/3 md:flex flex-wrap relative md:pl-8">
+          <div className="w-full md:w-1/3 md:flex flex-wrap relative md:pl-8">
             <InstagramGifOnSide></InstagramGifOnSide>
           </div>
         </div>
@@ -73,22 +73,22 @@ function InstagramGifOnSide() {
 
 function VerticalStep({ children, title, description, index }) {
   return (
-    <div class="flex relative py-10 sm:items-center md:w-full mx-auto">
-      <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
-        <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+    <div className="flex relative py-10 sm:items-center md:w-full mx-auto">
+      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+        <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
       </div>
-      <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-teal-500 text-white relative z-10 title-font font-medium text-sm">
+      <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-teal-500 text-white relative z-10 title-font font-medium text-sm">
         {index}
       </div>
-      <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
-        <div class="flex-shrink-0 w-24 h-24 bg-teal-100 text-teal-500 rounded-full inline-flex items-center justify-center">
+      <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+        <div className="flex-shrink-0 w-24 h-24 bg-teal-100 text-teal-500 rounded-full inline-flex items-center justify-center">
           {children}
         </div>
-        <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
-          <h2 class="font-medium title-font text-gray-900 mb-1 text-xl">
+        <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
+          <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">
             {title}
           </h2>
-          <p class="leading-relaxed">{description}</p>
+          <p className="leading-relaxed">{description}</p>
         </div>
       </div>
     </div>

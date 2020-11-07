@@ -1,7 +1,7 @@
 export function SVG_Tailwindlogo() {
   return (
     <svg
-      class="fill-current h-8 w-8 mr-2"
+      className="fill-current h-8 w-8 mr-2"
       width="54"
       height="54"
       viewBox="0 0 54 54"
@@ -14,7 +14,7 @@ export function SVG_Tailwindlogo() {
 export function SVG_Menu() {
   return (
     <svg
-      class="fill-current h-3 w-3"
+      className="fill-current h-3 w-3"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -65,14 +65,14 @@ export function SVG_Edit() {
 
 export function SVG_Instagram() {
   return (
-    <div class="w-full h-full inline-flex items-center justify-center hover:text-teal-600 animate-pulse cursor-pointer">
+    <div className="w-full h-full inline-flex items-center justify-center hover:text-teal-600 animate-pulse cursor-pointer">
       <svg
         fill="currentColor"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
-        class="w-full h-full ml-2"
+        className="w-full h-full ml-2"
         viewBox="-20 0 300 256"
       >
         <g className="">

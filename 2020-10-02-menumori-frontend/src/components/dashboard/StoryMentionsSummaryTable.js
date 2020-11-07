@@ -32,13 +32,13 @@ const StoryMentionsSummaryTable = ({ storyMentions }) => {
 
   return (
     <div className="p-2 my-6">
-      <table class="table-auto">
+      <table className="table-auto">
         <thead>
           <tr>
-            <th class="px-4 py-2 text-left">Zeitraum</th>
-            <th class="px-4 py-2 text-lef">Gepostete Storys</th>
-            <th class="px-4 py-2 text-lef">Storys pro Tag</th>
-            <th class="px-4 py-2 text-lef">aufsummierte max. Reichweite</th>
+            <th className="px-4 py-2 text-left">Zeitraum</th>
+            <th className="px-4 py-2 text-lef">Gepostete Storys</th>
+            <th className="px-4 py-2 text-lef">Storys pro Tag</th>
+            <th className="px-4 py-2 text-lef">aufsummierte max. Reichweite</th>
           </tr>
         </thead>
         <tbody>
@@ -48,12 +48,14 @@ const StoryMentionsSummaryTable = ({ storyMentions }) => {
                 key={(timeframe, i)}
                 className={i % 2 == 0 ? "bg-gray-100" : ""}
               >
-                <td class="border px-4 py-2 w-1/3">{timeframe.title}</td>
-                <td class="border px-4 py-2">{timeframe.storyCount}</td>
-                <td class="border px-4 py-2">
+                <td className="border px-4 py-2 w-1/3">{timeframe.title}</td>
+                <td className="border px-4 py-2">{timeframe.storyCount}</td>
+                <td className="border px-4 py-2">
                   {roundDecimal(timeframe.storysPer24hr)}
                 </td>
-                <td class="border px-4 py-2">{timeframe.summedUpFollowers}</td>
+                <td className="border px-4 py-2">
+                  {timeframe.summedUpFollowers}
+                </td>
               </tr>
             );
           })}
