@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ArrowButton from "../small/ArrowButton";
 
 const LandingpageHeader = () => {
@@ -20,14 +21,17 @@ const LandingpageHeader = () => {
             generiert und erreichen Tausende Menschen.
           </p>
           <div className="flex justify-center">
-            <ArrowButton noMargin> Kostenlose Beratung</ArrowButton>
+            <Link href="/#contact">
+              <a>
+                <ArrowButton noMargin> Kostenlose Beratung</ArrowButton>
+              </a>
+            </Link>
           </div>
         </div>
         <div className="lg:max-w-lg lg:w-full w-full md:w-1/2 mt-2 px-8">
-          <img
-            className="object-cover object-center rounded"
+          <img // className="object-cover object-center rounded"
             alt="hero"
-            src="./static/images/landingpagesmartphone2.png"
+            src="./static/images/landingpagesmartphone3-slight.png"
             style={{ height: "" }}
           ></img>
         </div>

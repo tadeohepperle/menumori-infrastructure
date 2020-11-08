@@ -1,4 +1,5 @@
 import Layout from "../src/components/Layout";
+import Link from "next/link";
 
 const h2className = "font-medium title-font text-gray-900 mb-1 text-xl mt-8";
 

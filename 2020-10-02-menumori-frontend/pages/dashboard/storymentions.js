@@ -26,6 +26,7 @@ import StoryMentionsDisplay from "../../src/components/dashboard/StoryMentionsDi
 import { getDateStringForStartOfMonth } from "../../src/services/utility";
 import StoryMentionPreviewCard from "../../src/components/dashboard/StoryMentionPreviewCard";
 import ArrowButton from "../../src/components/small/ArrowButton";
+import Link from "next/link";
 
 const Page = (props) => {
   const router = useRouter();
@@ -166,9 +167,11 @@ const Page = (props) => {
             ></DashBoardSelect>
           </div>
           <div className="md:w-1/2 w-full pt-6">
-            <a href={`/dashboard?s=${props.slugname}`}>
-              <ArrowButton>zurück zum Dashboard</ArrowButton>
-            </a>
+            <Link href={`/dashboard?s=${props.slugname}`}>
+              <a>
+                <ArrowButton>zurück zum Dashboard</ArrowButton>
+              </a>
+            </Link>
           </div>
         </div>
         <div className="px-3 flex flex-wrap w-full">

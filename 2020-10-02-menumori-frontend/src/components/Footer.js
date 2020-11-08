@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import { postContactMessage } from "../services/DataService";
 
@@ -24,19 +25,19 @@ export default function Footer() {
               <h2 className="footer-heading">Rechtliches</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <a className="footer-link" href="/datenschutz">
-                    Datenschutzerklärung
-                  </a>
+                  <Link href="/datenschutz">
+                    <a className="footer-link">Datenschutzerklärung</a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/impressum">
-                    Impressum
-                  </a>
+                  <Link href="/impressum">
+                    <a className="footer-link">Impressum</a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="footer-link" href="/#contact">
-                    Kontakt
-                  </a>
+                  <Link href="/#contact">
+                    <a className="footer-link">Kontakt</a>
+                  </Link>
                 </li>
               </nav>
             </div>
@@ -51,9 +52,11 @@ export default function Footer() {
                     Prangerle Solutions
                   </a>
                 </li>
-                <li>
-                  <a className="footer-link">Über uns</a>
-                </li>
+                {false && (
+                  <li>
+                    <a className="footer-link">Über uns</a>
+                  </li>
+                )}
                 <li>
                   <a
                     className="footer-link"
@@ -75,14 +78,23 @@ export default function Footer() {
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
               <h2 className="footer-heading">Information</h2>
               <nav className="list-none mb-10">
+                {false && (
+                  <li>
+                    <Link href="/technologie">
+                      <a className="footer-link">Technologie</a>
+                    </Link>
+                  </li>
+                )}
                 <li>
-                  <a className="footer-link">Technologie</a>
+                  <Link href="/referenzen">
+                    <a className="footer-link">Unsere Kunden</a>
+                  </Link>
                 </li>
+
                 <li>
-                  <a className="footer-link">Kunden</a>
-                </li>
-                <li>
-                  <a className="footer-link">Funktionsweise</a>
+                  <Link href="/#howitworks">
+                    <a className="footer-link">Funktionsweise</a>
+                  </Link>
                 </li>
               </nav>
             </div>
@@ -127,9 +139,11 @@ export default function Footer() {
         </div>
         <div className="">
           <div className="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
-            <a className="flex title-font font-medium items-center md:justify-start justify-center text-teal-500">
-              <span className="ml-3 text-xl">MENUMORI</span>
-            </a>
+            <Link href="/">
+              <a className="flex title-font font-medium items-center md:justify-start justify-center text-teal-500">
+                <span className="ml-3 text-xl">MENUMORI</span>
+              </a>
+            </Link>
             <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">
               © {new Date().getFullYear()} Prangerle Solutions e.K. —
               <a

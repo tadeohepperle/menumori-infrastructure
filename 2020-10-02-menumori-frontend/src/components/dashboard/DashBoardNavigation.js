@@ -1,6 +1,7 @@
 import Scrollspy from "react-scrollspy";
 import { DASHBOARDNAVITEMS } from "../../services/utility";
 import { animateScroll as scroll } from "react-scroll";
+import Link from "next/link";
 
 export default function DashBoardNavigation(props) {
   return (
@@ -26,9 +27,11 @@ export default function DashBoardNavigation(props) {
                   i == 1211212 ? "dashboard-nav-li-selected" : ""
                 }`}
               >
-                <a href={`#${el.slugname}`} className="dashboard-nav-a">
-                  <span className="dashboard-nav-span">{el.title}</span>
-                </a>
+                <Link href={`#${el.slugname}`}>
+                  <a className="dashboard-nav-a">
+                    <span className="dashboard-nav-span">{el.title}</span>
+                  </a>
+                </Link>
               </li>
             ))}
           </Scrollspy>

@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -69,9 +70,12 @@ const StoryMentionsDisplay = ({ businessID, slugname }) => {
           );
         })}
       </div>
-      <a href={`/dashboard/storymentions?s=${slugname}`}>
-        <ArrowButton title="Weitere Posts sehen"></ArrowButton>
-      </a>
+
+      <Link href={`/dashboard/storymentions?s=${slugname}`}>
+        <a>
+          <ArrowButton title="Weitere Posts sehen"></ArrowButton>
+        </a>
+      </Link>
     </div>
   );
 };

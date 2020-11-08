@@ -2,7 +2,7 @@ const { StandardSVG, SVGElements } = require("../small/SVG");
 
 const LandingpageSteps = () => {
   return (
-    <section className="">
+    <section id="steps">
       <div className="container py-24 mx-auto">
         <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
           <h2 className=" uppercase text-bold text-teal-500">

@@ -12,11 +12,8 @@ const LandingpageHowItWorks = () => {
           subtitle="Angenehm für Geschäft und Kunden"
         ></HeadingBig>
         <div className="md:flex mb-6">
-          <div className="md:w-1/3">
-            <img
-              src="./static/images/phonemockupsmallers.png"
-              className="w-full"
-            ></img>
+          <div className="md:w-1/3 md:mt-16">
+            <img src="./static/images/phone3.png" className="w-full "></img>
           </div>
           <div className="md:w-2/3">
             <p className={paragraphClasses}>
@@ -26,7 +23,7 @@ const LandingpageHowItWorks = () => {
               Aufsteller erklärt, dass Sie ein kleines Geschenk erhalten, wenn
               sie Ihr Geschäft in ihrer Instagram Story verlinken.
             </p>
-            <hr className="my-4"></hr>
+            <hr className="my-4 mx-12"></hr>
             <p className={paragraphClasses}>
               Durch den QR-Code können interessierte Kunden so direkt zu
               Instagram gelangen und ihren Service mit ihren Followern teilen.
@@ -35,7 +32,7 @@ const LandingpageHowItWorks = () => {
               diese schnell auf die Qualität Ihres Geschäfts und werden so mit
               erhöhter Wahrscheinlichkeit ebenfalls zu Kunden.
             </p>
-            <hr className="my-4"></hr>
+            <hr className="my-4 mx-12"></hr>
             <p className={paragraphClasses}>
               Hat der Nutzer die Instagram Story gepostet und Ihr Geschäft darin
               verlinkt, antwortet ihm unser Service im Namen Ihres
@@ -43,7 +40,7 @@ const LandingpageHowItWorks = () => {
               Geschenkcode. Diesen graphischen Code, kann der Kunde dann ganz
               einfach bei Ihrem Personal vorzeigen und sein Geschenk erhalten.
             </p>
-            <hr className="my-4"></hr>
+            <hr className="my-4 mx-12"></hr>
             <p className={paragraphClasses}>
               Für Sie als Geschäftsinhaber bedeutet dies einen sehr kleinen
               finanziellen Aufwand für eine große, automatisiert generierte und

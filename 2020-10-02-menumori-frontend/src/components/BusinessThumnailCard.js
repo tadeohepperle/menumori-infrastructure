@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { IAPIURL } from "../../config";
 import { cutEndOfString } from "../services/utility";
 
@@ -17,11 +18,13 @@ export default function BusinessThumnailCard({ business }) {
           src={imageUrl}
         ></img>
       </div>
-      <a href={`/b/${slugname}`}>
-        <h2 className="text-xl font-medium title-font mt-5 text-teal-500">
-          {title}
-        </h2>
-      </a>
+      <Link href={`/b/${slugname}`}>
+        <a>
+          <h2 className="text-xl font-medium title-font mt-5 text-teal-500">
+            {title}
+          </h2>
+        </a>
+      </Link>
       <p className="text-base leading-relaxed mt-2">
         {cutEndOfString(description, 150)}
       </p>

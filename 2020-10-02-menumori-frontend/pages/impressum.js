@@ -1,4 +1,5 @@
 import Layout from "../src/components/Layout";
+import Link from "next/link";
 
 const h2className = "font-medium title-font text-gray-900 mb-1 text-xl mt-8";
 
@@ -70,9 +71,11 @@ export default function Home() {
           </p>
 
           <h2 className={h2className}>Datenschutzerklärung:</h2>
-          <a href="/datenschutz">
-            <button className="btn">Link zur Datenschutzerklärung</button>
-          </a>
+          <Link href="/datenschutz">
+            <a>
+              <button className="btn">Link zur Datenschutzerklärung</button>
+            </a>
+          </Link>
 
           <h2 className={h2className}>Rechtliche Hinweise:</h2>
           <p className="leading-relaxed">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Router from "next/router";
 import Layout from "../../src/components/Layout";
 import { getPublicBusinessData } from "../../src/services/DataService";
@@ -26,12 +27,15 @@ const Page = ({ business }) => {
               Services
             </h1>
             <p className="mt-2 lg:w-2/3 mx-auto leading-relaxed text-base">
-              {title} nutzt <a href="/">MENUMORI</a>, einen IT-Service der
-              Prangerle Solutions e.K. <br></br>Der Service soll Menschen
-              motivieren zum Zwecke der Promotion Bilder der entsprechenden
-              Einrichtung zu teilen und diese auf Instagram zu verlinken. Dies
-              dient dem Erzeugen von Aufmerksamkeit und einer Steigerung der
-              Bekanntheit der Einrichtung.
+              {title} nutzt
+              <Link href="/">
+                <a>MENUMORI</a>
+              </Link>
+              , einen IT-Service der Prangerle Solutions e.K. <br></br>Der
+              Service soll Menschen motivieren zum Zwecke der Promotion Bilder
+              der entsprechenden Einrichtung zu teilen und diese auf Instagram
+              zu verlinken. Dies dient dem Erzeugen von Aufmerksamkeit und einer
+              Steigerung der Bekanntheit der Einrichtung.
             </p>
           </div>
           <button className="btn btn-lg flex mx-auto mb-16">
