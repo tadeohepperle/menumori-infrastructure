@@ -24,10 +24,14 @@ export default function Footer() {
               <h2 className="footer-heading">Rechtliches</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <a className="footer-link">Datenschutzerklärung</a>
+                  <a className="footer-link" href="/datenschutz">
+                    Datenschutzerklärung
+                  </a>
                 </li>
                 <li>
-                  <a className="footer-link">Impressum</a>
+                  <a className="footer-link" href="/impressum">
+                    Impressum
+                  </a>
                 </li>
                 <li>
                   <a className="footer-link" href="/#contact">
