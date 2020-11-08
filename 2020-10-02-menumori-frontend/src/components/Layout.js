@@ -3,6 +3,11 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 const Layout = ({ children, title, metaDescription, noindex }) => {
+  title = title || "Menumori Instagram Services";
+  metaDescription =
+    metaDescription ||
+    "Wir generieren automatisiert Kooperationen mit Micro-Influencern. Die Menumori-Instagram Services richten sich vor allem an lokale Unternehmen, die Reichweite und Umsatz steigern möchten.";
+
   return (
     <>
       <Head>
