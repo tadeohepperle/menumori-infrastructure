@@ -55,11 +55,11 @@ const Page = (props) => {
   const [storyMentions, setStoryMentions] = useState([]);
 
   useEffect(() => {
-    if (ownedBusinesses.length > 0) {
+    if (ownedBusinesses?.length > 0) {
       // kunde hat mindestens ein business:
       if (state.initialFetchNeeded) mountFetching();
     } else {
-      router.push("/login");
+      //router.push("/login");
     }
   });
 
@@ -67,7 +67,7 @@ const Page = (props) => {
     console.log("mountFetching");
     setLoading(true);
 
-    let shallowBusinessData = ownedBusinesses[0];
+    let shallowBusinessData = ownedBusinesses?.[0];
     // if slugname is in url, shallowBusinessdata is set to business with slugname in url:
     if (props.slugname) {
       let foundBusinessWithSlugname = ownedBusinesses.find(

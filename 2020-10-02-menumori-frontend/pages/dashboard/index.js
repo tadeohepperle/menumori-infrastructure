@@ -45,7 +45,7 @@ const Page = (props) => {
     chosenBusinessID: ownedBusinessIDs?.[0] ? ownedBusinessIDs[0] : null,
     shallowBusiness: props.slugname
       ? ownedBusinesses?.find((b) => b.slugname == props.slugname)
-      : ownedBusinesses.filter((b) => b.id == ownedBusinessIDs?.[0])[0],
+      : ownedBusinesses?.filter((b) => b.id == ownedBusinessIDs?.[0])[0],
   });
 
   const [changedSettings, setChangedSettings] = useState({});
@@ -53,11 +53,11 @@ const Page = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (ownedBusinesses.length > 0) {
+    if (ownedBusinesses?.length > 0) {
       // kunde hat mindestens ein business:
       if (state.initialFetchNeeded) mountFetching();
     } else {
-      router.push("/login");
+      //router.push("/login");
     }
   });
   async function mountFetching() {
@@ -226,7 +226,7 @@ const Page = (props) => {
                 ></BotStatusDisplay>
                 <StoryMentionsDisplay
                   businessID={state.chosenBusinessID}
-                  slugname={state.shallowBusiness.slugname}
+                  slugname={state.shallowBusiness?.slugname}
                 ></StoryMentionsDisplay>
               </DashBoardSection>
               {/* ANGABEN ZUM GESCHÄFT */}
