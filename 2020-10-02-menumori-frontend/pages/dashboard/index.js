@@ -214,8 +214,12 @@ const Page = (props) => {
           <>
             <DashBoardNavigation />
             <DashBoardSectionsContainer>
+              <h1 className="sm:text-3xl text-2xl font-medium title-font mt-6 mx-2 text-teal-500">
+                {businessSettings.title}
+              </h1>
               {/* Verhalten auf Instagram */}
               <DashBoardSection
+                noMarginTop
                 id="section_statistik"
                 title="Aktuelle Statistik"
               >

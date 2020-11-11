@@ -22,12 +22,15 @@ const StoryMentionPreviewCard = ({ storyMention }) => {
   let germanDateString = moment(storyMention?.date).format("DD.MM.YYYY, hh:mm");
 
   return (
-    <div className="storymention-preview-card relative">
+    <div className="storymention-preview-card relative px-2">
       <img
         className="storymention-preview-card-image"
         src={`${IAPIURL}${storyMention?.media_url}`}
       ></img>
-      <div className="absolute top-0 text-center text-teal-500 font-bold bg-white shadow border-2 rounded-tl-lg rounded-br-lg  rounded-tr-lg p-1">
+      <div
+        className="text-sm absolute top-0 text-center text-teal-500 font-bold bg-white shadow border-2 border-b-0 rounded-t-lg p-1"
+        style={{ width: "90%" }}
+      >
         {germanDateString}
       </div>
 
