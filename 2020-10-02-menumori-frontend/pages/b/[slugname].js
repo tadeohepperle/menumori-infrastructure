@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { IAPIURL } from "../../config";
 import Layout from "../../src/components/Layout";
+import HeadingSectionSmaller from "../../src/components/small/HeadingSectionSmaller";
 import { getPublicBusinessData } from "../../src/services/DataService";
 const Page = ({ business }) => {
   let {
@@ -22,16 +23,15 @@ const Page = ({ business }) => {
   console.log(business);
   return (
     <Layout>
+      <HeadingSectionSmaller
+        title={title}
+        subtitle={`${business_category?.title} in ${city}`}
+      ></HeadingSectionSmaller>
+
       <section className="">
         <div className="container mx-auto flex flex-col">
-          <div className="flex flex-col text-center w-full">
-            <h1>{title}</h1>
-            <h2 className="text-xs text-teal-500 tracking-widest font-medium title-font mt-2 mb-12 uppercase">
-              {business_category?.title} in {city}
-            </h2>
-          </div>
           <div className="lg:w-4/6 mx-auto">
-            <div className="rounded-lg h-64 overflow-hidden">
+            <div className=" h-64 overflow-hidden">
               <img
                 alt="content"
                 className="object-cover object-center h-full w-full"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Router from "next/router";
 import Layout from "../../src/components/Layout";
+import HeadingSectionSmaller from "../../src/components/small/HeadingSectionSmaller";
 import { getPublicBusinessData } from "../../src/services/DataService";
 
 const Page = ({ business }) => {
@@ -16,31 +17,23 @@ const Page = ({ business }) => {
   console.log(business);
   return (
     <Layout>
+      <HeadingSectionSmaller
+        title={title}
+        subtitle={`AGBs für `}
+      ></HeadingSectionSmaller>
       <section>
-        <div className="container">
-          <div className="flex flex-col text-center w-full mb-8">
-            <h2 className="text-xs text-teal-500 tracking-widest font-medium title-font mb-1 uppercase">
-              {title}
-            </h2>
-            <h1>
-              Allgemeine Gechäfts&shy;beding&shy;ungen zur Nutzung unserer
-              Services
-            </h1>
-            <p className="mt-2 lg:w-2/3 mx-auto leading-relaxed text-base">
-              {title} nutzt
-              <Link href="/">
-                <a>MENUMORI</a>
-              </Link>
-              , einen IT-Service der Prangerle Solutions e.K. <br></br>Der
-              Service soll Menschen motivieren zum Zwecke der Promotion Bilder
-              der entsprechenden Einrichtung zu teilen und diese auf Instagram
-              zu verlinken. Dies dient dem Erzeugen von Aufmerksamkeit und einer
-              Steigerung der Bekanntheit der Einrichtung.
-            </p>
-          </div>
-          <button className="btn btn-lg flex mx-auto mb-16">
-            mehr erfahren
-          </button>
+        <div className="container my-12">
+          <p>
+            {title} nutzt{" "}
+            <Link href="/">
+              <a>MENUMORI</a>
+            </Link>
+            , einen IT-Service der Prangerle Solutions e.K. <br></br>Der Service
+            soll Menschen motivieren zum Zwecke der Promotion Bilder der
+            entsprechenden Einrichtung zu teilen und diese auf Instagram zu
+            verlinken. Dies dient dem Erzeugen von Aufmerksamkeit und einer
+            Steigerung der Bekanntheit der Einrichtung.
+          </p>
           <h2 className="mt-8">1. Rechte und Pflichten des Unternehmens</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
