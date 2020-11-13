@@ -23,7 +23,7 @@ export default class ERRORHANDLER {
 
     await this.dataService.postRecord("errorlogs", logObject);
 
-    console.error(error);
+    console.log(error);
     if (level === 4) {
       process.exit(0);
     }

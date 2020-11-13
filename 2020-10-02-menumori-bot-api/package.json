@@ -7,7 +7,7 @@
     "startig": "node dist/indexig.js",
     "startnoig": "node dist/indexnoig.js",
     "startpapi": "node dist/indexpapi.js",
-    "devig": "ts-node src/index.ts",
+    "devig": "ts-node src/indexig.ts",
     "devnoig": "ts-node src/indexnoig.ts",
     "devpapi": "ts-node src/indexpapi.ts",
     "build": "tsc --project tsconfig.json",

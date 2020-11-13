@@ -334,15 +334,16 @@ export default class BotInstance extends EventEmitter {
           GraphQLSubscriptions.getAsyncAdSubscription(
             this.igClient.state.cookieUserId
           ),
+
           // Experimental
         ],
         // experimental:
-        /*
+
         skywalkerSubs: [
           SkywalkerSubscriptions.directSub(this.igClient.state.cookieUserId),
           SkywalkerSubscriptions.liveSub(this.igClient.state.cookieUserId),
         ],
-        */
+
         //..................... experimental end
 
         irisData: await this.igClient.feed.directInbox().request(),
@@ -358,87 +359,88 @@ export default class BotInstance extends EventEmitter {
   }
 
   realTimeEventReceive(botReference: BotInstance) {
-    // proved to be pretty useless actually
-    return async (data: any) => {
-      advancedLogging("realTimeEventReceive", data);
+    return async (data1: any, data2: any) => {
+      /*
+    is fired for many useless small events, 
+    no real data can be read from this, but it is currently 
+    the only way to detect story mentions from accounts 
+    that dont have a conversation with the business yet
+    */
+      advancedLogging("realTimeEventReceive", {
+        data0: "realTimeEventReceive",
+        data1,
+        data2,
+      });
+      //
+      try {
+        data2 = JSON.parse(data2);
+        if (
+          data1?.path == "/ig_message_sync" &&
+          data2?.event == "patch" &&
+          data2?.data?.length == 0
+        ) {
+          // this indicates that it could be a story from a new lead.
+          // but it does not guarantee it. Next step is to accept all pending invitations,
+          // check for each if the last item in the thread was a story mention,
+          // and treat it as story mentions from realTimeEventMessage()
+          await this.getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
+            botReference
+          );
+        }
+      } catch (ex) {
+        this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+          ex,
+          1
+        );
+      }
+
+      //advancedLogging();
     };
+  }
+
+  async getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
+    botReference: BotInstance
+  ) {
+    try {
+      const inboxPendingFeed = await this.igClient.feed.directPending();
+      const threads = await inboxPendingFeed.items();
+      for (let i = 0; i < threads.length; i++) {
+        const thread = threads[i];
+        const lastMessage = thread?.last_permanent_item;
+        let eventData = messageToEventData(lastMessage);
+        if (
+          eventDataIndicatesStoryMention(eventData, botReference) ||
+          eventDataIndicatesNormalDirectMessage(eventData, botReference)
+        ) {
+          // approve Thread:
+          await botReference.igClient.directThread.approve(thread.thread_id);
+          // emit event to be picked up by BotBehavior to react to it.
+          botReference.emit(eventData.type, eventData);
+        }
+      }
+    } catch (ex) {
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 2);
+    }
   }
 
   // REALTIME EVENTS PROCESSING AND FORWARDING TO BotBehavior:
   realTimeEventMessage(botReference: BotInstance) {
     return async (data: any) => {
+      await advancedLogging("realTimeEventMessage", {
+        data0: "realTimeEventMessage",
+        data1: data,
+      });
+
       // 1. PROCESS INCOMING DATA AND CREATE eventData Object
-
-      let eventData: IgIncomingEventData = {
-        date: new Date(),
-        type: BotEmittingEvents.Unidentified,
-      };
-      let item_type = data.message.item_type;
-      eventData.type = data?.message?.item_type;
-      if (item_type == "reel_share" || item_type == "text") {
-        eventData.user_id = data.message.user_id;
-        eventData.thread_id = data.message.thread_id;
-        eventData.item_id = data.message.item_id;
-        if (item_type == "text") {
-          eventData.type = BotEmittingEvents.DirectMessage;
-          eventData.text = data.message.text;
-        } else if (item_type == "reel_share") {
-          eventData.text = data.message?.reel_share?.media?.caption?.text;
-          if (data.message?.reel_share?.type == "mention") {
-            eventData.type = BotEmittingEvents.StoryMention;
-
-            // if mention: get the media url, to save the image/video posted in the story:
-            let mediaCanditates =
-              data.message?.reel_share?.media.image_versions2.candidates;
-            if (
-              Array.isArray(mediaCanditates) &&
-              mediaCanditates.length >= 1 &&
-              mediaCanditates[0].url
-            ) {
-              eventData.media_url = mediaCanditates[0].url;
-            }
-          }
-        }
-      }
-
-      // 1.5 FUNCTIONS FOR ANALYSING EVENT DATA:
-
-      function eventDataIndicatesNormalDirectMessage(
-        eventData: IgIncomingEventData
-      ) {
-        let tf: boolean = true;
-        if (eventData.type != BotEmittingEvents.DirectMessage) return false;
-        // (case for outgoing messages that throw event: )
-        if (
-          botReference.business.business_data.ig_data.ig_user_id.toString() ==
-          eventData.user_id?.toString()
-        )
-          return false;
-        if (!eventData.text || !eventData.thread_id || !eventData.item_id)
-          return false;
-        return tf;
-      }
-
-      function eventDataIndicatesStoryMention(eventData: IgIncomingEventData) {
-        let tf: boolean = true;
-        if (eventData.type != BotEmittingEvents.StoryMention) return false;
-        // (case for outgoing messages that throw event: )
-        if (
-          botReference.business.business_data.ig_data.ig_user_id.toString() ==
-          eventData.user_id?.toString()
-        )
-          return false;
-        if (!eventData.text || !eventData.thread_id || !eventData.item_id)
-          return false;
-        return tf;
-      }
+      let eventData = messageToEventData(data?.message);
 
       // 2. ACT IN A CERTAIN WAY IF EVENTDATA MEETS SPECIAL CRITERIA:
       if (
-        eventDataIndicatesNormalDirectMessage(eventData) ||
-        eventDataIndicatesStoryMention(eventData)
-      )
+        eventDataIndicatesStoryMention(eventData, botReference) ||
+        eventDataIndicatesNormalDirectMessage(eventData, botReference)
+      ) {
         botReference.emit(eventData.type, eventData);
+      }
     };
   }
 
@@ -536,4 +538,80 @@ export default class BotInstance extends EventEmitter {
     // write down file and read it again to get encoding right:
     // send it in the dm-thread
   }
+}
+
+// 1.5 FUNCTIONS FOR ANALYSING EVENT DATA:
+
+/**
+ * converts a message that is received from data.message in realTimeEventMessage() to eventData.
+ * Also Applied on last Item in thread from Pending Inbox Threads last Item when new lead story mention through realTimeEventReceive()
+ * @param message item of thread
+ */
+function messageToEventData(message: any): IgIncomingEventData {
+  let eventData: IgIncomingEventData = {
+    date: new Date(),
+    type: BotEmittingEvents.Unidentified,
+  };
+  let item_type = message?.item_type;
+  eventData.type = message?.item_type;
+  if (item_type == "reel_share" || item_type == "text") {
+    eventData.user_id = message.user_id;
+    eventData.thread_id = message.thread_id;
+    eventData.item_id = message.item_id;
+    if (item_type == "text") {
+      eventData.type = BotEmittingEvents.DirectMessage;
+      eventData.text = message.text;
+    } else if (item_type == "reel_share") {
+      eventData.text = message?.reel_share?.media?.caption?.text;
+      if (message?.reel_share?.type == "mention") {
+        eventData.type = BotEmittingEvents.StoryMention;
+
+        // if mention: get the media url, to save the image/video posted in the story:
+        let mediaCanditates =
+          message?.reel_share?.media.image_versions2.candidates;
+        if (
+          Array.isArray(mediaCanditates) &&
+          mediaCanditates.length >= 1 &&
+          mediaCanditates[0].url
+        ) {
+          eventData.media_url = mediaCanditates[0].url;
+        }
+      }
+    }
+  }
+  return eventData;
+}
+
+function eventDataIndicatesNormalDirectMessage(
+  eventData: IgIncomingEventData,
+  botReference: BotInstance
+) {
+  let tf: boolean = true;
+  if (eventData.type != BotEmittingEvents.DirectMessage) return false;
+  // (case for outgoing messages that throw event: )
+  if (
+    botReference.business.business_data.ig_data.ig_user_id.toString() ==
+    eventData.user_id?.toString()
+  )
+    return false;
+  if (!eventData.text || !eventData.thread_id || !eventData.item_id)
+    return false;
+  return tf;
+}
+
+function eventDataIndicatesStoryMention(
+  eventData: IgIncomingEventData,
+  botReference: BotInstance
+) {
+  let tf: boolean = true;
+  if (eventData.type != BotEmittingEvents.StoryMention) return false;
+  // (case for outgoing messages that throw event: )
+  if (
+    botReference.business.business_data.ig_data.ig_user_id.toString() ==
+    eventData.user_id?.toString()
+  )
+    return false;
+  if (!eventData.text || !eventData.thread_id || !eventData.item_id)
+    return false;
+  return tf;
 }

@@ -13,6 +13,7 @@ let logQueue: Array<{ str: string; json: any }> = [];
 let inAction = false;
 
 export async function advancedLogging(str: string, json?: any) {
+  console.log(str, json);
   const LOGSTRINGFILEPATH = logQueue.push({ str, json });
   if (!inAction) {
     inAction = true;
