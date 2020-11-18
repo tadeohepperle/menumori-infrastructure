@@ -1,1 +1,567 @@
-[{"logtimeNextEntry":"2020-11-13 18:24:13"},{"data0":"realTimeEventReceive","data1":{"id":"150","path":"/t_region_hint","parser":{}},"data2":{"topic":{"id":"150","path":"/t_region_hint","parser":{}},"data":{"hint":"CLN"}}},{"logtimeNextEntry":"2020-11-13 18:24:13"},{"data0":"realTimeEventReceive","data1":{"id":"135","path":"/ig_sub_iris_response","parser":{}},"data2":{"topic":{"id":"135","path":"/ig_sub_iris_response","parser":{}},"data":{"succeeded":true,"seq_id":18853,"error_type":null,"error_message":null,"subscribed_at_ms":1605288255897,"latest_seq_id":18854}}},{"logtimeNextEntry":"2020-11-13 18:24:13"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18854,\"mutation_token\":null,\"realtime\":false}]"},{"logtimeNextEntry":"2020-11-13 18:24:18"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18855,\"mutation_token\":null,\"realtime\":true}]"},{"logtimeNextEntry":"2020-11-13 18:25:24"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18856,\"mutation_token\":null,\"realtime\":true}]"},{"logtimeNextEntry":"2020-11-13 18:25:48"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18857,\"mutation_token\":\"6733067345013533606\",\"realtime\":true}]"},{"logtimeNextEntry":"--------------------------------------"},{"logtimeNextEntry":"2020-11-13 18:30:22"},{"data0":"realTimeEventReceive","data1":{"id":"150","path":"/t_region_hint","parser":{}},"data2":{"topic":{"id":"150","path":"/t_region_hint","parser":{}},"data":{"hint":"CLN"}}},{"logtimeNextEntry":"2020-11-13 18:30:22"},{"data0":"realTimeEventReceive","data1":{"id":"135","path":"/ig_sub_iris_response","parser":{}},"data2":{"topic":{"id":"135","path":"/ig_sub_iris_response","parser":{}},"data":{"succeeded":true,"seq_id":18857,"error_type":null,"error_message":null,"subscribed_at_ms":1605288624294,"latest_seq_id":18857}}},{"logtimeNextEntry":"2020-11-13 18:30:49"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"7384161217\",\"is_active\":true,\"last_activity_at_ms\":\"1605288651794\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"7384161217","is_active":true,"last_activity_at_ms":"1605288651794","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:30:49"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"7384161217\",\"is_active\":true,\"last_activity_at_ms\":\"1605288651794\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:30:52"},{"data0":"realTimeEventReceive","data1":{"id":"88","path":"/pubsub","parser":{}},"data2":{"topic":{"id":"88","path":"/pubsub","parser":{}},"data":{"topic":1,"payload":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068620141728501\",\"value\":\"{\\\"timestamp\\\": 1605288654352629, \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\",\"doublePublish\":true}],\"lazy\":false,\"publish_metadata\":{\"topic_publish_id\":3484935093235156797,\"publish_time_ms\":\"2020-11-13 09:30:54.361544\"}}"}}},{"logtimeNextEntry":"2020-11-13 18:30:52"},{"data":{"message":{"topic":"direct","payload":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068620141728501\",\"value\":\"{\\\"timestamp\\\": \\\"1605288654434533\\\", \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\"}]}","json":{"event":"patch","data":[{"op":"add","path":"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068620141728501","value":{"timestamp":"1605288654434533","sender_id":"7384161217","ttl":12000,"activity_status":1}}]}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:30:52"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"direct","type":8},{"context":"","field":2,"value":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068620141728501\",\"value\":\"{\\\"timestamp\\\": \\\"1605288654434533\\\", \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\"}]}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:30:53"},{"data0":"realTimeEventMessage","data1":{"event":"patch","message_type":1,"seq_id":18858,"mutation_token":"6733068623102072418","realtime":true,"message":{"path":"/direct_v2/threads/340282366841710300949128244958952485240/items/29612348984457626844405298001608704","op":"add","thread_id":"340282366841710300949128244958952485240","item_id":"29612348984457626844405298001608704","user_id":7384161217,"timestamp":1605288655067394,"item_type":"text","text":"Hey","client_context":"6733068623102072418","show_forward_attribution":false,"is_shh_mode":false}}},{"logtimeNextEntry":"2020-11-13 18:30:53"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/items/29612348984457626844405298001608704\",\"value\":\"{\\\"item_id\\\": \\\"29612348984457626844405298001608704\\\", \\\"user_id\\\": 7384161217, \\\"timestamp\\\": 1605288655067394, \\\"item_type\\\": \\\"text\\\", \\\"text\\\": \\\"Hey\\\", \\\"client_context\\\": \\\"6733068623102072418\\\", \\\"show_forward_attribution\\\": false, \\\"is_shh_mode\\\": false}\"}],\"message_type\":1,\"seq_id\":18858,\"mutation_token\":\"6733068623102072418\",\"realtime\":true}]"},{"logtimeNextEntry":"2020-11-13 18:30:54"},{"data0":"realTimeEventMessage","data1":{"event":"patch","message_type":1,"seq_id":18859,"mutation_token":"6733068627969624577","realtime":true,"message":{"path":"/direct_v2/threads/340282366841710300949128244958952485240/items/29612349004884647341171643693137920","op":"add","thread_id":"340282366841710300949128244958952485240","item_id":"29612349004884647341171643693137920","user_id":7384161217,"timestamp":1605288656174745,"item_type":"text","text":"Du","client_context":"6733068627969624577","show_forward_attribution":false,"is_shh_mode":false}}},{"logtimeNextEntry":"2020-11-13 18:30:54"},{"data0":"realTimeEventReceive","data1":{"id":"146","path":"/ig_message_sync","parser":{},"noParse":true},"data2":"[{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/items/29612349004884647341171643693137920\",\"value\":\"{\\\"item_id\\\": \\\"29612349004884647341171643693137920\\\", \\\"user_id\\\": 7384161217, \\\"timestamp\\\": 1605288656174745, \\\"item_type\\\": \\\"text\\\", \\\"text\\\": \\\"Du\\\", \\\"client_context\\\": \\\"6733068627969624577\\\", \\\"show_forward_attribution\\\": false, \\\"is_shh_mode\\\": false}\"}],\"message_type\":1,\"seq_id\":18859,\"mutation_token\":\"6733068627969624577\",\"realtime\":true}]"},{"logtimeNextEntry":"2020-11-13 18:30:54"},{"data0":"realTimeEventReceive","data1":{"id":"88","path":"/pubsub","parser":{}},"data2":{"topic":{"id":"88","path":"/pubsub","parser":{}},"data":{"topic":1,"payload":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068626180743956\",\"value\":\"{\\\"timestamp\\\": 1605288655954730, \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\",\"doublePublish\":true}],\"lazy\":false,\"publish_metadata\":{\"topic_publish_id\":1248201957591594993,\"publish_time_ms\":\"2020-11-13 09:30:56.122190\"}}"}}},{"logtimeNextEntry":"2020-11-13 18:30:54"},{"data":{"message":{"topic":"direct","payload":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068626180743956\",\"value\":\"{\\\"timestamp\\\": \\\"1605288656216997\\\", \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\"}]}","json":{"event":"patch","data":[{"op":"add","path":"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068626180743956","value":{"timestamp":"1605288656216997","sender_id":"7384161217","ttl":12000,"activity_status":1}}]}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:30:54"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"direct","type":8},{"context":"","field":2,"value":"{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/activity_indicator_id/6733068626180743956\",\"value\":\"{\\\"timestamp\\\": \\\"1605288656216997\\\", \\\"sender_id\\\": \\\"7384161217\\\", \\\"ttl\\\": 12000, \\\"activity_status\\\": 1}\"}]}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:31:17"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"7384161217\",\"is_active\":false,\"last_activity_at_ms\":\"1605288679569\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"7384161217","is_active":false,"last_activity_at_ms":"1605288679569","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:31:17"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"7384161217\",\"is_active\":false,\"last_activity_at_ms\":\"1605288679569\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:31:50"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":false,\"last_activity_at_ms\":\"1605288712420\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"5467066164","is_active":false,"last_activity_at_ms":"1605288712420","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:31:50"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":false,\"last_activity_at_ms\":\"1605288712420\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:33:22"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":true,\"last_activity_at_ms\":\"1605288803685\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"5467066164","is_active":true,"last_activity_at_ms":"1605288803685","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:33:22"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":true,\"last_activity_at_ms\":\"1605288803685\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:33:29"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":false,\"last_activity_at_ms\":\"1605288810927\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"5467066164","is_active":false,"last_activity_at_ms":"1605288810927","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:33:29"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"5467066164\",\"is_active\":false,\"last_activity_at_ms\":\"1605288810927\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:44:56"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605289497991\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":true,"last_activity_at_ms":"1605289497991","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:44:56"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605289497991\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:47:08"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605289629928\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":false,"last_activity_at_ms":"1605289629928","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:47:08"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605289629928\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:53:07"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605289989432\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":true,"last_activity_at_ms":"1605289989432","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:53:07"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605289989432\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:53:10"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605289991762\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":false,"last_activity_at_ms":"1605289991762","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:53:10"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605289991762\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:53:51"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605290033309\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":true,"last_activity_at_ms":"1605290033309","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:53:51"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605290033309\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:54:23"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605290064880\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":false,"last_activity_at_ms":"1605290064880","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:54:23"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":false,\"last_activity_at_ms\":\"1605290064880\",\"in_threads\":null}}","type":8}]},{"logtimeNextEntry":"2020-11-13 18:56:32"},{"data":{"message":{"topic":"17846944882223835","payload":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605290194506\",\"in_threads\":null}}","json":{"presence_event":{"user_id":"186068663","is_active":true,"last_activity_at_ms":"1605290194506","in_threads":null}}}},"messageTopic":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true}},{"logtimeNextEntry":"2020-11-13 18:56:32"},{"data0":"realTimeEventReceive","data1":{"id":"149","path":"/ig_realtime_sub","parser":{},"noParse":true},"data2":[{"context":"","field":1,"value":"17846944882223835","type":8},{"context":"","field":2,"value":"{\"presence_event\":{\"user_id\":\"186068663\",\"is_active\":true,\"last_activity_at_ms\":\"1605290194506\",\"in_threads\":null}}","type":8}]}]
+[
+  { "logtimeNextEntry": "2020-11-18 20:12:37" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "150", "path": "/t_region_hint", "parser": {} },
+    "data2": {
+      "topic": { "id": "150", "path": "/t_region_hint", "parser": {} },
+      "data": { "hint": "CLN" }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:12:37" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+    "data2": {
+      "topic": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+      "data": {
+        "succeeded": true,
+        "seq_id": 18861,
+        "error_type": null,
+        "error_message": null,
+        "subscribed_at_ms": 1605726757930,
+        "latest_seq_id": 18861
+      }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:09" },
+  {
+    "data": {
+      "message": {
+        "topic": "17846944882223835",
+        "payload": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":true,\"last_activity_at_ms\":\"1605726849543\",\"in_threads\":null}}",
+        "json": {
+          "presence_event": {
+            "user_id": "871486159",
+            "is_active": true,
+            "last_activity_at_ms": "1605726849543",
+            "in_threads": null
+          }
+        }
+      }
+    },
+    "messageTopic": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:09" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": [
+      { "context": "", "field": 1, "value": "17846944882223835", "type": 8 },
+      {
+        "context": "",
+        "field": 2,
+        "value": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":true,\"last_activity_at_ms\":\"1605726849543\",\"in_threads\":null}}",
+        "type": 8
+      }
+    ]
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:10" },
+  {
+    "data": {
+      "message": {
+        "topic": "17846944882223835",
+        "payload": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605726850269\",\"in_threads\":null}}",
+        "json": {
+          "presence_event": {
+            "user_id": "871486159",
+            "is_active": false,
+            "last_activity_at_ms": "1605726850269",
+            "in_threads": null
+          }
+        }
+      }
+    },
+    "messageTopic": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:10" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": [
+      { "context": "", "field": 1, "value": "17846944882223835", "type": 8 },
+      {
+        "context": "",
+        "field": 2,
+        "value": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605726850269\",\"in_threads\":null}}",
+        "type": 8
+      }
+    ]
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:10" },
+  {
+    "data": {
+      "message": {
+        "topic": "17846944882223835",
+        "payload": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":true,\"last_activity_at_ms\":\"1605726850763\",\"in_threads\":null}}",
+        "json": {
+          "presence_event": {
+            "user_id": "871486159",
+            "is_active": true,
+            "last_activity_at_ms": "1605726850763",
+            "in_threads": null
+          }
+        }
+      }
+    },
+    "messageTopic": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:10" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": [
+      { "context": "", "field": 1, "value": "17846944882223835", "type": 8 },
+      {
+        "context": "",
+        "field": 2,
+        "value": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":true,\"last_activity_at_ms\":\"1605726850763\",\"in_threads\":null}}",
+        "type": 8
+      }
+    ]
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:12" },
+  {
+    "data": {
+      "message": {
+        "topic": "17846944882223835",
+        "payload": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605726852643\",\"in_threads\":null}}",
+        "json": {
+          "presence_event": {
+            "user_id": "871486159",
+            "is_active": false,
+            "last_activity_at_ms": "1605726852643",
+            "in_threads": null
+          }
+        }
+      }
+    },
+    "messageTopic": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:14:12" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": [
+      { "context": "", "field": 1, "value": "17846944882223835", "type": 8 },
+      {
+        "context": "",
+        "field": 2,
+        "value": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605726852643\",\"in_threads\":null}}",
+        "type": 8
+      }
+    ]
+  },
+  { "logtimeNextEntry": "2020-11-18 20:21:49" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "150", "path": "/t_region_hint", "parser": {} },
+    "data2": {
+      "topic": { "id": "150", "path": "/t_region_hint", "parser": {} },
+      "data": { "hint": "CLN" }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:21:49" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+    "data2": {
+      "topic": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+      "data": {
+        "succeeded": true,
+        "seq_id": 18861,
+        "error_type": null,
+        "error_message": null,
+        "subscribed_at_ms": 1605727310181,
+        "latest_seq_id": 18861
+      }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:24:20" },
+  {
+    "data": {
+      "message": {
+        "topic": "17846944882223835",
+        "payload": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605727460440\",\"in_threads\":null}}",
+        "json": {
+          "presence_event": {
+            "user_id": "871486159",
+            "is_active": false,
+            "last_activity_at_ms": "1605727460440",
+            "in_threads": null
+          }
+        }
+      }
+    },
+    "messageTopic": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:24:20" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "149",
+      "path": "/ig_realtime_sub",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": [
+      { "context": "", "field": 1, "value": "17846944882223835", "type": 8 },
+      {
+        "context": "",
+        "field": 2,
+        "value": "{\"presence_event\":{\"user_id\":\"871486159\",\"is_active\":false,\"last_activity_at_ms\":\"1605727460440\",\"in_threads\":null}}",
+        "type": 8
+      }
+    ]
+  },
+  { "logtimeNextEntry": "2020-11-18 20:31:13" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "146",
+      "path": "/ig_message_sync",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": "[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18862,\"mutation_token\":\"6734910842739756529\",\"realtime\":true}]"
+  },
+  { "logtimeNextEntry": "2020-11-18 20:33:42" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "150", "path": "/t_region_hint", "parser": {} },
+    "data2": {
+      "topic": { "id": "150", "path": "/t_region_hint", "parser": {} },
+      "data": { "hint": "CLN" }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:33:42" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+    "data2": {
+      "topic": { "id": "135", "path": "/ig_sub_iris_response", "parser": {} },
+      "data": {
+        "succeeded": true,
+        "seq_id": 18862,
+        "error_type": null,
+        "error_message": null,
+        "subscribed_at_ms": 1605728023278,
+        "latest_seq_id": 18862
+      }
+    }
+  },
+  { "logtimeNextEntry": "2020-11-18 20:33:56" },
+  {
+    "data0": "realTimeEventReceive",
+    "data1": {
+      "id": "146",
+      "path": "/ig_message_sync",
+      "parser": {},
+      "noParse": true
+    },
+    "data2": "[{\"event\":\"patch\",\"data\":[],\"message_type\":1,\"seq_id\":18863,\"mutation_token\":\"6734911526233642170\",\"realtime\":true}]"
+  },
+  { "logtimeNextEntry": "2020-11-18 20:33:57" },
+  {
+    "atitle": "THREADS: ",
+    "data": [
+      {
+        "thread_id": "340282366841710300949128134798173430656",
+        "thread_v2_id": "17864959949169536",
+        "users": [
+          {
+            "pk": 41804726835,
+            "username": "laragorschke",
+            "full_name": "Lara Gorschke",
+            "is_private": false,
+            "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/119160072_334033141362011_2720734195357897433_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=8am9YJ6zuuUAX9l64UO&tp=25&oh=4ab376fb578188d6eb1c69e73e80299e&oe=5FE083A9",
+            "profile_pic_id": "2397200982566433218_41804726835",
+            "friendship_status": {
+              "following": false,
+              "blocking": false,
+              "is_private": false,
+              "incoming_request": false,
+              "outgoing_request": false,
+              "is_bestie": false,
+              "is_restricted": false
+            },
+            "is_verified": false,
+            "has_anonymous_profile_picture": false,
+            "has_threads_app": false,
+            "is_using_unified_inbox_for_direct": false,
+            "interop_messaging_user_fbid": "17842122245398836",
+            "account_badges": []
+          }
+        ],
+        "left_users": [],
+        "admin_user_ids": [],
+        "items": [
+          {
+            "item_id": "29620454151754953477448397750272000",
+            "user_id": 41804726835,
+            "timestamp": "1605728037067000",
+            "item_type": "text",
+            "text": "Wie wäre es mit einem Spaziergang?",
+            "client_context": "6734911526233642170",
+            "show_forward_attribution": false,
+            "is_shh_mode": false
+          }
+        ],
+        "last_activity_at": "1605728037067000",
+        "muted": false,
+        "is_pin": false,
+        "named": false,
+        "canonical": true,
+        "pending": true,
+        "archived": false,
+        "thread_type": "private",
+        "viewer_id": 4615953213,
+        "thread_title": "laragorschke",
+        "folder": 0,
+        "vc_muted": false,
+        "is_group": false,
+        "mentions_muted": false,
+        "approval_required_for_new_members": false,
+        "input_mode": 0,
+        "business_thread_folder": 0,
+        "read_state": 0,
+        "last_non_sender_item_at": "1605728037067000",
+        "assigned_admin_id": 0,
+        "shh_mode_enabled": false,
+        "is_close_friend_thread": false,
+        "inviter": {
+          "pk": 41804726835,
+          "username": "laragorschke",
+          "full_name": "Lara Gorschke",
+          "is_private": false,
+          "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/119160072_334033141362011_2720734195357897433_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=8am9YJ6zuuUAX9l64UO&tp=25&oh=4ab376fb578188d6eb1c69e73e80299e&oe=5FE083A9",
+          "profile_pic_id": "2397200982566433218_41804726835",
+          "is_verified": false,
+          "has_anonymous_profile_picture": false,
+          "media_count": 3,
+          "follower_count": 1,
+          "following_count": 19,
+          "following_tag_count": 0,
+          "mutual_followers_count": 0,
+          "account_badges": []
+        },
+        "has_older": true,
+        "has_newer": false,
+        "last_seen_at": {
+          "41804726835": {
+            "timestamp": "1605728037067000",
+            "item_id": "29620454151754953477448397750272000",
+            "shh_seen_state": {}
+          }
+        },
+        "newest_cursor": "29620454151754953477448397750272000",
+        "oldest_cursor": "29620454151754953477448397750272000",
+        "next_cursor": "MAXCURSOR",
+        "prev_cursor": "29620451145729617327723943443824640",
+        "last_permanent_item": {
+          "item_id": "29620454151754953477448397750272000",
+          "user_id": 41804726835,
+          "timestamp": "1605728037067000",
+          "item_type": "text",
+          "text": "Wie wäre es mit einem Spaziergang?",
+          "client_context": "6734911526233642170",
+          "show_forward_attribution": false,
+          "is_shh_mode": false
+        }
+      },
+      {
+        "thread_id": "340282366841710300949128113526016712989",
+        "thread_v2_id": "17843687792451869",
+        "users": [
+          {
+            "pk": 11899080249,
+            "username": "_jonashartmann",
+            "full_name": "Jonas Hartmann",
+            "is_private": false,
+            "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/123955068_720006498627880_4457382220291191375_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=tIpr7bUCfuMAX92COjR&_nc_tp=25&oh=f9b2bc934865f7b45bac642646f254c2&oe=5FE01367",
+            "profile_pic_id": "2436294059443803356_11899080249",
+            "friendship_status": {
+              "following": false,
+              "blocking": false,
+              "is_private": false,
+              "incoming_request": false,
+              "outgoing_request": false,
+              "is_bestie": false,
+              "is_restricted": false
+            },
+            "is_verified": false,
+            "has_anonymous_profile_picture": false,
+            "has_threads_app": false,
+            "is_using_unified_inbox_for_direct": false,
+            "interop_messaging_user_fbid": 100207834718188,
+            "account_badges": []
+          }
+        ],
+        "left_users": [],
+        "admin_user_ids": [],
+        "items": [
+          {
+            "item_id": "29576853990837186999711636748500992",
+            "user_id": 11899080249,
+            "timestamp": "1603364467607612",
+            "item_type": "reel_share",
+            "reel_share": {
+              "text": "",
+              "type": "mention",
+              "reel_owner_id": 11899080249,
+              "is_reel_persisted": false,
+              "mentioned_user_id": 4615953213,
+              "reel_type": null,
+              "media": {
+                "user": {
+                  "pk": 11899080249,
+                  "username": "_jonashartmann",
+                  "full_name": "Jonas Hartmann",
+                  "is_private": false,
+                  "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/123955068_720006498627880_4457382220291191375_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=tIpr7bUCfuMAX92COjR&_nc_tp=25&oh=f9b2bc934865f7b45bac642646f254c2&oe=5FE01367",
+                  "profile_pic_id": "2436294059443803356_11899080249",
+                  "is_verified": false,
+                  "has_anonymous_profile_picture": false,
+                  "account_badges": []
+                },
+                "expiring_at": 0
+              }
+            },
+            "is_shh_mode": false
+          }
+        ],
+        "last_activity_at": "1603364467607612",
+        "muted": false,
+        "is_pin": false,
+        "named": false,
+        "canonical": true,
+        "pending": true,
+        "archived": false,
+        "thread_type": "private",
+        "viewer_id": 4615953213,
+        "thread_title": "_jonashartmann",
+        "folder": 0,
+        "vc_muted": false,
+        "is_group": false,
+        "mentions_muted": false,
+        "approval_required_for_new_members": false,
+        "input_mode": 0,
+        "business_thread_folder": 0,
+        "read_state": 0,
+        "last_non_sender_item_at": "1603364467607612",
+        "assigned_admin_id": 0,
+        "shh_mode_enabled": false,
+        "is_close_friend_thread": false,
+        "inviter": {
+          "pk": 11899080249,
+          "username": "_jonashartmann",
+          "full_name": "Jonas Hartmann",
+          "is_private": false,
+          "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/123955068_720006498627880_4457382220291191375_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=tIpr7bUCfuMAX92COjR&_nc_tp=25&oh=f9b2bc934865f7b45bac642646f254c2&oe=5FE01367",
+          "profile_pic_id": "2436294059443803356_11899080249",
+          "is_verified": false,
+          "has_anonymous_profile_picture": false,
+          "media_count": 4,
+          "follower_count": 663,
+          "following_count": 288,
+          "following_tag_count": 0,
+          "mutual_followers_count": 2,
+          "profile_context": "Followed by didi___it and mona_ghazi18.02",
+          "profile_context_links_with_user_ids": [
+            { "start": 12, "end": 21, "username": "didi___it" },
+            { "start": 26, "end": 41, "username": "mona_ghazi18.02" }
+          ],
+          "profile_context_mutual_follow_ids": [198935489, 871486159],
+          "account_badges": []
+        },
+        "has_older": false,
+        "has_newer": false,
+        "last_seen_at": {
+          "11899080249": {
+            "timestamp": "1603364467607999",
+            "item_id": "29576853990844325889668162344976384",
+            "shh_seen_state": {}
+          }
+        },
+        "newest_cursor": "29576853990837186999711636748500992",
+        "oldest_cursor": "29576853990837186999711636748500992",
+        "next_cursor": "MAXCURSOR",
+        "prev_cursor": "MINCURSOR",
+        "last_permanent_item": {
+          "item_id": "29576853990837186999711636748500992",
+          "user_id": 11899080249,
+          "timestamp": "1603364467607612",
+          "item_type": "reel_share",
+          "reel_share": {
+            "text": "",
+            "type": "mention",
+            "reel_owner_id": 11899080249,
+            "is_reel_persisted": false,
+            "mentioned_user_id": 4615953213,
+            "reel_type": null,
+            "media": {
+              "user": {
+                "pk": 11899080249,
+                "username": "_jonashartmann",
+                "full_name": "Jonas Hartmann",
+                "is_private": false,
+                "profile_pic_url": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/123955068_720006498627880_4457382220291191375_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=tIpr7bUCfuMAX92COjR&_nc_tp=25&oh=f9b2bc934865f7b45bac642646f254c2&oe=5FE01367",
+                "profile_pic_id": "2436294059443803356_11899080249",
+                "is_verified": false,
+                "has_anonymous_profile_picture": false,
+                "account_badges": []
+              },
+              "expiring_at": 0
+            }
+          },
+          "is_shh_mode": false
+        }
+      }
+    ]
+  }
+]

@@ -372,26 +372,34 @@ export default class BotInstance extends EventEmitter {
         data2,
       });
       //
+      console.log("realTimeEventReceive()");
       try {
-        data2 = JSON.parse(data2);
-        if (
-          data1?.path == "/ig_message_sync" &&
-          data2?.event == "patch" &&
-          data2?.data?.length == 0
-        ) {
-          // this indicates that it could be a story from a new lead.
-          // but it does not guarantee it. Next step is to accept all pending invitations,
-          // check for each if the last item in the thread was a story mention,
-          // and treat it as story mentions from realTimeEventMessage()
-          await this.getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
-            botReference
-          );
+        if (typeof data2 === "string") {
+          // for message events:  "data2": "[{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/items/29612348984457626844405298001608704\",\"value\":\"{\\\"item_id\\\": \\\"29612348984457626844405298001608704\\\", \\\"user_id\\\": 7384161217, \\\"timestamp\\\": 1605288655067394, \\\"item_type\\\": \\\"text\\\", \\\"text\\\": \\\"Hey\\\", \\\"client_context\\\": \\\"6733068623102072418\\\", \\\"show_forward_attribution\\\": false, \\\"is_shh_mode\\\": false}\"}],\"message_type\":1,\"seq_id\":18858,\"mutation_token\":\"6733068623102072418\",\"realtime\":true}]"
+
+          let data2asJSON = JSON.parse(data2);
+          if (
+            data1?.path == "/ig_message_sync" &&
+            data2asJSON?.[0]?.event == "patch" &&
+            data2asJSON?.[0]?.data?.length == 0
+          ) {
+            // this indicates that it could be a story from a new lead.
+            // but it does not guarantee it. Next step is to accept all pending invitations,
+            // check for each if the last item in the thread was a story mention,
+            // and treat it as story mentions from realTimeEventMessage()
+            await this.getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
+              botReference
+            );
+          }
         }
       } catch (ex) {
+        console.log(ex);
+        /*
         this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
           ex,
           1
         );
+        */
       }
 
       //advancedLogging();
@@ -401,19 +409,32 @@ export default class BotInstance extends EventEmitter {
   async getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
     botReference: BotInstance
   ) {
+    console.log("getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny");
     try {
       const inboxPendingFeed = await this.igClient.feed.directPending();
       const threads = await inboxPendingFeed.items();
+      await advancedLogging("getInboxPendingCheck", {
+        atitle: "THREADS: ",
+        data: threads,
+      });
+      console.log(threads);
       for (let i = 0; i < threads.length; i++) {
         const thread = threads[i];
-        const lastMessage = thread?.last_permanent_item;
+        const lastMessage: any = thread?.last_permanent_item;
+        // ein beispiel für so ein lastMessage Object befindet sich in logs/last_permanent_item_if_reelshare.json
+        // enige paramenter die instagram sonst automatisch in das message object passt müssen wir noch extra dem objekt hinzufügen, damit es mit der gleichen funktion messageToEventData() zu einem IgIncomingEventData Object verwandelt werden kann.
+        lastMessage.thread_id = thread.thread_id;
+
         let eventData = messageToEventData(lastMessage);
+        console.log("EVENTDATA:");
+        console.log(eventData);
+        continue;
         if (
           eventDataIndicatesStoryMention(eventData, botReference) ||
           eventDataIndicatesNormalDirectMessage(eventData, botReference)
         ) {
           // approve Thread:
-          await botReference.igClient.directThread.approve(thread.thread_id);
+          await botReference.igClient.directThread.approve(thread.thread_id); // ________ OR RATHER APPROVE ALL??
           // emit event to be picked up by BotBehavior to react to it.
           botReference.emit(eventData.type, eventData);
         }
