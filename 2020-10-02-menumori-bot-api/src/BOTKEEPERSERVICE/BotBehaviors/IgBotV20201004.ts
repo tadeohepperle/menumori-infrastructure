@@ -84,7 +84,7 @@ export default class IgBotV20201004 extends BotBehavior {
   }
 
   async onSubscribe() {
-    console.log("onSubscribe");
+    // console.log("onSubscribe");
   }
 
   async onPostLike() {
@@ -179,14 +179,15 @@ export default class IgBotV20201004 extends BotBehavior {
   ): Promise<boolean> {
     let correctComplyText = this.botInstance.business.business_settings
       .ig_settings.ig_behavior_settings.comply_text;
-    // get all interactions from database:
+
+    // get recent interactions from database:
     let pastInteractions = (await this.dataService.getRecords("ig-actions", {
       business: this.botInstance.business.id,
       lead: lead.id,
       _sort: "createdAt:DESC",
       _limit: 10,
     })) as IgAction[];
-    // get AGB Messages and check if max 2 Stunden her.
+    // get AGB Messages (von seiten des Business aus gesendet) and check if max 2 Stunden her.
     let agbMessageActionArray = pastInteractions.filter(
       // inter stands for interaction and can be any IgAction
       (inter) =>
@@ -201,7 +202,15 @@ export default class IgBotV20201004 extends BotBehavior {
     );
     if (agbMessageActionArray.length >= 1 && ig_action.content_text) {
       let agbMessageAction = agbMessageActionArray[0];
-      // cheack if the content of ig_action is the content reply we want to see:
+      // check if agbMessageAction was already complied in the past (correct flag, same streak):
+      let ABGComplyHasBeenSentBefore =
+        pastInteractions.filter(
+          (inter) =>
+            inter.flag == IgActionFlag.C_AGBCOMPLY &&
+            inter.streakshortid == agbMessageAction.streakshortid
+        ).length > 0;
+      if (ABGComplyHasBeenSentBefore) return false;
+      // check if the content of ig_action is the content reply we want to see:
       if (isComplyText(ig_action.content_text, correctComplyText)) {
         // set flag on igActionRecordInDatabase:
         ig_action.flag = IgActionFlag.C_AGBCOMPLY;
@@ -259,19 +268,19 @@ export default class IgBotV20201004 extends BotBehavior {
       let thread = this.botInstance.igClient.entity.directThread(
         ig_action.thread_id
       );
-      console.log("thread:", thread);
-      console.log("ig_action.thread_id", ig_action.thread_id);
+      //console.log("thread:", thread);
+      //console.log("ig_action.thread_id", ig_action.thread_id);
       // ????? markasssen does not work for stories!!!! --> questionable?????
       await waitPromiseRandomizeTime(2000, 4000);
-      console.log("beforemarkitemseen");
+      //console.log("beforemarkitemseen");
 
-      console.log(ig_action);
+      //console.log(ig_action);
       await thread.markItemSeen(ig_action.item_id);
       //thread.markItemSeen(ig_action.item_id);
-      console.log("markitemseen");
+      //console.log("markitemseen");
       await waitPromiseRandomizeTime(1000, 3500);
       // NACHRICHT SENDEN
-      console.log("beforedirectmessage");
+      //console.log("beforedirectmessage");
       await this.botInstance.sendDirectMessage(textToSend, thread);
 
       // SAVE ACTION TO DATABASE:
@@ -305,8 +314,8 @@ export default class IgBotV20201004 extends BotBehavior {
       this.botInstance.botKeeperService.STARTUPPERFORMER
     );
     // timed promise
-    let timePromise = waitPromiseRandomizeTime(5 * 1000, 6 * 1000); // testing
-    // let timePromise = waitPromiseRandomizeTime(80 * 1000, 100 * 1000);  // _____________production
+    //let timePromise = waitPromiseRandomizeTime(5 * 1000, 6 * 1000); // testing
+    let timePromise = waitPromiseRandomizeTime(80 * 1000, 100 * 1000); // _____________production
     // ... send Ticket wenn Zeit und GenerateTicket Promise beide um sind.
 
     let [ticketAsBuffer] = await Promise.all([ticketPromise, timePromise]);

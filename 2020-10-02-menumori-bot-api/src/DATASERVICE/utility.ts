@@ -51,11 +51,11 @@ export function pythonStringFormat(text: string, argsObject: any) {
 }
 
 export function createRatingLink(SETTINGS: Settings, business: Business) {
-  return `${SETTINGS.FRONTENDURL}/r/${business.short_id}`;
+  return `${SETTINGS.FRONTENDURL}/r/${business.slugname}`;
 }
 
 export function createAGBLink(SETTINGS: Settings, business: Business) {
-  return `${SETTINGS.FRONTENDURL}/a/${business.short_id}`;
+  return `${SETTINGS.FRONTENDURL}/a/${business.slugname}`;
 }
 
 export function addHoursToDate(date: Date, h: number) {

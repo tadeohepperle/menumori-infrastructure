@@ -361,22 +361,21 @@ export default class BotInstance extends EventEmitter {
   realTimeEventReceive(botReference: BotInstance) {
     return async (data1: any, data2: any) => {
       /*
-    is fired for many useless small events, 
+    is fired for many useless small events, and for messages that have been sent by ourselves (together with their content) as a kind of approval, that they have really been sent.
     no real data can be read from this, but it is currently 
     the only way to detect story mentions from accounts 
     that dont have a conversation with the business yet
     */
-      advancedLogging("realTimeEventReceive", {
-        data0: "realTimeEventReceive",
-        data1,
-        data2,
-      });
+      // advancedLogging("realTimeEventReceive", {
+      //   data0: "realTimeEventReceive",
+      //   data1,
+      //   data2,
+      // });
       //
-      console.log("realTimeEventReceive()");
+      // console.log("realTimeEventReceive()");
       try {
         if (typeof data2 === "string") {
           // for message events:  "data2": "[{\"event\":\"patch\",\"data\":[{\"op\":\"add\",\"path\":\"/direct_v2/threads/340282366841710300949128244958952485240/items/29612348984457626844405298001608704\",\"value\":\"{\\\"item_id\\\": \\\"29612348984457626844405298001608704\\\", \\\"user_id\\\": 7384161217, \\\"timestamp\\\": 1605288655067394, \\\"item_type\\\": \\\"text\\\", \\\"text\\\": \\\"Hey\\\", \\\"client_context\\\": \\\"6733068623102072418\\\", \\\"show_forward_attribution\\\": false, \\\"is_shh_mode\\\": false}\"}],\"message_type\":1,\"seq_id\":18858,\"mutation_token\":\"6733068623102072418\",\"realtime\":true}]"
-
           let data2asJSON = JSON.parse(data2);
           if (
             data1?.path == "/ig_message_sync" &&
@@ -393,7 +392,7 @@ export default class BotInstance extends EventEmitter {
           }
         }
       } catch (ex) {
-        console.log(ex);
+        //console.log(ex);
         /*
         this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
           ex,
@@ -409,15 +408,14 @@ export default class BotInstance extends EventEmitter {
   async getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
     botReference: BotInstance
   ) {
-    console.log("getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny");
     try {
       const inboxPendingFeed = await this.igClient.feed.directPending();
       const threads = await inboxPendingFeed.items();
-      await advancedLogging("getInboxPendingCheck", {
-        atitle: "THREADS: ",
-        data: threads,
-      });
-      console.log(threads);
+      // await advancedLogging("getInboxPendingCheck", {
+      //   atitle: "THREADS: ",
+      //   data: threads,
+      // });
+      // console.log(threads);
       for (let i = 0; i < threads.length; i++) {
         const thread = threads[i];
         const lastMessage: any = thread?.last_permanent_item;
@@ -426,9 +424,6 @@ export default class BotInstance extends EventEmitter {
         lastMessage.thread_id = thread.thread_id;
 
         let eventData = messageToEventData(lastMessage);
-        console.log("EVENTDATA:");
-        console.log(eventData);
-        continue;
         if (
           eventDataIndicatesStoryMention(eventData, botReference) ||
           eventDataIndicatesNormalDirectMessage(eventData, botReference)
@@ -447,14 +442,12 @@ export default class BotInstance extends EventEmitter {
   // REALTIME EVENTS PROCESSING AND FORWARDING TO BotBehavior:
   realTimeEventMessage(botReference: BotInstance) {
     return async (data: any) => {
-      await advancedLogging("realTimeEventMessage", {
-        data0: "realTimeEventMessage",
-        data1: data,
-      });
-
+      // await advancedLogging("realTimeEventMessage", {
+      //   data0: "realTimeEventMessage",
+      //   data1: data,
+      // });
       // 1. PROCESS INCOMING DATA AND CREATE eventData Object
       let eventData = messageToEventData(data?.message);
-
       // 2. ACT IN A CERTAIN WAY IF EVENTDATA MEETS SPECIAL CRITERIA:
       if (
         eventDataIndicatesStoryMention(eventData, botReference) ||
@@ -589,7 +582,7 @@ function messageToEventData(message: any): IgIncomingEventData {
 
         // if mention: get the media url, to save the image/video posted in the story:
         let mediaCanditates =
-          message?.reel_share?.media.image_versions2.candidates;
+          message?.reel_share?.media?.image_versions2?.candidates;
         if (
           Array.isArray(mediaCanditates) &&
           mediaCanditates.length >= 1 &&
