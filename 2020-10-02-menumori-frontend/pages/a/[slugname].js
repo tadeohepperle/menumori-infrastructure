@@ -16,7 +16,10 @@ const Page = ({ business }) => {
   } = business;
   console.log(business);
   return (
-    <Layout>
+    <Layout
+      title={`ABGs lesen für ${title}`}
+      metaDescription="Aus rechtlichen Gründen möchten wir Sie gerne über unsere Datenschutzerklärung und die allgemeinen Geschäftsbedingungen in Kenntnis setzen."
+    >
       <HeadingSectionSmaller
         title={title}
         subtitle={`AGBs für `}
