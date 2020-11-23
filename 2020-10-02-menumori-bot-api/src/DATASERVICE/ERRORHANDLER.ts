@@ -14,16 +14,14 @@ export default class ERRORHANDLER {
   }
 
   async handleException(error: Error | any, level: number = 1) {
+    console.log(error);
     let timestamp = moment().format("YYYY-MM-DD HH:mm:ss");
     let logObject = {
       message: error?.message,
       stack: error?.stack,
       timestamp: timestamp,
     };
-
     await this.dataService.postRecord("errorlogs", logObject);
-
-    console.log(error);
     if (level === 4) {
       process.exit(0);
     }
