@@ -97,7 +97,7 @@ const run2 = async () => {
   let biz = (await dataService.getRecords("businesses"))[1] as Business;
   let lead = (await dataService.getRecords("leads"))[1] as IgLead;
 
-  let buffer = await generateTicketImage(lead, biz, igAction, st.SETTINGS);
+  let buffer = await generateTicketImage(lead, biz, igAction, st);
   if (buffer) writeFileSync("xxx.jpg", buffer);
 };
 
@@ -111,7 +111,7 @@ const run3 = async () => {
   let dataService = st.dataService;
   let biz = (await dataService.getRecords("businesses"))[1] as Business;
   let lead = (await dataService.getRecords("leads"))[1] as IgLead;
-  let buffer = await generateTicketImage(lead, biz, igAction, st.SETTINGS);
+  let buffer = await generateTicketImage(lead, biz, igAction, st);
   if (buffer) {
     console.log("wait shortly");
     await waitPromiseRandomizeTime(10000, 20000);
