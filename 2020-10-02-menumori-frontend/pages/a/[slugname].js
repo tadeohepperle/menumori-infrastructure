@@ -5,6 +5,7 @@ import HeadingSectionSmaller from "../../src/components/small/HeadingSectionSmal
 import { getPublicBusinessData } from "../../src/services/DataService";
 import { getDateStringForStartOfMonth } from "../../src/services/utility";
 import moment from "moment";
+import { IAPIURL } from "../../config";
 
 const Page = ({ business }) => {
   let {
@@ -15,7 +16,9 @@ const Page = ({ business }) => {
     house_number,
     slugname,
     username,
+    cover_image,
   } = business;
+  let imageUrl = `${IAPIURL}${cover_image}`;
 
   const dateStringToday = moment().format("DD.MM.YYYY");
 
@@ -24,15 +27,22 @@ const Page = ({ business }) => {
   const InstagramAccountName = username;
   return (
     <Layout
-      title={`ABGs lesen für ${title}`}
-      metaDescription="Aus rechtlichen Gründen möchten wir Sie gerne über unsere Datenschutzerklärung und die allgemeinen Geschäftsbedingungen in Kenntnis setzen."
+      title={`Ein­ver­ständ­nis­erklärung für ${title}`}
+      metaDescription="Um dein Geschenk zu erhalten, müssen wir dich aus rechtlichen Gründen darum beten diese Einverständniserklärung zu lesen und uns auf Instagram eine Nachricht zu schicken, mit der du zustimmst."
     >
       <HeadingSectionSmaller
-        title={"Einverständniserklärung"}
+        title={"Einverständnis­erklärung"}
         subtitle={`${title}`}
       ></HeadingSectionSmaller>
       <section>
         <div className="container my-12">
+          <div className=" h-64 overflow-hidden">
+            <img
+              alt="content"
+              className="object-cover object-center h-full w-full"
+              src={imageUrl}
+            ></img>
+          </div>
           {false && (
             <p>
               {title} nutzt{" "}
@@ -46,7 +56,9 @@ const Page = ({ business }) => {
               Steigerung der Bekanntheit der Einrichtung.
             </p>
           )}
-          <h2 className="mt-8">I Information über Unternehmen und Branche</h2>
+          <h2 className="mt-8">
+            I. Infor&#173;mation über Unternehmen und Branche
+          </h2>
           <p>
             Sie sind Kunde bei {Unternehmensname}, ein {Unternehmensart} in{" "}
             {city}. Wie wir sehen, haben Sie Waren bzw. Dienstleistungen von{" "}
