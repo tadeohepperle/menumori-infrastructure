@@ -24,9 +24,7 @@ const Page = ({ slugname, locationToPushTo }) => {
 
 Page.getInitialProps = async function (context) {
   let { slugname } = context.query;
-  console.log("slugname", slugname);
   let instagramURL = await getInstagramURL(slugname);
-  console.log("instagramURL", instagramURL);
   let locationToPushTo = slugname && instagramURL ? instagramURL : "/";
   // if link, redirect to instagram page of business:
   if (locationToPushTo) await redirectTo(context, locationToPushTo);

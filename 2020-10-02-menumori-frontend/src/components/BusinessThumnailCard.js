@@ -7,8 +7,6 @@ export default function BusinessThumnailCard({ business }) {
 
   let imageUrl = `${IAPIURL}${cover_image}`;
 
-  console.log(imageUrl);
-
   return (
     <>
       <div className="rounded-lg h-64 overflow-hidden">

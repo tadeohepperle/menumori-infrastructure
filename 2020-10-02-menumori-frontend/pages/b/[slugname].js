@@ -20,7 +20,6 @@ const Page = ({ business }) => {
   let imageUrl = `${IAPIURL}${cover_image}`;
   let igURL = `https://www.instagram.com/${username}/`;
 
-  console.log(business);
   return (
     <Layout>
       <HeadingSectionSmaller

@@ -20,11 +20,9 @@ const Page = ({ slugname, locationToPushTo }) => {
 
 Page.getInitialProps = async function (context) {
   let { slugname } = context.query;
-  console.log("salugname: ", slugname);
 
   let googleRatingLink = await getRatingURL(slugname);
   let locationToPushTo = slugname && googleRatingLink ? googleRatingLink : "/";
-  console.log(locationToPushTo);
 
   // if link, redirect to google/tripadvisorratingpage:
   if (locationToPushTo) {

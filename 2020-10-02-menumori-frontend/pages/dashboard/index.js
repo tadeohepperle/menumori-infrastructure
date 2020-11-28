@@ -61,7 +61,6 @@ const Page = (props) => {
     }
   });
   async function mountFetching() {
-    console.log(props.slugname);
     setLoading(true);
 
     let shallowBusinessData = ownedBusinesses[0];
