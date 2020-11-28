@@ -196,7 +196,6 @@ const Page = ({ business }) => {
 Page.getInitialProps = async function (context) {
   let { slugname } = context.query;
   let business = await getPublicBusinessData(slugname);
-  console.log(business);
   // if no business for slugname found: redirect to error page:
 
   if (!business) {

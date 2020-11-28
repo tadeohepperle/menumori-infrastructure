@@ -4,8 +4,6 @@ import HeadingBig from "../src/components/small/HeadingBig";
 import { getAllPublicBusinessData } from "../src/services/DataService";
 
 const Page = ({ businesses }) => {
-  console.log(businesses);
-
   return (
     <Layout>
       <section>
