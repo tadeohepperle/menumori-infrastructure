@@ -3,6 +3,8 @@ import Router from "next/router";
 import Layout from "../../src/components/Layout";
 import HeadingSectionSmaller from "../../src/components/small/HeadingSectionSmaller";
 import { getPublicBusinessData } from "../../src/services/DataService";
+import { getDateStringForStartOfMonth } from "../../src/services/utility";
+import moment from "moment";
 
 const Page = ({ business }) => {
   let {
@@ -14,78 +16,165 @@ const Page = ({ business }) => {
     slugname,
     username,
   } = business;
-  console.log(business);
+
+  const dateStringToday = moment().format("DD.MM.YYYY");
+
+  const Unternehmensname = title;
+  const Unternehmensart = business?.business_category?.title;
+  const InstagramAccountName = username;
   return (
     <Layout
       title={`ABGs lesen für ${title}`}
       metaDescription="Aus rechtlichen Gründen möchten wir Sie gerne über unsere Datenschutzerklärung und die allgemeinen Geschäftsbedingungen in Kenntnis setzen."
     >
       <HeadingSectionSmaller
-        title={title}
-        subtitle={`AGBs für `}
+        title={"Einverständniserklärung"}
+        subtitle={`${title}`}
       ></HeadingSectionSmaller>
       <section>
         <div className="container my-12">
+          {false && (
+            <p>
+              {title} nutzt{" "}
+              <Link href="/">
+                <a>MENUMORI</a>
+              </Link>
+              , einen IT-Service der Prangerle Solutions e.K. <br></br>Der
+              Service soll Menschen motivieren zum Zwecke der Promotion Bilder
+              der entsprechenden Einrichtung zu teilen und diese auf Instagram
+              zu verlinken. Dies dient dem Erzeugen von Aufmerksamkeit und einer
+              Steigerung der Bekanntheit der Einrichtung.
+            </p>
+          )}
+          <h2 className="mt-8">I Information über Unternehmen und Branche</h2>
           <p>
-            {title} nutzt{" "}
-            <Link href="/">
-              <a>MENUMORI</a>
-            </Link>
-            , einen IT-Service der Prangerle Solutions e.K. <br></br>Der Service
-            soll Menschen motivieren zum Zwecke der Promotion Bilder der
-            entsprechenden Einrichtung zu teilen und diese auf Instagram zu
-            verlinken. Dies dient dem Erzeugen von Aufmerksamkeit und einer
-            Steigerung der Bekanntheit der Einrichtung.
+            Sie sind Kunde bei {Unternehmensname}, ein {Unternehmensart} in{" "}
+            {city}. Wie wir sehen, haben Sie Waren bzw. Dienstleistungen von{" "}
+            {Unternehmensname} in Anspruch genommen und dessen
+            Unternehmensaccount{" "}
+            <a
+              href={`https://www.instagram.com/${InstagramAccountName}/`}
+              target="_blank"
+            >
+              @{InstagramAccountName}
+            </a>{" "}
+            in einem Ihrer persönlichen Posts/Stories auf Instagram verlinkt.
+            Wir, die Prangerle Solutions e.K., sind ein IT-Unternehmen, das{" "}
+            {Unternehmensname} im Social Media Markting unterstützt. Zu Themen
+            des Geschäftsbereichs von {Unternehmensname} wie beispielsweise
+            Aktionen, Neuigkeiten oder Sonderangeboten würden wir Sie auch gerne
+            in Zukunft informieren dürfen.
           </p>
-          <h2 className="mt-8">1. Rechte und Pflichten des Unternehmens</h2>
+          <p className="mt-4">
+            Dafür benötigen wir Ihre Einwilligung, dass wir Ihre
+            personenbezogenen Daten speichern und Sie zum Zwecke der Werbung
+            oder des Feedback-Einholens gegebenenfalls erneut kontaktieren
+            dürfen. Wenn Sie uns Ihr Einverständnis erteilen, speichern wir Ihre
+            uns bereits vorliegenden oder von Ihnen mitgeteilten Daten zur
+            dargestellten Datenverarbeitung. Zugriff auf diese Daten haben die
+            Prangerle Solutions e.K., sowie die Inhaber von {Unternehmensname}.
+            Soweit die Prangerle Solutions e.K. hierfür selbständige Vermittler
+            einsetzt, können diese Angaben zum gleichen Zweck auch an die für
+            Sie regional jeweils zuständigen Vermittler der Gesellschaft zur
+            dortigen Datenverarbeitung übermittelt werden.
+          </p>
+          <h2 className="mt-8">II. Umfang der Datenverarbeitung</h2>
+          <p className="mb-4">
+            Mit Ihrer Zustimmung erhalten die Unternehmen Prangerle Solutions
+            e.K. und {Unternehmensname} bzw. die selbständigen Vermittler – zur
+            Verfolgung der unter Ziffer I genannten Zwecke Zugriff auf die
+            nachfolgenden Daten, soweit diese vorhanden sind:
+          </p>
+          <p>- Personalien (insbesondere Name, Adresse, Geburtsdatum)</p>
           <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-            aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-            imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-            mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-            porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem
-            ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-            nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
-            nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget
-            condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem
-            neque sed ipsum. Nam quam nunc, blandit vel.
+            - Kontaktdaten (insbesondere E-Mail-Adresse, Telefonnummer und
+            sonstige mitgeteilte Kontaktdaten)
           </p>
-          <h2 className="mt-8">2. Daten und Sicherheit</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis partuget condimentum rhoncus, sem quam
-            semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
-            nunc, blandit vel.
+            - Antrags-/Vertragsdaten (insbesondere bevorzugte Vertragsschlüsse)
           </p>
-          <h2 className="mt-8">3. Rechte des Verbrauchers</h2>
           <p>
-            a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-            rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-            ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas
-            tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
-            amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel,
-            luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante
-            tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-            Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt.
-            Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis
-            magna. Sed consequat, leo eget bibendum sodales, augue velit cursus
-            nunc.
+            - Inkassodaten (insbesondere Zahlungsweise, Kontoverbindung,
+            Buchungen) Dieser Punkt bezieht sich nur auf Daten, die uns von
+            Ihnen explizit mitgeteilt worden sind.
           </p>
-          <h2 className="mt-8">4. Streitschlichtung</h2>
+          <p className="mt-4">
+            Soweit erforderlich, entbinden Sie hiermit die Mitarbeiter der
+            Prangerle Solutions e.K. und {Unternehmensname} bzw. die
+            selbständigen Vermittler im Hinblick auf die Weitergabe gemäß § 203
+            StGB geschützter Daten (wie z. B. die Tatsache, dass ein Vertrag mit
+            Ihnen besteht) von ihrer Schweigepflicht gegenüber den Mitarbeitern
+            der Prangerle Solutions e.K. und {Unternehmensname} bzw. den
+            selbständigen Vermittlern.
+          </p>
+          <h2 className="mt-8">III. Kontaktaufnahme zu Werbezwecken</h2>
           <p>
-            Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut
-            libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci
-            eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit
-            amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget
-            bibendum sodales, augue velit.
+            Mit Ihrer Zustimmung verwenden die Unternehmen Prangerle Solutions
+            e.K. und {Unternehmensname} oder die regional für Sie jeweils
+            zuständigen selbständigen Vermittler der Prangerle Solutions e.K.
+            Ihre Kontaktdaten, um Sie über Neuigkeiten, Angebote und aufkommende
+            Fragen per Telefon oder E-Mail, SMS, Messaging-Dienste (z.B.
+            WhatsApp) oder Soziale Netzwerke (z.B. Facebook oder Instagram)
+            informieren zu können.
           </p>
+          <h2 className="mt-8">IV. Widerruf</h2>
+          <p>
+            Die jeweilige Einwilligungserklärung kann ich jederzeit widerrufen
+            mit einer Mail an:
+          </p>
+          <p className="mt-4">Prangerle Solutions e.K. </p>
+          <p className="mt-4">
+            E-Mail:{" "}
+            <a href="mailto:widerruf@prangerle-solutions.de">
+              widerruf@prangerle-solutions.de
+            </a>
+          </p>
+          <p className="mt-4">
+            In dieser Mail nennen sie uns bitte den Nutzernamen des
+            Instagramaccounts des Unternehmens, für den Sie den Widerruf gerne
+            durchführen möchten. Sollten Sie alle Einverständniserklärungen
+            widerrufen wollen, die sie für Unternehmen gegeben haben, die
+            Instagram-Services der Prangerle Solutions e.K. nutzen, teilen Sie
+            uns dies bitte in einer Mail an{" "}
+            <a href="mailto:widerruf@prangerle-solutions.de">
+              widerruf@prangerle-solutions.de
+            </a>{" "}
+            explizit mit.
+          </p>
+          <p className="mt-4">
+            Ihr Widerruf hat keinen Einfluss auf bestehende Verträge. Er wirkt
+            erst für die Zukunft. Verarbeitungen, die vor dem Widerruf erfolgt
+            sind, sind davon nicht betroffen. Weitere Informationen zu dieser
+            Einwilligungserklärung und zum Datenschutz der Prangerle Solutions
+            e.K. finden Sie unter{" "}
+            <a href="https://www.prangerle-solutions.de/datenschutz">
+              www.prangerle-solutions.de/datenschutz
+            </a>
+            .
+          </p>
+          <h2 className="mt-8">IV. Widerruf</h2>
+          <p>
+            Der Datenverarbeitung gemäß Ziffer I, II, III und IV stimme ich zu.
+            Ja, ich bin einverstanden, dass mich die Prangerle Solutions e.K.
+            und {Unternehmensname} per Telefon, E-Mail, SMS, Messaging-Dienst
+            oder Sozialem Netzwerk - so, wie in Ziffer III beschrieben,
+            informiert.
+          </p>
+          <p className="mt-4">
+            Die Zustimmung dieser Einverständniserklärung erfolgt über Ihr
+            Senden der geforderten Einwilligungsantwort über die Instagram
+            Direktnachrichten. Die Einwilligungsantwort ist einer Nachricht an
+            Sie von{" "}
+            <a
+              href={`https://www.instagram.com/${InstagramAccountName}/`}
+              target="_blank"
+            >
+              @{InstagramAccountName}
+            </a>{" "}
+            zu entnehmen, in der auch diese Einverständniserklärung verlinkt
+            ist.
+          </p>
+          <p className="mt-4">{`${city}, den ${dateStringToday}`}</p>
         </div>
       </section>
     </Layout>
