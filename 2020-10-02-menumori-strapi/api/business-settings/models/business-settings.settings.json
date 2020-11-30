@@ -61,6 +61,10 @@
     "rating_platform": {
       "type": "string",
       "default": "Google"
+    },
+    "testaccount": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
