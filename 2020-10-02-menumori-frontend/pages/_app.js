@@ -1,14 +1,11 @@
 import "../styles/tailwind.css";
-
-import App, { Container } from "next/app";
 import React from "react";
 import Head from "next/head";
-import { initializeStore, useStore, wrapper } from "../src/redux/store";
+import { useStore } from "../src/redux/store";
 import { Provider } from "react-redux";
 import { StateChangerAndDisplay } from "./test";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import withRedux from "next-redux-wrapper";
 
 export default function CustomApp(props) {
   const { Component, pageProps } = props;

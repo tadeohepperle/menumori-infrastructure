@@ -77,6 +77,7 @@ const Page = (props) => {
       ...state,
       initialFetchNeeded: false,
       chosenBusinessID: shallowBusinessData.id,
+      shallowBusiness: shallowBusinessData,
     });
     let success = await getBusinessSettingsAndBusinessData(
       shallowBusinessData,
