@@ -240,7 +240,7 @@ const Page = (props) => {
               >
                 <div>
                   <EditableField
-                    title="Name des Betriebs"
+                    title="Name Ihres Unternehmens"
                     value={changedSettings.title}
                     originalValue={businessSettings.title}
                     propertyPath={"title"}
@@ -315,6 +315,7 @@ const Page = (props) => {
                       inputOptions={{
                         placeholder: "https://www.google.de/maps/...",
                       }}
+                      noedit
                       propertyPath={"rating_url"}
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
@@ -328,6 +329,7 @@ const Page = (props) => {
                       inputOptions={{
                         placeholder: "Google",
                       }}
+                      noedit
                       propertyPath={"rating_platform"}
                       onValueChange={onSettingsInputChange}
                     ></EditableField>
@@ -370,6 +372,7 @@ const Page = (props) => {
                         businessSettings.ig_settings.ig_behavior_settings
                           .agb_complied_reply1
                       }
+                      noedit
                       inputOptions={{
                         type: "textarea",
                         placeholder: `Super, wir generieren deinen Geschenkcode, dies wird ca. 1-2 min. dauern. Wenn es dir bei uns gefällt, kannst du uns in der Zwischenzeit gerne auf Google bewerten: {link}. Sobald du deinen Geschenkcode erhältst, kannst du diesen einfach einem Mitarbeiter zeigen und erhältst dein Geschenk.`,
@@ -418,6 +421,7 @@ const Page = (props) => {
                       inputOptions={{ placeholder: "username" }}
                       propertyPath={"ig_settings.username"}
                       onValueChange={onSettingsInputChange}
+                      noedit
                     ></EditableField>
                   </div>
                   <div className="md:w-1/2">
@@ -430,6 +434,7 @@ const Page = (props) => {
                       }}
                       propertyPath={"ig_settings.email"}
                       onValueChange={onSettingsInputChange}
+                      noedit
                     ></EditableField>
                   </div>
                 </div>
@@ -442,6 +447,7 @@ const Page = (props) => {
                       propertyPath={"ig_settings.phone"}
                       inputOptions={{ placeholder: "015901469611" }}
                       onValueChange={onSettingsInputChange}
+                      noedit
                     ></EditableField>
                   </div>
                   <div className="md:w-1/2">
@@ -452,6 +458,7 @@ const Page = (props) => {
                       inputOptions={{ placeholder: "xxxxxxxxxx" }}
                       propertyPath={"ig_settings.password"}
                       onValueChange={onSettingsInputChange}
+                      noedit
                     ></EditableField>
                   </div>
                 </div>
