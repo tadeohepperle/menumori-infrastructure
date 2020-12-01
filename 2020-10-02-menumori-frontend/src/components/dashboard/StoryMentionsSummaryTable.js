@@ -1,8 +1,6 @@
 import { roundDecimal } from "../../services/utility";
 
 const StoryMentionsSummaryTable = ({ storyMentions }) => {
-  console.log(storyMentions);
-
   // timeframes:
   let timeframes = [
     { title: "letzte 24 Stunden", hours: 24 },
@@ -28,8 +26,6 @@ const StoryMentionsSummaryTable = ({ storyMentions }) => {
       timeframes[i].storyCount / (timeframes[i].hours / 24);
     timeframes[i].summedUpFollowers = summedUpFollowers;
   }
-  console.log(timeframes);
-
   return (
     <div className="p-2 my-6">
       <table className="table-auto">
