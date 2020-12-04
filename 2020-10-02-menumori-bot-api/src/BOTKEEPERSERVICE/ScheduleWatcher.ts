@@ -1,6 +1,6 @@
 import BOTKEEPERSERVICE from "../BOTKEEPERSERVICE";
 import moment from "moment";
-import { BotOnlineStatus } from "../types";
+import { BotOnlineStatus, BotInstanceStatus } from "../types";
 import BotInstance from "./BotInstance";
 import {
   randomizeNumber,
@@ -41,16 +41,18 @@ export default class ScheduleWatcher {
         //console.log(`${botInstance.business.slugname} ${online_time_start} - ${online_time_end}`);
 
         // compare times to time right now:
-        if (online_time_end == timeString)
-          this.executeChangeInstagramForegroundStateWithRandomDelay(
-            botInstance,
-            BotOnlineStatus.OFFLINE
-          );
-        if (online_time_start == timeString)
-          this.executeChangeInstagramForegroundStateWithRandomDelay(
-            botInstance,
-            BotOnlineStatus.ONLINE
-          );
+        if (botInstance.botInstanceStatus == BotInstanceStatus.ACTIVE) {
+          if (online_time_end == timeString)
+            this.executeChangeInstagramForegroundStateWithRandomDelay(
+              botInstance,
+              BotOnlineStatus.OFFLINE
+            );
+          if (online_time_start == timeString)
+            this.executeChangeInstagramForegroundStateWithRandomDelay(
+              botInstance,
+              BotOnlineStatus.ONLINE
+            );
+        }
       } catch (err) {
         this.botKeeperService.STARTUPPERFORMER.dataService.handleException(err);
       }

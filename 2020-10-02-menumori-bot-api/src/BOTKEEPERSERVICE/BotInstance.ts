@@ -319,7 +319,10 @@ export default class BotInstance extends EventEmitter {
         this.realTimeEventReceive(thisReference)
       );
       this.igClient.realtime.on("realtimeSub", this.realTimeEventSub);
-      this.igClient.realtime.on("error", this.realTimeEventError);
+      this.igClient.realtime.on(
+        "error",
+        this.realTimeEventError(thisReference)
+      );
       this.igClient.realtime.on("close", this.realTimeEventClose);
       await this.igClient.realtime.connect({
         graphQlSubs: [
@@ -469,12 +472,17 @@ export default class BotInstance extends EventEmitter {
     advancedLogging("realTimeEventSub", data);
   }
 
-  async realTimeEventError(e: Error): Promise<void> {
-    try {
-      throw e;
-    } catch (ex) {
-      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 2);
-    }
+  realTimeEventError(botReference: BotInstance) {
+    return async (e: Error) => {
+      try {
+        throw e;
+      } catch (ex) {
+        botReference.botKeeperService.STARTUPPERFORMER.dataService.handleException(
+          ex,
+          2
+        );
+      }
+    };
   }
 
   async realTimeEventClose(): Promise<void> {
