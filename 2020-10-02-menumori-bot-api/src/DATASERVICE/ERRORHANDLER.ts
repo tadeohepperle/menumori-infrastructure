@@ -20,6 +20,7 @@ export default class ERRORHANDLER {
       message: error?.message,
       stack: error?.stack,
       timestamp: timestamp,
+      level,
     };
     await this.dataService.postRecord("errorlogs", logObject);
     if (level === 4) {

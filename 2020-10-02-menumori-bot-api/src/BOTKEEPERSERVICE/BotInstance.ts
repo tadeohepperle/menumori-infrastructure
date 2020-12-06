@@ -33,6 +33,9 @@ export default class BotInstance extends EventEmitter {
   botBehavior: BotBehavior;
   igClient: IgApiClientRealtime;
   _business: Business;
+
+  realtimeConnected: boolean = false;
+
   set business(b) {
     // check for changes and trigger functions / events
 
@@ -138,12 +141,15 @@ export default class BotInstance extends EventEmitter {
   }
 
   /**
+   * EDIT: 2020-12-06 It also disconnects the instagram realtime api!
    * sends Foregroundstate to instagram realtime client to act like bot is online or online. Also updates bot_online_status in database.
    * Warning: If changed to offline, we no longer receive live actions/messages from instagram, so we better only turn it offline for each business, when it is closed.
    * This function should only be implemented by the ScheduleWatcher of the BotKeeperService.
    * @param val BotOnlineStatus, can be "ONLINE" or "OFFLINE"
    */
-  async changeInstagramForegroundState(val: BotOnlineStatus) {
+  async changeInstagramForegroundStateAndConnectDisconnectRealtime(
+    val: BotOnlineStatus
+  ) {
     // console.log(`change instagram foreground state to: ${val}`);
     // if bot is not even running return right away:
     if (this.botInstanceStatus != BotInstanceStatus.ACTIVE) {
@@ -166,6 +172,7 @@ export default class BotInstance extends EventEmitter {
             inForegroundDevice: false,
             keepAliveTimeout: 900,
           });
+          await this.endRealTimeConnection();
           this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
             {
               message: `BOT::${this.business.slugname} successfully was set to Instagram ForeGroundState ${val}`,
@@ -178,6 +185,7 @@ export default class BotInstance extends EventEmitter {
             inForegroundDevice: true,
             keepAliveTimeout: 60,
           });
+          await this.makeRealTimeConnection();
           this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
             {
               message: `BOT::${this.business.slugname} successfully was set to Instagram ForeGroundState ${val}`,
@@ -195,6 +203,7 @@ export default class BotInstance extends EventEmitter {
   }
 
   async turnOff() {
+    if (this.realtimeConnected) await this.endRealTimeConnection();
     console.log(`$BOT::${this.business.slugname} is turning off...`);
     this.botInstanceStatus = BotInstanceStatus.INACTIVE;
   }
@@ -213,6 +222,7 @@ export default class BotInstance extends EventEmitter {
       let loggedIn = await this.igSessionLogin(session);
       let realtimeConnectionSuccessful = false;
       if (loggedIn) {
+        this.addRealTimeListeners();
         realtimeConnectionSuccessful = await this.makeRealTimeConnection();
       }
       if (realtimeConnectionSuccessful) {
@@ -307,7 +317,17 @@ export default class BotInstance extends EventEmitter {
     }
   }
 
-  async makeRealTimeConnection() {
+  async endRealTimeConnection() {
+    try {
+      await this.igClient.realtime.disconnect();
+      this.realtimeConnected = false;
+    } catch (ex) {
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
+      return false;
+    }
+  }
+
+  addRealTimeListeners() {
     try {
       let thisReference = this;
       this.igClient.realtime.on(
@@ -324,6 +344,14 @@ export default class BotInstance extends EventEmitter {
         this.realTimeEventError(thisReference)
       );
       this.igClient.realtime.on("close", this.realTimeEventClose);
+    } catch (ex) {
+      this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
+      return false;
+    }
+  }
+
+  async makeRealTimeConnection() {
+    try {
       await this.igClient.realtime.connect({
         graphQlSubs: [
           GraphQLSubscriptions.getAppPresenceSubscription(),
@@ -352,8 +380,8 @@ export default class BotInstance extends EventEmitter {
         irisData: await this.igClient.feed.directInbox().request(),
         connectOverrides: {},
       });
-
       console.log("realtime connection established.");
+      this.realtimeConnected = true;
       return true;
     } catch (ex) {
       this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);

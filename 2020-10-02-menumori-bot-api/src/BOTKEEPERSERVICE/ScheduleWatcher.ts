@@ -75,7 +75,9 @@ export default class ScheduleWatcher {
       delayMax * 60 * 1000
     );
     await waitPromise(randomizedTime);
-    botInstance.changeInstagramForegroundState(newBotOnlineStatus);
+    botInstance.changeInstagramForegroundStateAndConnectDisconnectRealtime(
+      newBotOnlineStatus
+    );
     /*
     console.log(
       `${botInstance.business.slugname} is going to be set to ${newBotOnlineStatus}. Wait ${randomizedTime} minutes...`
