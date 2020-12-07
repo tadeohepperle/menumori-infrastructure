@@ -180,12 +180,12 @@ export default class BotInstance extends EventEmitter {
             0
           );
         } else if (val === BotOnlineStatus.ONLINE) {
+          await this.makeRealTimeConnection();
           await this.igClient.realtime.direct.sendForegroundState({
             inForegroundApp: true,
             inForegroundDevice: true,
             keepAliveTimeout: 60,
           });
-          await this.makeRealTimeConnection();
           this.botKeeperService.STARTUPPERFORMER.dataService.handleException(
             {
               message: `BOT::${this.business.slugname} successfully was set to Instagram ForeGroundState ${val}`,
