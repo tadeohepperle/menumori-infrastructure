@@ -492,6 +492,7 @@ export default class BotInstance extends EventEmitter {
               botReference.emit(eventData.type, eventData);
             }
           }
+          await waitPromiseRandomizeTime(1000, 4000); // so that we dont request directInboxPending from instagram consecutively without delay
           this.queueForIncomingRealTimeEventReceive.pop();
         }
         this.queueForIncomingRealTimeEventReceiveIsBusy = false;
