@@ -436,34 +436,65 @@ export default class BotInstance extends EventEmitter {
     };
   }
 
+  /*
+  2020-12-07 added queue:
+   wir brauchen eine queue, damit getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny() nicht von sehr kurz aufeinander folgenden
+   instagram events mehrfach ausgelöst wird. Das könnte dann dazu führen dass er versucht  inboxPendingItems mehrfach zu approven und so. 
+  sonst bekommen wir folgenden fehler:
+
+  Error: This socket has been ended by the other party
+    at TLSSocket.writeAfterFIN [as write] (net.js:455:14)
+    at TlsTransport.send (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\mqtts\src\transport\tls.transport.ts:8:21)
+    at MQTToTClient.sendPacket (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\mqtts\src\mqtt.client.ts:307:24)
+    at D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\mqtts\src\mqtt.client.ts:258:29
+    at new Promise (<anonymous>)
+    at MQTToTClient.startFlow (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\mqtts\src\mqtt.client.ts:242:16)
+    at MQTToTClient.publish (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\mqtts\src\mqtt.client.ts:188:21)
+    at DirectCommands.sendForegroundState (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram_mqtt\src\realtime\commands\direct.commands.ts:48:14)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  code: 'EPIPE'
+}
+   */
+  queueForIncomingRealTimeEventReceive: any[] = [];
+  queueForIncomingRealTimeEventReceiveIsBusy: boolean = false;
   async getInboxPendingCheckForStoryMentionsApproveAndHandleIfAny(
     botReference: BotInstance
   ) {
     try {
-      const inboxPendingFeed = await this.igClient.feed.directPending();
-      const threads = await inboxPendingFeed.items();
-      // await advancedLogging("getInboxPendingCheck", {
-      //   atitle: "THREADS: ",
-      //   data: threads,
-      // });
-      // console.log(threads);
-      for (let i = 0; i < threads.length; i++) {
-        const thread = threads[i];
-        const lastMessage: any = thread?.last_permanent_item;
-        // ein beispiel für so ein lastMessage Object befindet sich in logs/last_permanent_item_if_reelshare.json
-        // enige paramenter die instagram sonst automatisch in das message object passt müssen wir noch extra dem objekt hinzufügen, damit es mit der gleichen funktion messageToEventData() zu einem IgIncomingEventData Object verwandelt werden kann.
-        lastMessage.thread_id = thread.thread_id;
+      this.queueForIncomingRealTimeEventReceive.push(1); // (what we push does not matter...)
+      if (!this.queueForIncomingRealTimeEventReceiveIsBusy) {
+        this.queueForIncomingRealTimeEventReceiveIsBusy = true;
+        while (this.queueForIncomingRealTimeEventReceive.length >= 1) {
+          const inboxPendingFeed = await this.igClient.feed.directPending();
+          const threads = await inboxPendingFeed.items();
+          // await advancedLogging("getInboxPendingCheck", {
+          //   atitle: "THREADS: ",
+          //   data: threads,
+          // });
+          // console.log(threads);
+          for (let i = 0; i < threads.length; i++) {
+            const thread = threads[i];
+            const lastMessage: any = thread?.last_permanent_item;
+            // ein beispiel für so ein lastMessage Object befindet sich in logs/last_permanent_item_if_reelshare.json
+            // enige paramenter die instagram sonst automatisch in das message object passt müssen wir noch extra dem objekt hinzufügen, damit es mit der gleichen funktion messageToEventData() zu einem IgIncomingEventData Object verwandelt werden kann.
+            lastMessage.thread_id = thread.thread_id;
 
-        let eventData = messageToEventData(lastMessage);
-        if (
-          eventDataIndicatesStoryMention(eventData, botReference) ||
-          eventDataIndicatesNormalDirectMessage(eventData, botReference)
-        ) {
-          // approve Thread:
-          await botReference.igClient.directThread.approve(thread.thread_id); // ________ OR RATHER APPROVE ALL??
-          // emit event to be picked up by BotBehavior to react to it.
-          botReference.emit(eventData.type, eventData);
+            let eventData = messageToEventData(lastMessage);
+            if (
+              eventDataIndicatesStoryMention(eventData, botReference) ||
+              eventDataIndicatesNormalDirectMessage(eventData, botReference)
+            ) {
+              // approve Thread:
+              await botReference.igClient.directThread.approve(
+                thread.thread_id
+              ); // ________ OR RATHER APPROVE ALL??
+              // emit event to be picked up by BotBehavior to react to it.
+              botReference.emit(eventData.type, eventData);
+            }
+          }
+          this.queueForIncomingRealTimeEventReceive.pop();
         }
+        this.queueForIncomingRealTimeEventReceiveIsBusy = false;
       }
     } catch (ex) {
       this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 2);
