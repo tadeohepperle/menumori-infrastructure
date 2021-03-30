@@ -610,7 +610,24 @@ export default class BotInstance extends EventEmitter {
       });
 
       await waitPromiseRandomizeTime(timeToDelivery, timeToDelivery * 2); // between 8 and 13 seconds;
-      await thread.broadcastText(content_text);
+
+      //await thread.broadcastText(content_text);
+
+      // EXPERIMENTAL 2020-12-20 because we suddenly got ig-response error 403 forbidden at:
+      //   IgResponseError: POST /api/v1/direct_v2/threads/broadcast/link/ - 403 Forbidden;
+      // at Request.handleResponseError (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram-private-api\src\core\request.ts:172:12)
+      // at Request.send (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram-private-api\src\core\request.ts:83:24)
+      // at DirectThreadRepository.broadcast (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram-private-api\src\repositories\direct-thread.repository.ts:223:22)
+      // at DirectThreadEntity.broadcast (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram-private-api\src\entities\direct-thread.entity.ts:255:22)
+      // at DirectThreadEntity.broadcastLink (D:\Menumori\2020-10-02-menumori-infrastruktur-production\2020-10-02-menumori-bot-api\node_modules\instagram-private-api\src\entities\direct-thread.entity.ts:88:12)
+
+      // Tadeo 2020-12-20 14:20 seems to work but does not send links now. Uses different endpoint for text. Maybe here it is only a matter of time until we get blocked too?
+      // Or does it use an endpoint at all??? Actually it is TCP and not HTTP. SO it dow not use instagrams internal HTTP Endpoints like the non-realtime-client-functionalities
+
+      await this.igClient.realtime.direct.sendText({
+        text: content_text,
+        threadId: thread.threadId,
+      });
     } catch (ex) {
       this.botKeeperService.STARTUPPERFORMER.dataService.handleException(ex, 3);
     }
